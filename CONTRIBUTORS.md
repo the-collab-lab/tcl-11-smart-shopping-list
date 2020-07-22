@@ -1,6 +1,7 @@
 # The Collab Lab
 
 ## Cohort Participants
+- [Brandon Lee](https://github.com/brewswain)
 
 ## Mentors
 
