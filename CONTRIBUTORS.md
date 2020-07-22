@@ -5,4 +5,6 @@
 
 ## Mentors
 
+- [Jennifer Batara](https://github.com/jendevelops)
+
 ## Code of Conduct Contacts
