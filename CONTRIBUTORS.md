@@ -5,4 +5,6 @@
 
 ## Mentors
 
+- [Joey Laguna](https://github.com/joeylaguna)
+
 ## Code of Conduct Contacts
