@@ -11,4 +11,6 @@
 
 - [Joey Laguna](https://github.com/joeylaguna)
 
+- [LaQuita Gollman](https://github.com/yoscheherazade)
+
 ## Code of Conduct Contacts
