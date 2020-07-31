@@ -7,11 +7,11 @@ The goal of this project is to work together to build a “smart” shopping lis
 This project is based on [iNeedToBuy.xyz](https://app.ineedtobuy.xyz/), a mobile web app Andrew built for his own use in early 2019.
 
 ### Locations for things
-* Site: {link to cohort live site}
-* Repo: {link to cohort repo}
-* Clone URL: `{clone URL}`
-* Issue list: {link to cohort repo issues}
-* Database: {link to cohort firebase database}
+* Site: [https://tcl-11-smart-shopping-list.netlify.app/](https://tcl-11-smart-shopping-list.netlify.app/)
+* Repo: [https://github.com/the-collab-lab/tcl-11-smart-shopping-list](https://github.com/the-collab-lab/tcl-11-smart-shopping-list)
+* Clone URL: [https://github.com/the-collab-lab/tcl-11-smart-shopping-list.git](https://github.com/the-collab-lab/tcl-11-smart-shopping-list.git)
+* Issue list: [https://github.com/the-collab-lab/tcl-11-smart-shopping-list/issues](https://github.com/the-collab-lab/tcl-11-smart-shopping-list/issues)
+* Database: [https://console.firebase.google.com/u/0/project/tcl-11-smart-shopping-list/database](https://console.firebase.google.com/u/0/project/tcl-11-smart-shopping-list/database)
 
 ### Project cadence & duration
 The project is expected to take 40 hours per participant, spread over 8 weeks.
@@ -20,37 +20,45 @@ Each week, the team of 4 developers will split into 2 pairs of 2 developers each
 
 Pairings will go as follows:
 
-#### Week 1, {start date - end date}
-1. {Name} & {Name}
-2. {Name} & {Name}
+#### Week 1, August 2 - 8
 
-#### Week 2, {start date - end date}
-1. {Name} & {Name}
-2. {Name} & {Name}
+1. Brandon & Kathy
+2. Volha & Cheska
 
-#### Week 3, {start date - end date}
-1. {Name} & {Name}
-2. {Name} & {Name}
+#### Week 2, August 9 - 15
 
-#### Week 4, {start date - end date}
-1. {Name} & {Name}
-2. {Name} & {Name}
+1. Cheska & Brandon
+2. Kathy & Volha
 
-#### Week 5, {start date - end date}
-1. {Name} & {Name}
-2. {Name} & {Name}
+#### Week 3, August 16 - 22
 
-#### Week 6, {start date - end date}
-1. {Name} & {Name}
-2. {Name} & {Name}
+1. Volha & Brandon
+2. Kathy & Cheska
 
-#### Week 7, {start date - end date}
-1. {Name} & {Name}
-2. {Name} & {Name}
+#### Week 4, August 23 - 29
 
-#### Week 8, {start date - end date}
-1. {Name} & {Name}
-2. {Name} & {Name}
+1. Brandon & Kathy
+2. Volha & Cheska
+
+#### Week 5, August 30 - September 5
+
+1. Cheska & Brandon
+2. Kathy & Volha
+
+#### Week 6, September 6 - 12
+
+1. Volha & Brandon
+2. Kathy & Cheska
+
+#### Week 7, September 13 - 19
+
+1. Brandon & Kathy
+2. Volha & Cheska
+
+#### Week 8, September 20 - 26
+
+1. Cheska & Brandon
+2. Kathy & Volha
 
 ### Pair Programming
 
