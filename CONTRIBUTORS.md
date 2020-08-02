@@ -4,6 +4,7 @@
 
 - [Brandon Lee](https://github.com/brewswain)
 - [Kathy Lambert](https://github.com/CodeMeKathy)
+- [Francesca Cantor](https://github.com/fcantor)
 
 ## Mentors
 
