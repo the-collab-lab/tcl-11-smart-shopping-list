@@ -4,7 +4,7 @@
 ### Overview
 The goal of this project is to work together to build a “smart” shopping list that learns your shopping habits over time, putting items you are most likely to need to buy in the near future at the top.
 
-This project is based on [iNeedToBuy.xyz](https://app.ineedtobuy.xyz/), a mobile web app Andrew built for his own use in early 2019.
+This project is based on [iNeedToBuy.xyz](https://app.ineedtobuy.xyz/), a mobile web app Andrew built for his own use in early 2019. A demo of the Cohort 6 Smart Shopping List App, Eggheaded, can be found [here](https://youtu.be/uWgkwY_VBPo).
 
 ### Locations for things
 * Site: [https://tcl-11-smart-shopping-list.netlify.app/](https://tcl-11-smart-shopping-list.netlify.app/)
