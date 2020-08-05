@@ -1,11 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import Items from './Items';
 import './App.css';
+// import logo from './logo.svg';
 
 function App() {
+  const [itemsDisplay, setItemsDisplay] = useState(false);
+
   return (
     <div className="App">
-      <header className="App-header">
+      <button onClick={() => setItemsDisplay(true)}>Click to get items!</button>
+      {itemsDisplay && <Items />}
+
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -18,7 +24,7 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
     </div>
   );
 }
