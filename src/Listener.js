@@ -18,8 +18,6 @@ const Listener = () => {
     });
   };
 
-  console.log(items);
-
   return (
     <div className="classItems">
       {items.map(item => (

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ItemsInput from './ItemsInput';
+import AddItem from './AddItem';
 import Listener from './Listener';
 import './App.css';
 // import logo from './logo.svg';
@@ -12,7 +12,7 @@ function App() {
     <div className="App">
       <button onClick={() => setItemsDisplay(true)}>Click to get items!</button>
       {itemsDisplay && <Listener />}
-      <ItemsInput />
+      <AddItem />
 
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
