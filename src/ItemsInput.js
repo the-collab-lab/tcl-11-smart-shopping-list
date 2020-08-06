@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import * as firebase from './Firebase/Firebase.js';
 
 const ItemsInput = ({ newItemValue }) => {
