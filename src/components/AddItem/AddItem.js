@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import * as firebase from './Firebase/Firebase.js';
+import * as firebase from '../Firebase/Firebase';
 
 const AddItem = ({ newItemValue }) => {
   const [itemName, setItemName] = useState('');
