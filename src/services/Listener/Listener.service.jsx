@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import * as firebase from '../../components/Firebase/Firebase';
+import * as firebase from '../../components/Firebase/Firebase.component';
 
 const Listener = () => {
   const [items, setItems] = useState([]);

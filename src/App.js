@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import AddItem from './components/AddItem/AddItem';
-import Listener from './services/Listener/Listener';
+import AddItem from './components/AddItem/AddItem.component';
+import Listener from './services/Listener/Listener.service';
 import './App.css';
 
 function App() {
