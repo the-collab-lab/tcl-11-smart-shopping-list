@@ -1,0 +1,20 @@
+.footer {
+  &__container {
+    width: 100vw;
+    position: fixed;
+    padding-bottom: 1rem;
+    bottom: 0;
+  }
+
+  &__link {
+    padding: 2rem;
+    color: black;
+    text-decoration: none;
+    font-size: 1.2rem;
+
+    &--active {
+      color: #4f4fbb;
+      font-weight: 600;
+    }
+  }
+}
