@@ -28,7 +28,11 @@ const List = () => {
       {localToken ? (
         <Listener />
       ) : (
-        <button onClick={generateToken}> Add Item</button>
+        <div>
+          {' '}
+          <p> Your shopping list is currently empty.</p>
+          <button onClick={generateToken}> Add Item</button>{' '}
+        </div>
       )}
     </div>
   );
