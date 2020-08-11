@@ -1,30 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import getToken from '../../lib/tokens';
+import Listener from '../../services/Listener/Listener.service';
+import { useHistory } from 'react-router-dom';
 
 const List = () => {
-  //Should be a button/link to create a new list
+  const [localToken, setLocalToken] = useState(localStorage.getItem('token'));
+  const history = useHistory();
 
-  //To generate a new token:
-  const token = getToken();
-  console.log('local storage: ', localStorage);
+  const generateToken = () => {
+    console.log('called generate token');
 
-  //To set the item to the local storage
-  localStorage.setItem('token', token);
-  console.log('local storage: ', localStorage);
-  // localStorage.removeItem('token');
+    //To generate a new token:
+    const token = getToken();
+    setLocalToken(token);
 
-  //Check if there is a saved token in the localStorage
-  const localToken = localStorage.getItem('token');
-
-  // create a token if doesn't exist
-  if (localToken === null) {
-    console.log('no token');
-  }
+    //To set the item to the local storage
+    localStorage.setItem('token', token);
+    console.log('local storage: ', localStorage);
+    // To go to addItem page
+    history.push('/addItem');
+  };
 
   return (
     <div>
       <h1 className="page__title">List</h1>
-      Should be token: {token}
+
+      {localToken ? (
+        <Listener />
+      ) : (
+        <button onClick={generateToken}> Add Item</button>
+      )}
     </div>
   );
 };
