@@ -6,7 +6,7 @@ const AddItem = ({ newItemValue }) => {
   // const collectionName = 'items';
   const collectionName = localStorage.getItem('token');
   const randomString = require('randomstring');
-  const id = randomString.generate(20);
+  const itemId = randomString.generate(20);
 
   //To update the value on change
   const handleChanges = event => {
@@ -17,8 +17,8 @@ const AddItem = ({ newItemValue }) => {
   const addNewItemValue = event => {
     firebase.dataBase
       .collection(collectionName)
-      .doc(id)
-      .set({ name: itemName });
+      .doc(itemId)
+      .set({ name: itemName, id: itemId });
     setItemName('');
   };
 

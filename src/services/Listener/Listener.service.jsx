@@ -3,7 +3,8 @@ import * as firebase from '../../components/Firebase/Firebase.component';
 
 const Listener = () => {
   const [items, setItems] = useState([]);
-  const collectionName = 'items';
+  // const collectionName = 'items';
+  const collectionName = localStorage.getItem('token');
   let itemsInCollection = [];
 
   useEffect(() => {
@@ -21,7 +22,7 @@ const Listener = () => {
   return (
     <div className="classItems">
       {items.map(item => (
-        <div key={item.name}> {item.name} </div>
+        <div key={item.id}> {item.name} </div>
       ))}
     </div>
   );
