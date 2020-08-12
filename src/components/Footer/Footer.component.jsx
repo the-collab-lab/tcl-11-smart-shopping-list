@@ -8,7 +8,7 @@ const Footer = () => (
     <NavLink
       className="footer__link"
       exact
-      to="/"
+      to="/list"
       activeClassName="footer__link--active"
     >
       List
