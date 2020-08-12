@@ -3,8 +3,7 @@ import * as firebase from '../../components/Firebase/Firebase.component';
 
 const Listener = () => {
   const [items, setItems] = useState([]);
-  // const collectionName = 'items';
-  const collectionName = localStorage.getItem('token');
+  const collectionTokenName = localStorage.getItem('token');
   let itemsInCollection = [];
 
   useEffect(() => {
@@ -13,7 +12,7 @@ const Listener = () => {
 
   //To update the list of items when there is a change
   const listenForUpdates = () => {
-    firebase.dataBase.collection(collectionName).onSnapshot(snapshot => {
+    firebase.dataBase.collection(collectionTokenName).onSnapshot(snapshot => {
       itemsInCollection = snapshot.docs.map(doc => doc.data());
       setItems(itemsInCollection);
     });

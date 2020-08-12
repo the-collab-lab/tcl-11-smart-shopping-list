@@ -3,8 +3,7 @@ import * as firebase from '../Firebase/Firebase.component';
 
 const AddItem = ({ newItemValue }) => {
   const [itemName, setItemName] = useState('');
-  // const collectionName = 'items';
-  const collectionName = localStorage.getItem('token');
+  const collectionTokenName = localStorage.getItem('token');
   const randomString = require('randomstring');
   const itemId = randomString.generate(20);
 
@@ -16,7 +15,7 @@ const AddItem = ({ newItemValue }) => {
   //To add the item to the database
   const addNewItemValue = event => {
     firebase.dataBase
-      .collection(collectionName)
+      .collection(collectionTokenName)
       .doc(itemId)
       .set({ name: itemName, id: itemId });
     setItemName('');

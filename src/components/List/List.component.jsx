@@ -17,6 +17,7 @@ const List = () => {
     //To set the item to the local storage
     localStorage.setItem('token', token);
     console.log('local storage: ', localStorage);
+
     // To go to addItem page
     history.push('/addItem');
   };
@@ -26,13 +27,17 @@ const List = () => {
       <h1 className="page__title">List</h1>
 
       {localToken ? (
-        <Listener />
+        <>
+          <Listener />
+        </>
       ) : (
-        <div>
-          {' '}
-          <p> Your shopping list is currently empty.</p>
-          <button onClick={generateToken}> Add Item</button>{' '}
-        </div>
+        <>
+          <div>
+            {' '}
+            <p> Your shopping list is currently empty.</p>
+            <button onClick={generateToken}> Add Item</button>{' '}
+          </div>
+        </>
       )}
     </div>
   );
