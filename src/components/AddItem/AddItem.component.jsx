@@ -24,14 +24,19 @@ const AddItem = ({ newItemValue }) => {
   return (
     <div className="classNewItem">
       <h1 className="page__title">Add Item</h1>
-      <input
-        id="itemId"
-        value={itemName}
-        name="name"
-        onChange={handleChanges}
-      />
-
-      <button onClick={addNewItemValue}> Add Item</button>
+      <form onClick={addNewItemValue}>
+        <label htmlFor="itemName">Item Name: </label>
+        <input
+          id="itemId"
+          type="text"
+          value={itemName}
+          name="name"
+          onChange={handleChanges}
+        />
+        <br />
+        <br />
+        <button type="submit"> Add Item</button>
+      </form>
     </div>
   );
 };
