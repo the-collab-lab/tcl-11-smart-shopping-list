@@ -23,41 +23,41 @@ Pairings will go as follows:
 #### Week 1, August 2 - 8
 
 1. Brandon & Kathy
-2. Volha & Cheska
+2. Volha & Stefanie
 
 #### Week 2, August 9 - 15
 
-1. Cheska & Brandon
+1. Stefanie & Brandon
 2. Kathy & Volha
 
 #### Week 3, August 16 - 22
 
 1. Volha & Brandon
-2. Kathy & Cheska
+2. Kathy & Stefanie
 
 #### Week 4, August 23 - 29
 
 1. Brandon & Kathy
-2. Volha & Cheska
+2. Volha & Stefanie
 
 #### Week 5, August 30 - September 5
 
-1. Cheska & Brandon
+1. Stefanie & Brandon
 2. Kathy & Volha
 
 #### Week 6, September 6 - 12
 
 1. Volha & Brandon
-2. Kathy & Cheska
+2. Kathy & Stefanie
 
 #### Week 7, September 13 - 19
 
 1. Brandon & Kathy
-2. Volha & Cheska
+2. Volha & Stefanie
 
 #### Week 8, September 20 - 26
 
-1. Cheska & Brandon
+1. Stefanie & Brandon
 2. Kathy & Volha
 
 ### Pair Programming
