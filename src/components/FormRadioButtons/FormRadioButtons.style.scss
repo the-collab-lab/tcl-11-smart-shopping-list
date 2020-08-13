@@ -1,0 +1,13 @@
+.form {
+  &__fieldset {
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  &__label {
+    display: flex;
+  }
+}
