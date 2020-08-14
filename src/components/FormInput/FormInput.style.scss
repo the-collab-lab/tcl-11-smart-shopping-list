@@ -1,0 +1,15 @@
+.form {
+  &__group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  &__label {
+    padding-bottom: 0.5rem;
+  }
+
+  &__input {
+    margin-bottom: 1.5rem;
+  }
+}
