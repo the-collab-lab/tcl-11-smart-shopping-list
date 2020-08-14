@@ -15,6 +15,7 @@ const FormRadioButtons = ({ children, handleRadioChange }) => (
         id="soon"
         defaultChecked
         onChange={handleRadioChange}
+        className="form__radio"
       />
       Soon
     </label>
@@ -25,6 +26,7 @@ const FormRadioButtons = ({ children, handleRadioChange }) => (
         value={14}
         id="kind-of-soon"
         onChange={handleRadioChange}
+        className="form__radio"
       />
       Kind of Soon
     </label>
@@ -35,6 +37,7 @@ const FormRadioButtons = ({ children, handleRadioChange }) => (
         value={30}
         id="not-soon"
         onChange={handleRadioChange}
+        className="form__radio"
       />
       Not Soon
     </label>
