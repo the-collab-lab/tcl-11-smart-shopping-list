@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import * as firebase from '../Firebase/Firebase.component';
 import randomString from 'randomstring';
 
-import { FormInput, FormRadioButtons } from '../component.index';
+import { CustomButton, FormInput, FormRadioButtons } from '../component.index';
 
 import './AddItem.style.scss';
 
-const AddItem = ({ newItemValue }) => {
+const AddItem = () => {
   const [itemName, setItemName] = useState(null);
   const [resupplyPeriod, setResupplyPeriod] = useState(7);
   const [lastPurchaseDate, setLastPurchaseDate] = useState(null);
+  const [isAdded, setIsAdded] = useState(null);
   const collectionTokenName = localStorage.getItem('token');
   const itemId = randomString.generate(20);
 
@@ -18,6 +19,7 @@ const AddItem = ({ newItemValue }) => {
     setItemName(event.target.value);
   };
 
+  // Changes our resupply period state object based on our choice of soon, kind of soon, and not soon.
   const handleRadioChange = event => {
     setResupplyPeriod(event.target.value);
   };
@@ -34,30 +36,33 @@ const AddItem = ({ newItemValue }) => {
         id: itemId,
         lastPurchaseDate: lastPurchaseDate,
       });
+
+    // Conditionally renders tooltip after adding our item to firebase.
+    setIsAdded(true);
+    setTimeout(() => {
+      setIsAdded(false);
+    }, 1200);
+
     setItemName('');
   };
-
-  useEffect(() => {
-    console.log(`itemName: ${itemName}`);
-  }, [itemName]);
-
-  useEffect(() => {
-    console.log(`resupplyPeriod: ${resupplyPeriod}`);
-  }, [resupplyPeriod]);
 
   return (
     <div className="classNewItem">
       <h1 className="page__title">Add Item</h1>
       <form onSubmit={addNewItemValue} className="item__form">
-        {/* <label htmlFor="itemName">Item Name: </label>
-        <input
-          id="itemId"
-          type="text"
-          value={itemName}
-          name="name"
-          onChange={handleChanges}
-        /> */}
         <div className="item__form__wrapper">
+          <div className="tooltip__container">
+            {/*conditionally renders tooltip based on if isAdded is truthy or falsy */}
+            <div
+              className={`${
+                isAdded ? 'tooltip--visible' : 'tooltip--invisible'
+              } tooltip`}
+            >
+              Success! Item added.
+            </div>
+          </div>
+
+          {/*Added components to make return statement neater/easier to read.*/}
           <FormInput
             label={'Item Name'}
             value={itemName}
@@ -66,9 +71,11 @@ const AddItem = ({ newItemValue }) => {
           <FormRadioButtons handleRadioChange={handleRadioChange}>
             How soon will you buy this again?
           </FormRadioButtons>
-          <br />
-          <br />
-          <button type="submit"> Add Item</button>
+          <div className="button__container">
+            <CustomButton type="submit" className="add__item__button">
+              Add Item
+            </CustomButton>
+          </div>
         </div>
       </form>
     </div>

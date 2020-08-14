@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 
     &__wrapper {
       display: flex;
@@ -14,6 +15,49 @@
 
 .page {
   &__title {
-    padding-bottom: 8rem;
+    padding-bottom: 2rem;
+  }
+}
+
+.button__container {
+  display: flex;
+  justify-content: center;
+  padding-top: 4rem;
+}
+
+.tooltip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6rem;
+  font-size: 1.1rem;
+  background: rgb(8, 176, 243);
+  width: 200px;
+  height: 50px;
+  border-radius: 4px;
+  vertical-align: auto;
+  visibility: hidden;
+
+  &__container {
+    display: flex;
+    justify-content: center;
+  }
+
+  &--visible {
+    animation: fade 1.6s ease forwards;
+    visibility: visible;
+  }
+
+  @keyframes fade {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+    }
   }
 }
