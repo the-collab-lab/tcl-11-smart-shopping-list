@@ -1,24 +1,12 @@
 import React, { useState } from 'react';
-import getToken from '../../lib/tokens';
 import Listener from '../../services/Listener/Listener.service';
 import { useHistory } from 'react-router-dom';
 
 const List = () => {
   const [localToken, setLocalToken] = useState(localStorage.getItem('token'));
   const history = useHistory();
-
-  const generateToken = () => {
-    console.log('called generate token');
-
-    //To generate a new token:
-    const token = getToken();
-    setLocalToken(token);
-
-    //To set the item to the local storage
-    localStorage.setItem('token', token);
-    console.log('local storage: ', localStorage);
-
-    // To go to addItem page
+  // Redirect to the Add Item View
+  const redirectAddItem = () => {
     history.push('/addItem');
   };
 
@@ -29,13 +17,15 @@ const List = () => {
       {localToken ? (
         <>
           <Listener />
+          {/* //?? Empty list displays nothing to the user */}
+          <br /> <br />
+          <button onClick={redirectAddItem}> Add Item</button>
         </>
       ) : (
         <>
           <div>
-            {' '}
             <p> Your shopping list is currently empty.</p>
-            <button onClick={generateToken}> Add Item</button>{' '}
+            <button onClick={redirectAddItem}> Add Item</button>
           </div>
         </>
       )}
