@@ -21,7 +21,7 @@ const AddItem = () => {
 
   // Changes our resupply period state object based on our choice of soon, kind of soon, and not soon.
   const handleRadioChange = event => {
-    setResupplyPeriod(event.target.value);
+    setResupplyPeriod(parseInt(event.target.value));
   };
 
   //To add the item to the database
