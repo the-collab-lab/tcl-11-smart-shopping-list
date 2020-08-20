@@ -1,3 +1,4 @@
+import Test from './Test.jsx';
 import AddItem from './AddItem/AddItem.component';
 import CustomButton from './CustomButton/CustomButton.component';
 import Home from './Home/Home.component.jsx';
@@ -7,6 +8,7 @@ import FormInput from './FormInput/FormInput.component';
 import FormRadioButtons from './FormRadioButtons/FormRadioButtons.component';
 
 export {
+  Test,
   AddItem,
   CustomButton,
   Home,
