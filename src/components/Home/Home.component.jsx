@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import getToken from '../../lib/tokens';
 import { useHistory } from 'react-router-dom';
-import { FormInput } from '../component.index';
+import { FormInput, Lists } from '../component.index';
 import CustomButton from '../CustomButton/CustomButton.component';
 const Home = () => {
   const [localToken, setLocalToken] = useState(localStorage.getItem('token'));
@@ -77,6 +77,7 @@ const Home = () => {
               value={tokenValue}
             />
             <button onClick={joinExistingList}>Join an existing list</button>
+            <Lists />
           </div>
         </>
       )}

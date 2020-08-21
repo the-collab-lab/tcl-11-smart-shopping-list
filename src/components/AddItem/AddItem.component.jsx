@@ -7,12 +7,14 @@ import { CustomButton, FormInput, FormRadioButtons } from '../component.index';
 
 import './AddItem.style.scss';
 
-const AddItem = () => {
+const AddItem = props => {
   const [itemName, setItemName] = useState(null);
   const [resupplyPeriod, setResupplyPeriod] = useState(7);
   const [lastPurchaseDate, setLastPurchaseDate] = useState(null);
   const [isAdded, setIsAdded] = useState(null);
-  const collectionTokenName = localStorage.getItem('token');
+  const [collectionTokenName, setCollectionName] = useState(
+    props.location.state.localToken,
+  );
   const itemId = randomString.generate(20);
 
   //To update the value on change
