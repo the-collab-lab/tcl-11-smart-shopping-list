@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { FormInput, Lists } from '../component.index';
 import CustomButton from '../CustomButton/CustomButton.component';
 const Home = () => {
-  const [localToken, setLocalToken] = useState(localStorage.getItem('token'));
+  const [localToken, setLocalToken] = useState('');
   const [tokenValue, setTokenValue] = useState('');
 
   const history = useHistory();
@@ -25,7 +25,7 @@ const Home = () => {
     addTokenToStorage(token);
 
     // To go to addItem page
-    history.push('/list');
+    history.push('/list', { localToken: token });
   };
 
   // Redirect to the Add Item View
@@ -52,35 +52,14 @@ const Home = () => {
 
   return (
     <div>
-      {localToken ? (
-        <>
-          <h1 className="page__title">Welcome Back!</h1>
-          <br /> <br />
-          <button onClick={redirectAddItem}>Add a new Item</button>
-        </>
-      ) : (
-        <>
-          <div>
-            <h1 className="page__title">
-              Welcome to your Smart Shoppping list!
-            </h1>
-            <br /> <br />
-            <button onClick={generateToken}>Create a New Shopping List</button>
-            <p> or </p>
-            <p>
-              {' '}
-              Join an existing shopping list by entering a three word token
-            </p>
-            <FormInput
-              onChange={onChange}
-              label={'Share Token'}
-              value={tokenValue}
-            />
-            <button onClick={joinExistingList}>Join an existing list</button>
-            <Lists />
-          </div>
-        </>
-      )}
+      <h1 className="page__title">Welcome to your Smart Shoppping list!</h1>
+      <br /> <br />
+      <button onClick={generateToken}>Create a New Shopping List</button>
+      <p> or </p>
+      <p> Join an existing shopping list by entering a three word token</p>
+      <FormInput onChange={onChange} label={'Share Token'} value={tokenValue} />
+      <button onClick={joinExistingList}>Join an existing list</button>
+      <Lists />
     </div>
   );
 };

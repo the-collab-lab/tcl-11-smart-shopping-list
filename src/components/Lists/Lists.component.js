@@ -5,22 +5,11 @@ const Lists = () => {
   const keys = Object.keys(localStorage);
 
   return (
-    //         <div>
-    //         <p>AVAILABLE LISTS:</p>
-
-    //         {keys.map(key => (
-    //             <Link to="/list">
-
-    //                 <div key={key}> {key} </div>
-    //             </Link>
-    //   ))}
-    //       </div>
-
     <div>
       <p>AVAILABLE LISTS:</p>
 
       {keys.map(key => (
-        <Link to={{ pathname: '/list', listProps: { passedToken: key } }}>
+        <Link to={{ pathname: '/list', state: { localToken: key } }}>
           <div> {key} </div>
         </Link>
       ))}

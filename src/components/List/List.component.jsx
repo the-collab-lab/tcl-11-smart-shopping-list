@@ -3,9 +3,8 @@ import Listener from '../../services/Listener/Listener.service';
 import { useHistory } from 'react-router-dom';
 
 const List = props => {
-  console.log(props);
-  const listProps = props.location.listProps;
-  const token = listProps.passedToken;
+  const listProps = props.location.state;
+  const token = listProps.localToken;
   const [localToken, setLocalToken] = useState(token);
 
   const history = useHistory();
