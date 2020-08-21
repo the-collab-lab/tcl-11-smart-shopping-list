@@ -4,6 +4,7 @@ import * as firebase from '../Firebase/Firebase.component';
 import randomString from 'randomstring';
 
 import { CustomButton, FormInput, FormRadioButtons } from '../component.index';
+import Listener from '../../services/Listener/Listener.service';
 
 import './AddItem.style.scss';
 
@@ -52,6 +53,7 @@ const AddItem = props => {
   return (
     <div className="classNewItem">
       <h1 className="page__title">Add Item</h1>
+      <Listener localToken={collectionTokenName} />
       <form onSubmit={addNewItemValue} className="item__form">
         <div className="item__form__wrapper">
           <div className="tooltip__container">
