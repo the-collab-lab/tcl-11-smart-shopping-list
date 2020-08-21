@@ -1,9 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import getToken from '../../lib/tokens';
 import { useHistory } from 'react-router-dom';
+import { FormInput } from '../component.index';
+import CustomButton from '../CustomButton/CustomButton.component';
 const Home = () => {
   const [localToken, setLocalToken] = useState(localStorage.getItem('token'));
+  const [tokenValue, setTokenValue] = useState('');
+
   const history = useHistory();
+
+  const joinExistingList = () => {
+    console.log('joinExistingList was called');
+    addTokenToStorage(tokenValue);
+  };
 
   const generateToken = () => {
     console.log('called generate token');
@@ -13,16 +22,34 @@ const Home = () => {
     setLocalToken(token);
 
     //To set the item to the local storage
-    localStorage.setItem('token', token);
-    console.log('local storage: ', localStorage);
+    addTokenToStorage(token);
 
     // To go to addItem page
     history.push('/list');
   };
+
   // Redirect to the Add Item View
   const redirectAddItem = () => {
     history.push('/addItem');
   };
+
+  //To add the token to the storage
+  const addTokenToStorage = token => {
+    //To set the item to the local storage
+    console.log('local token: ', token);
+    localStorage.setItem(token, token);
+    console.log('local storage: ', localStorage);
+  };
+
+  // To
+  const onChange = event => {
+    setTokenValue(event.target.value);
+  };
+
+  useEffect(() => {
+    console.log(tokenValue);
+  }, [tokenValue]);
+
   return (
     <div>
       {localToken ? (
@@ -34,10 +61,22 @@ const Home = () => {
       ) : (
         <>
           <div>
-            <h1 className="page__title">Welcome!</h1>
+            <h1 className="page__title">
+              Welcome to your Smart Shoppping list!
+            </h1>
             <br /> <br />
-            <p>You do not have a shopping list created.</p>
             <button onClick={generateToken}>Create a New Shopping List</button>
+            <p> or </p>
+            <p>
+              {' '}
+              Join an existing shopping list by entering a three word token
+            </p>
+            <FormInput
+              onChange={onChange}
+              label={'Share Token'}
+              value={tokenValue}
+            />
+            <button onClick={joinExistingList}>Join an existing list</button>
           </div>
         </>
       )}
