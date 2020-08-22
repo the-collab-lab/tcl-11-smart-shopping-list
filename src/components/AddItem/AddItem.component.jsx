@@ -3,7 +3,12 @@ import * as firebase from '../Firebase/Firebase.component';
 
 import randomString from 'randomstring';
 
-import { CustomButton, FormInput, FormRadioButtons } from '../component.index';
+import {
+  CustomButton,
+  Footer,
+  FormInput,
+  FormRadioButtons,
+} from '../component.index';
 import Listener from '../../services/Listener/Listener.service';
 
 import './AddItem.style.scss';
@@ -83,6 +88,7 @@ const AddItem = props => {
           </div>
         </div>
       </form>
+      <Footer />
     </div>
   );
 };
