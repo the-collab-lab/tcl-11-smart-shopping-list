@@ -4,6 +4,8 @@ import { useHistory } from 'react-router-dom';
 import { FormInput, Lists } from '../component.index';
 import * as firebase from '../Firebase/Firebase.component';
 
+import './Home.style.scss';
+
 const Home = () => {
   const [localToken, setLocalToken] = useState('');
   const [tokenValue, setTokenValue] = useState('');
@@ -48,16 +50,21 @@ const Home = () => {
   };
 
   return (
-    <div>
-      <h1 className="page__title">Welcome to your Smart Shoppping list!</h1>
-      <br /> <br />
-      <button onClick={generateToken}>Create a New Shopping List</button>
-      <p> or </p>
-      <p> Join an existing shopping list by entering a three word token</p>
+    <div className="home__page">
+      <h1 className="page__title">Welcome to your Smart Shopping list!</h1>
+
+      <button onClick={generateToken} className="page__button">
+        Create a New Shopping List
+      </button>
+      <p className="page__or__message"> or </p>
+      <p className="page__subtitle">
+        {' '}
+        Join an existing shopping list by entering a three word token
+      </p>
       <FormInput onChange={onChange} label={'Share Token'} value={tokenValue} />
       <button
         onClick={joinExistingList}
-        className={`${!tokenValue ? 'button--disabled' : ''}`}
+        className={`${!tokenValue ? 'button--disabled' : ''} page_button`}
       >
         {`
         ${
