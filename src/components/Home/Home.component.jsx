@@ -3,6 +3,8 @@ import getToken from '../../lib/tokens';
 import { useHistory } from 'react-router-dom';
 import { FormInput, Lists } from '../component.index';
 import CustomButton from '../CustomButton/CustomButton.component';
+import * as firebase from '../Firebase/Firebase.component';
+
 const Home = () => {
   const [localToken, setLocalToken] = useState('');
   const [tokenValue, setTokenValue] = useState('');
@@ -11,7 +13,27 @@ const Home = () => {
 
   const joinExistingList = () => {
     console.log('joinExistingList was called');
+    searchDatabase(tokenValue);
     addTokenToStorage(tokenValue);
+  };
+
+  const searchDatabase = async tokenValue => {
+    // const allDocs = firebase.dataBase.collection('does not exist');
+    //   console.log('DOES NOT EXIST', allDocs);
+
+    // const allDocs1 = firebase.dataBase.collection('new amazing token');
+    //   console.log('EXISTS', allDocs1);
+
+    // works
+    const listRef = firebase.dataBase
+      .collection('lists')
+      .doc('token that does not exist');
+    const doc = await listRef.get();
+    if (!doc.exists) {
+      console.log('does not exist');
+    } else {
+      console.log('exists:', doc.data());
+    }
   };
 
   const generateToken = () => {
