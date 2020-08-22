@@ -19,7 +19,7 @@ const Listener = props => {
   };
 
   return (
-    <div className="classItems">
+    <div className="lists__container">
       {items.map(item => (
         <div key={item.id}> {item.name} </div>
       ))}
