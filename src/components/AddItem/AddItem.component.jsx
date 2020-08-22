@@ -43,7 +43,7 @@ const AddItem = () => {
         console.log(items);
         console.log(cleanInput);
         if (!items.includes(cleanInput)) {
-          db.collection(collectionTokenName).add({
+          return db.collection(collectionTokenName).add({
             name: itemName,
             resupplyPeriod: resupplyPeriod,
             id: itemId,
