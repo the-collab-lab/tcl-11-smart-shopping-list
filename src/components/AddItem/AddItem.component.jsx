@@ -9,7 +9,6 @@ import Listener from '../../services/Listener/Listener.service';
 import './AddItem.style.scss';
 
 const AddItem = props => {
-  console.log('INSIDE ADD ITEM:', props);
   const [itemName, setItemName] = useState(null);
   const [resupplyPeriod, setResupplyPeriod] = useState(7);
   const [lastPurchaseDate, setLastPurchaseDate] = useState(null);
