@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import * as firebase from '../Firebase/Firebase.component';
-
+// import * as firebase from '../Firebase/Firebase.component';
+import 'firebase/firestore';
+import * as firebase from 'firebase/app';
 import randomString from 'randomstring';
 
 import { CustomButton, FormInput, FormRadioButtons } from '../component.index';
@@ -27,24 +28,35 @@ const AddItem = () => {
 
   //To add the item to the database
   const addNewItemValue = event => {
+    const db = firebase.firestore();
     event.preventDefault();
-    firebase.dataBase
-      .collection(collectionTokenName)
-      .doc(itemId)
-      .set({
-        name: itemName,
-        resupplyPeriod: resupplyPeriod,
-        id: itemId,
-        lastPurchaseDate: lastPurchaseDate,
+
+    // Clean Input
+    const cleanInput = itemName.toLowerCase().replace(/[^\w\s]|/g, '');
+
+    db.collection(collectionTokenName)
+      .get()
+      .then(snapshot => {
+        const items = snapshot.docs
+          .map(query => query.data())
+          .map(data => data.name.toLowerCase().replace(/[^\w\s]|/g, ''));
+        console.log(items);
+        console.log(cleanInput);
+        if (!items.includes(cleanInput)) {
+          db.collection(collectionTokenName).add({
+            name: itemName,
+            resupplyPeriod: resupplyPeriod,
+            id: itemId,
+            lastPurchaseDate: lastPurchaseDate,
+          });
+          setIsAdded(true);
+          setTimeout(() => {
+            setIsAdded(false);
+          }, 1200);
+        } else {
+          alert('already exists');
+        }
       });
-
-    // Conditionally renders tooltip after adding our item to firebase.
-    setIsAdded(true);
-    setTimeout(() => {
-      setIsAdded(false);
-    }, 1200);
-
-    setItemName('');
   };
 
   return (
