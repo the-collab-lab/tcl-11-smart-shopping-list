@@ -15,8 +15,6 @@ function App() {
         <Route path="/list" component={List} />
         <Route path="/addItem" component={AddItem} />
       </Switch>
-
-      {/* <Footer /> */}
     </div>
   );
 }
