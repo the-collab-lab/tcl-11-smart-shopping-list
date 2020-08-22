@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Listener from '../../services/Listener/Listener.service';
+
+import { Footer } from '../component.index';
 import { useHistory } from 'react-router-dom';
 
 const List = props => {
@@ -18,7 +20,7 @@ const List = props => {
   }, []);
 
   return (
-    <div>
+    <div className="list__page">
       <h1 className="page__title">List</h1>
 
       {localToken ? (
@@ -35,6 +37,7 @@ const List = props => {
           </div>
         </>
       )}
+      <Footer />
     </div>
   );
 };
