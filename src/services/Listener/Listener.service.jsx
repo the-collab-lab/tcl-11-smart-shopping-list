@@ -8,11 +8,10 @@ const Listener = props => {
 
   useEffect(() => {
     listenForUpdates();
-  }, []);
+  });
 
   //To update the list of items when there is a change
   const listenForUpdates = () => {
-    // console.log("SHOULD HAVE THE VALUE OF LOCAL TOKEN", localToken);
     firebase.dataBase.collection(localToken).onSnapshot(snapshot => {
       itemsInCollection = snapshot.docs.map(doc => doc.data());
       setItems(itemsInCollection);
