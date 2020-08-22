@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import getToken from '../../lib/tokens';
 import { useHistory } from 'react-router-dom';
 import { FormInput, Lists } from '../component.index';
-import CustomButton from '../CustomButton/CustomButton.component';
 import * as firebase from '../Firebase/Firebase.component';
 
 const Home = () => {
@@ -11,34 +10,21 @@ const Home = () => {
 
   const history = useHistory();
 
-  const joinExistingList = () => {
-    console.log('joinExistingList was called');
-    searchDatabase(tokenValue);
-    addTokenToStorage(tokenValue);
-  };
+  const joinExistingList = async () => {
+    let tokenRef = firebase.dataBase.collection(`${tokenValue}`);
+    let snapshot = await tokenRef.get();
 
-  const searchDatabase = async tokenValue => {
-    // const allDocs = firebase.dataBase.collection('does not exist');
-    //   console.log('DOES NOT EXIST', allDocs);
-
-    // const allDocs1 = firebase.dataBase.collection('new amazing token');
-    //   console.log('EXISTS', allDocs1);
-
-    // works
-    const listRef = firebase.dataBase
-      .collection('lists')
-      .doc('token that does not exist');
-    const doc = await listRef.get();
-    if (!doc.exists) {
-      console.log('does not exist');
+    if (snapshot.empty) {
+      alert(
+        "Sorry, this collection doesn't exist. Please try again or create a new list.",
+      );
     } else {
-      console.log('exists:', doc.data());
+      addTokenToStorage(tokenValue);
+      history.push('/');
     }
   };
 
   const generateToken = () => {
-    console.log('called generate token');
-
     //To generate a new token:
     const token = getToken();
     setLocalToken(token);
@@ -50,27 +36,16 @@ const Home = () => {
     history.push('/list', { localToken: token });
   };
 
-  // Redirect to the Add Item View
-  const redirectAddItem = () => {
-    history.push('/addItem');
-  };
-
   //To add the token to the storage
   const addTokenToStorage = token => {
     //To set the item to the local storage
-    console.log('local token: ', token);
     localStorage.setItem(token, token);
-    console.log('local storage: ', localStorage);
   };
 
   // To
   const onChange = event => {
     setTokenValue(event.target.value);
   };
-
-  useEffect(() => {
-    console.log(tokenValue);
-  }, [tokenValue]);
 
   return (
     <div>
@@ -80,7 +55,15 @@ const Home = () => {
       <p> or </p>
       <p> Join an existing shopping list by entering a three word token</p>
       <FormInput onChange={onChange} label={'Share Token'} value={tokenValue} />
-      <button onClick={joinExistingList}>Join an existing list</button>
+      <button
+        onClick={joinExistingList}
+        className={`${!tokenValue ? 'button--disabled' : ''}`}
+      >
+        {`
+        ${
+          !tokenValue ? 'Please enter List name first' : 'Join an existing list'
+        }`}
+      </button>
       <Lists />
     </div>
   );
