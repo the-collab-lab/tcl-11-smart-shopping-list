@@ -33,15 +33,12 @@ const AddItem = () => {
 
     // Clean Input
     const cleanInput = itemName.toLowerCase().replace(/[^\w\s]|/g, '');
-
     db.collection(collectionTokenName)
       .get()
       .then(snapshot => {
         const items = snapshot.docs
           .map(query => query.data())
           .map(data => data.name.toLowerCase().replace(/[^\w\s]|/g, ''));
-        console.log(items);
-        console.log(cleanInput);
         if (!items.includes(cleanInput)) {
           return db.collection(collectionTokenName).add({
             name: itemName,
@@ -54,7 +51,7 @@ const AddItem = () => {
             setIsAdded(false);
           }, 1200);
         } else {
-          alert('already exists');
+          alert('already exists'); // Plan to make accessible after today's discussion
         }
       });
   };

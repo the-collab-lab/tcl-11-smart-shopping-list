@@ -6,15 +6,12 @@ const Home = () => {
   const history = useHistory();
 
   const generateToken = () => {
-    console.log('called generate token');
-
     //To generate a new token:
     const token = getToken();
     setLocalToken(token);
 
     //To set the item to the local storage
     localStorage.setItem('token', token);
-    console.log('local storage: ', localStorage);
 
     // To go to addItem page
     history.push('/list');
@@ -35,7 +32,6 @@ const Home = () => {
         <>
           <div>
             <h1 className="page__title">Welcome!</h1>
-            <br /> <br />
             <p>You do not have a shopping list created.</p>
             <button onClick={generateToken}>Create a New Shopping List</button>
           </div>
