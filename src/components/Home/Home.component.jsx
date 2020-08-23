@@ -44,7 +44,7 @@ const Home = () => {
     localStorage.setItem(token, token);
   };
 
-  // To update the token value
+  // Dynamically sets our tokenValue based on our FormInput's value
   const onChange = event => {
     setTokenValue(event.target.value);
   };
