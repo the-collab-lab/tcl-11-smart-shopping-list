@@ -44,7 +44,7 @@ const Home = () => {
     localStorage.setItem(token, token);
   };
 
-  // To
+  // To update the token value
   const onChange = event => {
     setTokenValue(event.target.value);
   };
