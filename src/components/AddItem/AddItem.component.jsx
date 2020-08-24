@@ -31,14 +31,22 @@ const AddItem = () => {
     const db = firebase.firestore();
     event.preventDefault();
 
-    // Clean Input
-    const cleanInput = itemName.toLowerCase().replace(/[^\w\s]|/g, '');
+    // Clean Input to remove capitalization, punctuation, and spaces
+    const cleanInput = itemName
+      .toLowerCase()
+      .replace(/[^\w\s]|/g, '')
+      .replace(/[\s]/, '');
     db.collection(collectionTokenName)
       .get()
       .then(snapshot => {
         const items = snapshot.docs
           .map(query => query.data())
-          .map(data => data.name.toLowerCase().replace(/[^\w\s]|/g, ''));
+          .map(data =>
+            data.name
+              .toLowerCase()
+              .replace(/[^\w\s]|/g, '')
+              .replace(/[\s]/, ''),
+          );
         if (!items.includes(cleanInput)) {
           return db.collection(collectionTokenName).add({
             name: itemName,
