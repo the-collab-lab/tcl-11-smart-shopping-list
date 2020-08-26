@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import * as firebase from '../../components/Firebase/Firebase.component';
+import { Card } from '../../components/component.index.js';
 
 const Listener = () => {
   const [items, setItems] = useState([]);
@@ -26,12 +27,7 @@ const Listener = () => {
   return (
     <div className="classItems">
       {isEmpty ? (
-        <p>
-          Your List is empty 
-          <span role="img" aria-label="A crying emoji">
-            😭
-          </span>
-        </p>
+        <Card />
       ) : (
         items.map(item => <div key={item.id}> {item.name} </div>)
       )}

@@ -17,8 +17,6 @@ const List = () => {
       {localToken ? (
         <>
           <Listener />
-          {/* //?? Empty list displays nothing to the user */}
-          <br /> <br />
           <button onClick={redirectAddItem}> Add Item</button>
         </>
       ) : (
