@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import * as firebase from '../../components/Firebase/Firebase.component';
 import { Card } from '../../components/component.index.js';
 
+import './Listener.style.scss';
+
 const Listener = () => {
   const [items, setItems] = useState([]);
   const [isEmpty, SetIsEmpty] = useState(true);
@@ -25,7 +27,7 @@ const Listener = () => {
   };
 
   return (
-    <div className="classItems">
+    <div className="listener__container">
       {isEmpty ? (
         <Card />
       ) : (

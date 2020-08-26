@@ -12,7 +12,7 @@ const List = () => {
 
   return (
     <div>
-      <h1 className="page__title">List</h1>
+      <h1 className="page__title">Shopping List</h1>
 
       {localToken ? (
         <>
