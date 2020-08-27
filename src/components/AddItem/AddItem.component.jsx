@@ -17,7 +17,9 @@ import './AddItem.style.scss';
 const AddItem = props => {
   const [itemName, setItemName] = useState(null);
   const [resupplyPeriod, setResupplyPeriod] = useState(7);
-  const [lastPurchaseDate, setLastPurchaseDate] = useState(null);
+  //To update the date
+  const date = new Date();
+  const [lastPurchaseDate, setLastPurchaseDate] = useState(date);
   const [isAdded, setIsAdded] = useState(null);
   const [collectionTokenName, setCollectionName] = useState(
     props.location.state.localToken,
