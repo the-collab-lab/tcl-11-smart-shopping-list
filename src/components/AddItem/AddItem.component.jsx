@@ -48,8 +48,7 @@ const AddItem = props => {
         const items = snapshot.docs
           .map(query => query.data())
           .map(data => data.name.toLowerCase().replace(/[^\w\s]|/g, ''));
-        console.log(items);
-        console.log(cleanInput);
+
         if (!items.includes(cleanInput)) {
           return db.collection(collectionTokenName).add({
             name: itemName,

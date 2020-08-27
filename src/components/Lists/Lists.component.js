@@ -4,77 +4,44 @@ import * as firebase from '../Firebase/Firebase.component';
 import './Lists.style.scss';
 
 const Lists = () => {
-  //Stores all the keys from local storage
+  //To store all the keys from local storage
   const keys = Object.keys(localStorage);
 
+  //To store keys that are present in database
   let validKeys = [];
-  const [alternativeArray, setAlternativeArray] = useState([]);
+  const [currentKeys, setCurrentKeys] = useState([]);
 
-  //To check if the token is in database and if so, add it to validKeyes
+  //To check if the token is in database
   const validateToken = async tokenValue => {
-    console.log('RECEIVED THE FOLLOWING TOKEN:', tokenValue);
     let tokenRef = firebase.dataBase.collection(`${tokenValue}`);
     let snapshot = await tokenRef.get();
-    if (snapshot.empty) {
-      console.log('TOKEN NOT (!) IN DATABASE', tokenValue);
-    } else {
-      console.log('TOKEN IN DATABASE', tokenValue);
-      validKeys.push(tokenValue);
 
-      // setAlternativeArray(validKeys);
+    if (!snapshot.empty) {
+      validKeys.push(tokenValue);
+      return validKeys;
+    } else {
+      return null;
     }
-    console.log('UPDATED VALID KEYS', validKeys);
-    // setAlternativeArray(validKeys);
   };
 
   //Go through all the keys and check which of them are valid
-  let index = 0;
-  while (index < keys.length) {
-    validateToken(keys[index]);
-    index++;
-    // setAlternativeArray(validKeys);
-  }
+  useEffect(() => {
+    async function fetchData() {
+      let index = 0;
 
-  //Alternative does the same thing as lines 15-37
-  // const forLoop = async _ => {
-  // console.log('Start');
-  // for (let index = 0; index < keys.length; index++) {
-  // let tokenValue = keys[index];
-  // console.log('RECEIVED THE FOLLOWING TOKEN:', tokenValue);
-  // let tokenRef = firebase.dataBase.collection(`${tokenValue}`);
-  // let snapshot = await tokenRef.get();
-  // if (snapshot.empty) {
-  //   console.log('NOT (!) IN DATABASE', tokenValue);
-  // }
-  // else{
-  //   console.log('IN DATABASE', tokenValue);
-  //   validKeys.push(tokenValue);
-  //   console.log('UPDATED VALID KEYS', validKeys);
-  //   localStorage.setItem("validKeys", JSON.stringify(validKeys));
+      while (index < keys.length) {
+        await validateToken(keys[index]);
+        index++;
+      }
 
-  //   // setAlternativeArray(validKeys);
-  // }
-  // console.log('End');
-  // //  setAlternativeArray(validKeys);
-  // };
-  // // setAlternativeArray(validKeys);
-  // }
-
-  // useEffect(() => {
-  //   forLoop();
-  // }, [])
-
-  useEffect(() => {}, [validKeys]);
-
-  console.log('------KEYS: ', keys);
-  console.log('------VALID KEYS: ', validKeys);
-  console.log('------ALTERNATIVE ARRAY: ', alternativeArray);
+      setCurrentKeys(currentKeys.concat(validKeys));
+    }
+    fetchData();
+  }, []);
 
   return (
     <div>
-      <p className="lists__header">Available Lists:</p>
-
-      {validKeys.map(key => (
+      {currentKeys.map(key => (
         <Link
           className="lists__link"
           to={{ pathname: '/list', state: { localToken: key } }}

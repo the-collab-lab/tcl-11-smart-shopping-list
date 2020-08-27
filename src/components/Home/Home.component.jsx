@@ -58,7 +58,6 @@ const Home = () => {
       </button>
       <p className="page__or__message"> or </p>
       <p className="page__subtitle">
-        {' '}
         Join an existing shopping list by entering a three word token
       </p>
       <FormInput onChange={onChange} label={'Share Token'} value={tokenValue} />
@@ -67,10 +66,11 @@ const Home = () => {
         className={`${!tokenValue ? 'button--disabled' : ''} page_button`}
       >
         {`
-        ${
-          !tokenValue ? 'Please enter List name first' : 'Join an existing list'
-        }`}
+        ${!tokenValue ? 'Please enter List name first' : 'Add a token'}`}
       </button>
+      <p className="page__subtitle">
+        Click on the token to select the list you want to edit:
+      </p>
       <Lists />
     </div>
   );
