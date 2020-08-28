@@ -1,6 +1,8 @@
 import React from 'react';
 import 'firebase/firestore';
 import * as firebase from '../../components/Firebase/Firebase.component';
+import Checkbox from '@material-ui/core/Checkbox';
+import './Item.style.scss';
 
 const Item = props => {
   const itemName = props.name;
@@ -11,6 +13,8 @@ const Item = props => {
   const markPurchased = event => {
     event.preventDefault();
     const date = new Date();
+
+    document.getElementById(itemId).setAttribute('class', 'highlight');
 
     firebase.dataBase
       .collection(localToken)
@@ -29,7 +33,16 @@ const Item = props => {
       });
   };
 
-  return <div onClick={markPurchased}>{itemName}</div>;
+  return (
+    <div id={itemId} onClick={markPurchased}>
+      <Checkbox
+        value="checkedItem"
+        inputProps={{ 'aria-label': 'Checkbox Item' }}
+      />
+
+      {itemName}
+    </div>
+  );
 };
 
 export default Item;
