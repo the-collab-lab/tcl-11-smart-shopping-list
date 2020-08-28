@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-// import * as firebase from '../Firebase/Firebase.component';
-import 'firebase/firestore';
-import * as firebase from 'firebase/app';
+import * as firebase from '../Firebase/Firebase.component';
 import randomString from 'randomstring';
 
 import {
@@ -17,9 +15,7 @@ import './AddItem.style.scss';
 const AddItem = props => {
   const [itemName, setItemName] = useState(null);
   const [resupplyPeriod, setResupplyPeriod] = useState(7);
-  //To update the date
-  const date = new Date();
-  const [lastPurchaseDate, setLastPurchaseDate] = useState(date);
+  const [lastPurchaseDate, setLastPurchaseDate] = useState(null);
   const [isAdded, setIsAdded] = useState(null);
   const [collectionTokenName, setCollectionName] = useState(
     props.location.state.localToken,
@@ -38,21 +34,24 @@ const AddItem = props => {
 
   //To add the item to the database
   const addNewItemValue = event => {
-    const db = firebase.firestore();
     event.preventDefault();
 
     // Clean Input
     const cleanInput = itemName.toLowerCase().replace(/[^\w\s]|/g, '');
 
-    db.collection(collectionTokenName)
+    firebase.dataBase
+      .collection(collectionTokenName)
       .get()
       .then(snapshot => {
         const items = snapshot.docs
+
           .map(query => query.data())
           .map(data => data.name.toLowerCase().replace(/[^\w\s]|/g, ''));
 
+        console.log('items from add item:', items);
+
         if (!items.includes(cleanInput)) {
-          return db.collection(collectionTokenName).add({
+          return firebase.dataBase.collection(collectionTokenName).add({
             name: itemName,
             resupplyPeriod: resupplyPeriod,
             id: itemId,
