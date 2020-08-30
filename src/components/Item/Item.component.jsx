@@ -47,7 +47,6 @@ const Item = props => {
         value="checkedItem"
         inputProps={{ 'aria-label': 'Checkbox Item' }}
       />
-
       {itemName}
     </div>
   );
