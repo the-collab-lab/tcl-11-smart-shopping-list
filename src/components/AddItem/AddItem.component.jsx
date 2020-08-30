@@ -4,7 +4,12 @@ import 'firebase/firestore';
 import * as firebase from 'firebase/app';
 import randomString from 'randomstring';
 
-import { CustomButton, FormInput, FormRadioButtons } from '../component.index';
+
+import { CustomButton, Footer, FormInput, FormRadioButtons } from '../component.index';
+
+import './AddItem.style.scss';
+
+import Listener from '../../services/Listener/Listener.service';
 
 import './AddItem.style.scss';
 
@@ -31,22 +36,28 @@ const AddItem = () => {
     const db = firebase.firestore();
     event.preventDefault();
 
+
     // Clean Input to remove capitalization, punctuation, and spaces
     const cleanInput = itemName
       .toLowerCase()
       .replace(/[^\w\s]|/g, '')
       .replace(/[\s]/, '');
+
     db.collection(collectionTokenName)
       .get()
       .then(snapshot => {
         const items = snapshot.docs
           .map(query => query.data())
+
           .map(data =>
             data.name
               .toLowerCase()
               .replace(/[^\w\s]|/g, '')
               .replace(/[\s]/, ''),
           );
+
+
+
         if (!items.includes(cleanInput)) {
           return db.collection(collectionTokenName).add({
             name: itemName,
@@ -59,7 +70,9 @@ const AddItem = () => {
             setIsAdded(false);
           }, 1200);
         } else {
+
           alert('already exists'); // Plan to make accessible after today's discussion
+
         }
       });
   };
@@ -96,6 +109,7 @@ const AddItem = () => {
           </div>
         </div>
       </form>
+      <Footer />
     </div>
   );
 };

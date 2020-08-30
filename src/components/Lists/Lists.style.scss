@@ -1,0 +1,23 @@
+.lists {
+  &__container {
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 20vh;
+
+    max-width: 33vw;
+    margin: 0 auto;
+    background: whitesmoke;
+  }
+
+  &__header {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  &__link {
+    font-size: 1.1rem;
+    text-decoration: none;
+    color: #0077ff;
+    font-weight: 600;
+  }
+}
