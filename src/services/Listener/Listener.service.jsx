@@ -55,7 +55,6 @@ const Listener = props => {
   return (
     <div className="lists__container">
       {items.map(item => (
-        // <div key={item.id}> {item.name} </div>
         <Item
           key={item.id}
           name={item.name}
@@ -67,7 +66,6 @@ const Listener = props => {
           {' '}
         </Item>
       ))}
-      {/* <Item/> */}
     </div>
   );
 };

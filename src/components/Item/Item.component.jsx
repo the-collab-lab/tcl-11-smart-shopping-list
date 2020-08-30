@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'firebase/firestore';
 import * as firebase from '../../components/Firebase/Firebase.component';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -10,10 +10,16 @@ const Item = props => {
   const localToken = props.localToken;
   const over24 = props.over24;
 
+  useEffect(() => {
+    if (over24 === false) {
+      document.getElementById(itemId).setAttribute('class', 'highlight');
+    }
+  });
+
   //To update the purchase date
   const markPurchased = event => {
     event.preventDefault();
-    const date = new Date.UTC();
+    const date = new Date();
 
     document.getElementById(itemId).setAttribute('class', 'highlight');
 
