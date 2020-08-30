@@ -8,11 +8,12 @@ const Item = props => {
   const itemName = props.name;
   const itemId = props.id.toString();
   const localToken = props.localToken;
+  const over24 = props.over24;
 
   //To update the purchase date
   const markPurchased = event => {
     event.preventDefault();
-    const date = new Date();
+    const date = new Date.UTC();
 
     document.getElementById(itemId).setAttribute('class', 'highlight');
 
