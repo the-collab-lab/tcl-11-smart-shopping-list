@@ -43,6 +43,7 @@ const Item = props => {
   return (
     <div id={itemId} onClick={markPurchased}>
       <Checkbox
+        checked={!over24}
         value="checkedItem"
         inputProps={{ 'aria-label': 'Checkbox Item' }}
       />

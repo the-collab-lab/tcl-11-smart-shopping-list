@@ -44,7 +44,7 @@ const Listener = props => {
         } else {
           itemsInCollection[index] = {
             ...itemsInCollection[index],
-            over24: null,
+            over24: 'none',
           };
         }
       });
