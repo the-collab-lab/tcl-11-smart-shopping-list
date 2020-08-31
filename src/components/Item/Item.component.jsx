@@ -12,7 +12,7 @@ const Item = props => {
 
   useEffect(() => {
     if (over24 === false) {
-      document.getElementById(itemId).setAttribute('class', 'highlight');
+      document.getElementById(itemId).setAttribute('class', 'item__hightlight');
     }
   });
 
