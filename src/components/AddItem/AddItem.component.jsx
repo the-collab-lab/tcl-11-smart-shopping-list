@@ -1,18 +1,27 @@
 import React, { useState } from 'react';
-import * as firebase from '../Firebase/Firebase.component';
-
+// import * as firebase from '../Firebase/Firebase.component';
+import 'firebase/firestore';
+import * as firebase from 'firebase/app';
 import randomString from 'randomstring';
 
-import { CustomButton, FormInput, FormRadioButtons } from '../component.index';
+import {
+  CustomButton,
+  Footer,
+  FormInput,
+  FormRadioButtons,
+} from '../component.index';
+import Listener from '../../services/Listener/Listener.service';
 
 import './AddItem.style.scss';
 
-const AddItem = () => {
+const AddItem = props => {
   const [itemName, setItemName] = useState(null);
   const [resupplyPeriod, setResupplyPeriod] = useState(7);
   const [lastPurchaseDate, setLastPurchaseDate] = useState(null);
   const [isAdded, setIsAdded] = useState(null);
-  const collectionTokenName = localStorage.getItem('token');
+  const [collectionTokenName, setCollectionName] = useState(
+    props.location.state.localToken,
+  );
   const itemId = randomString.generate(20);
 
   //To update the value on change
@@ -27,29 +36,40 @@ const AddItem = () => {
 
   //To add the item to the database
   const addNewItemValue = event => {
+    const db = firebase.firestore();
     event.preventDefault();
-    firebase.dataBase
-      .collection(collectionTokenName)
-      .doc(itemId)
-      .set({
-        name: itemName,
-        resupplyPeriod: resupplyPeriod,
-        id: itemId,
-        lastPurchaseDate: lastPurchaseDate,
+
+    // Clean Input
+    const cleanInput = itemName.toLowerCase().replace(/[^\w\s]|/g, '');
+
+    db.collection(collectionTokenName)
+      .get()
+      .then(snapshot => {
+        const items = snapshot.docs
+          .map(query => query.data())
+          .map(data => data.name.toLowerCase().replace(/[^\w\s]|/g, ''));
+
+        if (!items.includes(cleanInput)) {
+          return db.collection(collectionTokenName).add({
+            name: itemName,
+            resupplyPeriod: resupplyPeriod,
+            id: itemId,
+            lastPurchaseDate: lastPurchaseDate,
+          });
+          setIsAdded(true);
+          setTimeout(() => {
+            setIsAdded(false);
+          }, 1200);
+        } else {
+          alert('already exists');
+        }
       });
-
-    // Conditionally renders tooltip after adding our item to firebase.
-    setIsAdded(true);
-    setTimeout(() => {
-      setIsAdded(false);
-    }, 1200);
-
-    setItemName('');
   };
 
   return (
     <div className="classNewItem">
       <h1 className="page__title">Add Item</h1>
+      <Listener localToken={collectionTokenName} />
       <form onSubmit={addNewItemValue} className="item__form">
         <div className="item__form__wrapper">
           <div className="tooltip__container">
@@ -79,6 +99,7 @@ const AddItem = () => {
           </div>
         </div>
       </form>
+      <Footer />
     </div>
   );
 };

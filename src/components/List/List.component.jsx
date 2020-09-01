@@ -1,22 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Listener from '../../services/Listener/Listener.service';
+
+import { Footer } from '../component.index';
 import { useHistory } from 'react-router-dom';
 
-const List = () => {
-  const [localToken, setLocalToken] = useState(localStorage.getItem('token'));
+const List = props => {
+  const listProps = props.location.state;
+  const token = listProps.localToken;
+  const [localToken, setLocalToken] = useState(token);
+
   const history = useHistory();
   // Redirect to the Add Item View
   const redirectAddItem = () => {
-    history.push('/addItem');
+    history.push('/addItem', { localToken: localToken });
   };
 
+  useEffect(() => {
+    setLocalToken(token);
+  }, []);
+
   return (
-    <div>
+    <div className="list__page">
       <h1 className="page__title">Shopping List</h1>
 
       {localToken ? (
         <>
           <Listener />
+
           <button onClick={redirectAddItem}> Add Item</button>
         </>
       ) : (
@@ -27,6 +37,7 @@ const List = () => {
           </div>
         </>
       )}
+      <Footer />
     </div>
   );
 };
