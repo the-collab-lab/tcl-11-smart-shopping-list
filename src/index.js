@@ -6,10 +6,14 @@ import * as serviceWorker from './serviceWorker';
 
 import { BrowserRouter } from 'react-router-dom';
 
+import Firebase, { FirebaseContext } from './components/Firebase';
+
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+  <FirebaseContext.Provider firebase={Firebase}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </FirebaseContext.Provider>,
   document.getElementById('root'),
 );
 
