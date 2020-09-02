@@ -13,6 +13,9 @@ const List = () => {
   return (
     <div>
       <h1 className="page__title">List</h1>
+      <div>
+        <input type="text" className="input" placeholder="Search..." />
+      </div>
 
       {localToken ? (
         <>
