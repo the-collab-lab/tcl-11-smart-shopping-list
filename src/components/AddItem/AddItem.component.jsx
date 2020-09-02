@@ -73,9 +73,7 @@ const AddItem = () => {
             How soon will you buy this again?
           </FormRadioButtons>
           <div className="button__container">
-            <CustomButton type="submit" className="add__item__button">
-              Add Item
-            </CustomButton>
+            <CustomButton type="submit">Add Item</CustomButton>
           </div>
         </div>
       </form>

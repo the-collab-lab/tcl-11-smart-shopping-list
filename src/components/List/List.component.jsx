@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Listener from '../../services/Listener/Listener.service';
 import { useHistory } from 'react-router-dom';
+import { CustomButton } from '../component.index';
 
 const List = () => {
   const [localToken, setLocalToken] = useState(localStorage.getItem('token'));
@@ -22,13 +23,15 @@ const List = () => {
           <Listener />
           {/* //?? Empty list displays nothing to the user */}
           <br /> <br />
-          <button onClick={redirectAddItem}> Add Item</button>
+          <CustomButton onClick={redirectAddItem}>Add Item</CustomButton>
+          {/* <button onClick={redirectAddItem}> Add Item</button> */}
         </>
       ) : (
         <>
           <div>
             <p> Your shopping list is currently empty.</p>
-            <button onClick={redirectAddItem}> Add Item</button>
+            <CustomButton onClick={redirectAddItem}>Add Item</CustomButton>
+            {/* <button onClick={redirectAddItem}> Add Item</button> */}
           </div>
         </>
       )}
