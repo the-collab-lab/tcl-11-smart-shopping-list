@@ -12,7 +12,7 @@ const Listener = () => {
 
   //To update the list of items when there is a change
   const listenForUpdates = () => {
-    firebase.dataBase.collection(collectionTokenName).onSnapshot(snapshot => {
+    firebase.db.collection(collectionTokenName).onSnapshot(snapshot => {
       itemsInCollection = snapshot.docs.map(doc => doc.data());
       setItems(itemsInCollection);
     });
