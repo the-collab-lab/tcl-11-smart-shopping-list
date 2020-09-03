@@ -43,6 +43,7 @@ const Lists = () => {
     <div>
       {currentKeys.map(key => (
         <Link
+          key={key}
           className="lists__link"
           to={{ pathname: '/list', state: { localToken: key } }}
         >
