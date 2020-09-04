@@ -20,6 +20,11 @@ const AddItem = props => {
   const [collectionTokenName, setCollectionName] = useState(
     props.location.state.localToken,
   );
+  const lastEstimate = 0;
+  const latestInterval = 0;
+  const numberOfPurchases = 0;
+  const nextPurchaseInterval = 0;
+
   const itemId = randomString.generate(20);
 
   //To update the value on change
@@ -56,6 +61,10 @@ const AddItem = props => {
             resupplyPeriod: resupplyPeriod,
             id: itemId,
             lastPurchaseDate: lastPurchaseDate,
+            lastEstimate: lastEstimate,
+            latestInterval: latestInterval,
+            numberOfPurchases: numberOfPurchases,
+            nextPurchaseInterval: nextPurchaseInterval,
           });
           setIsAdded(true);
           setTimeout(() => {

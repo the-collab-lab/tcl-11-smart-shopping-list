@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import * as firebase from '../../components/Firebase/Firebase.component';
+import * as firebase from '../../lib/firebase';
 import Item from '../../components/Item/Item.component';
 
 const Listener = props => {
