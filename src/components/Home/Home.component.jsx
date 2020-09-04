@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import getToken from '../../lib/tokens';
 import { useHistory } from 'react-router-dom';
 import { FormInput, Lists } from '../component.index';
-import * as firebase from '../Firebase/Firebase.component';
+import * as firebase from '../../lib/firebase';
 
 import './Home.style.scss';
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import 'firebase/firestore';
-import * as firebase from '../../components/Firebase/Firebase.component';
+import * as firebase from '../../lib/firebase';
 import Checkbox from '@material-ui/core/Checkbox';
 import './Item.style.scss';
 

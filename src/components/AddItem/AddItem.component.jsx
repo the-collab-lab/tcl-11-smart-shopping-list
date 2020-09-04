@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import * as firebase from '../Firebase/Firebase.component';
+import * as firebase from '../../lib/firebase';
 import randomString from 'randomstring';
 
 import {
