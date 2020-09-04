@@ -53,8 +53,6 @@ const AddItem = props => {
           .map(query => query.data())
           .map(data => data.name.toLowerCase().replace(/[^\w\s]|/g, ''));
 
-        console.log('items from add item:', items);
-
         if (!items.includes(cleanInput)) {
           return firebase.dataBase.collection(collectionTokenName).add({
             name: itemName,

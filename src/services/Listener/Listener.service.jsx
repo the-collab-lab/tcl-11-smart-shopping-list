@@ -27,6 +27,7 @@ const Listener = props => {
 
           //Item was purchased over 24 hours ago
           if (timeDifference >= 86400) {
+            // There are 86400 seconds in a 24 hour day
             itemsInCollection[index] = {
               ...itemsInCollection[index],
               over24: true,
@@ -62,9 +63,11 @@ const Listener = props => {
           date={item.lastPurchaseDate}
           localToken={localToken}
           over24={item.over24}
-        >
-          {' '}
-        </Item>
+          lastEstimate={item.lastEstimate}
+          latestInterval={item.latestInterval}
+          numberOfPurchases={item.numberOfPurchases}
+          nextPurchaseInterval={item.nextPurchaseInterval}
+        ></Item>
       ))}
     </div>
   );
