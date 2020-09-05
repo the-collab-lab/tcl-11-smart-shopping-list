@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-// import * as firebase from '../Firebase/Firebase.component';
-import 'firebase/firestore';
-import * as firebase from 'firebase/app';
+import * as firebase from '../Firebase/Firebase.component';
 import randomString from 'randomstring';
 
 
@@ -33,7 +31,6 @@ const AddItem = () => {
 
   //To add the item to the database
   const addNewItemValue = event => {
-    const db = firebase.firestore();
     event.preventDefault();
 
 
@@ -43,10 +40,12 @@ const AddItem = () => {
       .replace(/[^\w\s]|/g, '')
       .replace(/[\s]/, '');
 
-    db.collection(collectionTokenName)
+    firebase.dataBase
+      .collection(collectionTokenName)
       .get()
       .then(snapshot => {
         const items = snapshot.docs
+
           .map(query => query.data())
 
           .map(data =>
@@ -58,8 +57,10 @@ const AddItem = () => {
 
 
 
+        console.log('items from add item:', items);
+
         if (!items.includes(cleanInput)) {
-          return db.collection(collectionTokenName).add({
+          return firebase.dataBase.collection(collectionTokenName).add({
             name: itemName,
             resupplyPeriod: resupplyPeriod,
             id: itemId,
