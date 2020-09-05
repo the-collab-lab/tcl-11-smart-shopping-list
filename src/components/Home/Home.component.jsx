@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import getToken from '../../lib/tokens';
 import { useHistory } from 'react-router-dom';
-import { FormInput, Lists } from '../component.index';
 import * as firebase from '../Firebase/Firebase.component';
 
 import './Home.style.scss';
@@ -56,7 +55,7 @@ const Home = () => {
         <>
           <h1 className="page__title">Welcome Back!</h1>
           <br /> <br />
-          <button onClick={redirectAddItem}>Add a new Item</button>
+          <button>Add a new Item</button>
         </>
       ) : (
         <>
