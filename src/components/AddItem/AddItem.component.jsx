@@ -28,7 +28,7 @@ const AddItem = () => {
   //To add the item to the database
   const addNewItemValue = event => {
     event.preventDefault();
-    firebase.dataBase
+    firebase.db
       .collection(collectionTokenName)
       .doc(itemId)
       .set({
