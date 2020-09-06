@@ -1,0 +1,25 @@
+.search {
+  &__bar {
+    display: inline;
+  }
+
+  &__input {
+    width: 350px;
+    height: 30px;
+    border-radius: 4px;
+    box-shadow: none;
+    outline: none;
+    border: 1px solid black;
+  }
+
+  &__icon {
+    max-width: 28px;
+    fill: #0077ff;
+    cursor: pointer;
+    vertical-align: middle;
+
+    &--invisible {
+      visibility: hidden;
+    }
+  }
+}

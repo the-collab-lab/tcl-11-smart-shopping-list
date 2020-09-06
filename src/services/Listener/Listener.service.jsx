@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import * as firebase from '../../components/Firebase/Firebase.component';
 
+import './Listener.style.scss';
+
+import { CrossIcon } from '../../assets';
+
 const Listener = () => {
   const [unfilteredItems, setUnfilteredItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
@@ -37,15 +41,26 @@ const Listener = () => {
     });
   };
 
+  const clearSearch = () => {
+    setSearchData('');
+  };
+
   return (
     <>
-      <div>
+      <div className="search__bar">
         <input
           type="text"
-          className="input"
+          className="search__input"
           placeholder="Search..."
           value={searchData}
           onChange={handleChange}
+        />
+
+        <CrossIcon
+          className={`${
+            searchData.length ? '' : 'search__icon--invisible'
+          } search__icon`}
+          onClick={clearSearch}
         />
       </div>
       <div className="classItems">
