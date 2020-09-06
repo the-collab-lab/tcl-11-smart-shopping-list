@@ -14,24 +14,18 @@ const List = () => {
   return (
     <div>
       <h1 className="page__title">List</h1>
-      <div>
-        <input type="text" className="input" placeholder="Search..." />
-      </div>
-
       {localToken ? (
         <>
           <Listener />
           {/* //?? Empty list displays nothing to the user */}
           <br /> <br />
           <CustomButton onClick={redirectAddItem}>Add Item</CustomButton>
-          {/* <button onClick={redirectAddItem}> Add Item</button> */}
         </>
       ) : (
         <>
           <div>
             <p> Your shopping list is currently empty.</p>
             <CustomButton onClick={redirectAddItem}>Add Item</CustomButton>
-            {/* <button onClick={redirectAddItem}> Add Item</button> */}
           </div>
         </>
       )}
