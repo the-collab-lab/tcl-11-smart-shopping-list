@@ -16,10 +16,6 @@ const Listener = () => {
     listenForUpdates();
   }, []);
 
-  const handleChange = event => {
-    setSearchData(event.target.value);
-  };
-
   useEffect(() => {
     let unfilteredArray = [];
     unfilteredItems.forEach(unfilteredItem => {
@@ -33,16 +29,20 @@ const Listener = () => {
     });
   }, [searchData]);
 
+  const handleChange = event => {
+    setSearchData(event.target.value);
+  };
+
+  const clearSearch = () => {
+    setSearchData('');
+  };
+
   //To update the list of items when there is a change
   const listenForUpdates = () => {
     firebase.db.collection(collectionTokenName).onSnapshot(snapshot => {
       itemsInCollection = snapshot.docs.map(doc => doc.data());
       setUnfilteredItems(itemsInCollection);
     });
-  };
-
-  const clearSearch = () => {
-    setSearchData('');
   };
 
   return (

@@ -1,6 +1,8 @@
 .search {
   &__bar {
-    display: inline;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   &__input {
@@ -15,10 +17,11 @@
   }
 
   &__icon {
-    max-width: 28px;
+    width: 28px;
     fill: #0077ff;
     cursor: pointer;
     vertical-align: middle;
+    position: relative;
 
     &--invisible {
       visibility: hidden;
