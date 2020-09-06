@@ -9,7 +9,9 @@
     border-radius: 4px;
     box-shadow: none;
     outline: none;
-    border: 1px solid black;
+    border: 1.5px solid black;
+    font-size: 1.1rem;
+    padding-left: 0.5rem;
   }
 
   &__icon {
@@ -21,5 +23,13 @@
     &--invisible {
       visibility: hidden;
     }
+  }
+}
+
+.items {
+  &__list {
+    margin: 2rem 0;
+    font-size: 1.1rem;
+    line-height: 1.5;
   }
 }

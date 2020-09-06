@@ -63,7 +63,7 @@ const Listener = () => {
           onClick={clearSearch}
         />
       </div>
-      <div className="classItems">
+      <div className="items__list">
         {searchData.length < 1 ? (
           unfilteredItems.map(item => <div key={item.id}> {item.name} </div>)
         ) : (
