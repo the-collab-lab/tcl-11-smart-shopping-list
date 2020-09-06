@@ -2,24 +2,21 @@ import React, { useState } from 'react';
 import * as firebase from '../Firebase/Firebase.component';
 import randomString from 'randomstring';
 
-import {
-  CustomButton,
-  Footer,
-  FormInput,
-  FormRadioButtons,
-} from '../component.index';
+
+import { CustomButton, Footer, FormInput, FormRadioButtons } from '../component.index';
+
+import './AddItem.style.scss';
+
 import Listener from '../../services/Listener/Listener.service';
 
 import './AddItem.style.scss';
 
-const AddItem = props => {
+const AddItem = () => {
   const [itemName, setItemName] = useState(null);
   const [resupplyPeriod, setResupplyPeriod] = useState(7);
   const [lastPurchaseDate, setLastPurchaseDate] = useState(null);
   const [isAdded, setIsAdded] = useState(null);
-  const [collectionTokenName, setCollectionName] = useState(
-    props.location.state.localToken,
-  );
+  const collectionTokenName = localStorage.getItem('token');
   const itemId = randomString.generate(20);
 
   //To update the value on change
@@ -36,8 +33,12 @@ const AddItem = props => {
   const addNewItemValue = event => {
     event.preventDefault();
 
-    // Clean Input
-    const cleanInput = itemName.toLowerCase().replace(/[^\w\s]|/g, '');
+
+    // Clean Input to remove capitalization, punctuation, and spaces
+    const cleanInput = itemName
+      .toLowerCase()
+      .replace(/[^\w\s]|/g, '')
+      .replace(/[\s]/, '');
 
     firebase.dataBase
       .collection(collectionTokenName)
@@ -46,7 +47,15 @@ const AddItem = props => {
         const items = snapshot.docs
 
           .map(query => query.data())
-          .map(data => data.name.toLowerCase().replace(/[^\w\s]|/g, ''));
+
+          .map(data =>
+            data.name
+              .toLowerCase()
+              .replace(/[^\w\s]|/g, '')
+              .replace(/[\s]/, ''),
+          );
+
+
 
         console.log('items from add item:', items);
 
@@ -62,7 +71,9 @@ const AddItem = props => {
             setIsAdded(false);
           }, 1200);
         } else {
-          alert('already exists');
+
+          alert('already exists'); // Plan to make accessible after today's discussion
+
         }
       });
   };
@@ -70,7 +81,6 @@ const AddItem = props => {
   return (
     <div className="classNewItem">
       <h1 className="page__title">Add Item</h1>
-      <Listener localToken={collectionTokenName} />
       <form onSubmit={addNewItemValue} className="item__form">
         <div className="item__form__wrapper">
           <div className="tooltip__container">

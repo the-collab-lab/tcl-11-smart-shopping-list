@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import getToken from '../../lib/tokens';
 import { useHistory } from 'react-router-dom';
-import { FormInput, Lists } from '../component.index';
 import * as firebase from '../Firebase/Firebase.component';
 
 import './Home.style.scss';
@@ -32,7 +31,8 @@ const Home = () => {
     setLocalToken(token);
 
     //To set the item to the local storage
-    addTokenToStorage(token);
+
+    localStorage.setItem('token', token);
 
     // To go to addItem page
     history.push('/list', { localToken: token });
@@ -50,28 +50,22 @@ const Home = () => {
   };
 
   return (
-    <div className="home__page">
-      <h1 className="page__title">Welcome to your Smart Shopping list!</h1>
-
-      <button onClick={generateToken} className="page__button">
-        Create a New Shopping List
-      </button>
-      <p className="page__or__message"> or </p>
-      <p className="page__subtitle">
-        Join an existing shopping list by entering a three word token
-      </p>
-      <FormInput onChange={onChange} label={'Share Token'} value={tokenValue} />
-      <button
-        onClick={joinExistingList}
-        className={`${!tokenValue ? 'button--disabled' : ''} page_button`}
-      >
-        {`
-        ${!tokenValue ? 'Please enter List name first' : 'Add a token'}`}
-      </button>
-      <p className="page__subtitle">
-        Click on the token to select the list you want to edit:
-      </p>
-      <Lists />
+    <div>
+      {localToken ? (
+        <>
+          <h1 className="page__title">Welcome Back!</h1>
+          <br /> <br />
+          <button>Add a new Item</button>
+        </>
+      ) : (
+        <>
+          <div>
+            <h1 className="page__title">Welcome!</h1>
+            <p>You do not have a shopping list created.</p>
+            <button onClick={generateToken}>Create a New Shopping List</button>
+          </div>
+        </>
+      )}
     </div>
   );
 };
