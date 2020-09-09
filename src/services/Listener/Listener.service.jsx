@@ -11,6 +11,8 @@ const Listener = props => {
     listenForUpdates();
   });
 
+  let itemsByEstimatedDays = [];
+
   //To update the list of items when there is a change
   const listenForUpdates = () => {
     firebase.dataBase.collection(localToken).onSnapshot(snapshot => {
@@ -48,7 +50,20 @@ const Listener = props => {
             over24: 'none',
           };
         }
+
+        //To add items to itemsByEstimatedDays
+        let nextPurchaseInterval = item.nextPurchaseInterval;
+        let newValue = { [nextPurchaseInterval]: item };
+        itemsByEstimatedDays.push(newValue);
       });
+
+      //To sort the itemsByEstimatedDays
+      let sortedItemsByEstimatedDays = itemsByEstimatedDays.slice(0);
+      sortedItemsByEstimatedDays.sort((a, b) => {
+        return a.estimatePurchase - b.estimatePurchase;
+      });
+
+      itemsInCollection = [];
       setItems(itemsInCollection);
     });
   };
