@@ -11,6 +11,10 @@ const Listener = props => {
     listenForUpdates();
   });
 
+  useEffect(() => {
+    // console.log(items);
+  }, [items]);
+
   let itemsByEstimatedDays = [];
 
   //To update the list of items when there is a change
@@ -51,20 +55,26 @@ const Listener = props => {
           };
         }
 
-        //To add items to itemsByEstimatedDays
-        let nextPurchaseInterval = item.nextPurchaseInterval;
-        let newValue = { [nextPurchaseInterval]: item };
-        itemsByEstimatedDays.push(newValue);
+        //   //To add items to itemsByEstimatedDays
+        //   let nextPurchaseInterval = item.nextPurchaseInterval;
+        //   let newValue = { [nextPurchaseInterval]: item };
+        //   itemsByEstimatedDays.push(newValue);
       });
 
       //To sort the itemsByEstimatedDays
-      let sortedItemsByEstimatedDays = itemsByEstimatedDays.slice(0);
+      let sortedItemsByEstimatedDays = itemsInCollection.slice(0);
       sortedItemsByEstimatedDays.sort((a, b) => {
-        return a.estimatePurchase - b.estimatePurchase;
-      });
+        //sorts by next purchase interval
+        if (a.nextPurchaseInterval > b.nextPurchaseInterval) return 1;
+        if (a.nextPurchaseInterval < b.nextPurchaseInterval) return -1;
 
-      itemsInCollection = [];
-      setItems(itemsInCollection);
+        // when initial sorting is done, sorts alphabetically. This will only sort items that
+        // have the same purchase interval, hence the reason for our conditionals of > and <
+        // with nextPurchaseInterval in our previous statements above!
+        if (a.name > b.name) return 1;
+        if (a.name < b.name) return -1;
+      });
+      setItems(sortedItemsByEstimatedDays);
     });
   };
 
