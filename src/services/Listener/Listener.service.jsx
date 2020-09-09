@@ -67,6 +67,7 @@ const Listener = props => {
           latestInterval={item.latestInterval}
           numberOfPurchases={item.numberOfPurchases}
           nextPurchaseInterval={item.nextPurchaseInterval}
+          resupplyPeriod={item.resupplyPeriod}
         ></Item>
       ))}
     </div>

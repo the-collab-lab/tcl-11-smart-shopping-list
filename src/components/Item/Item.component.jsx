@@ -10,6 +10,7 @@ const Item = props => {
   const itemId = props.id.toString();
   const localToken = props.localToken;
   const over24 = props.over24;
+  const resupplyPeriod = props.resupplyPeriod;
   let lastEstimate = props.lastEstimate;
   let latestInterval = props.latestInterval;
   let numberOfPurchases = props.numberOfPurchases;
@@ -18,7 +19,27 @@ const Item = props => {
 
   useEffect(() => {
     if (over24 === false) {
-      document.getElementById(itemId).setAttribute('class', 'item__hightlight');
+      document.getElementById(itemId).setAttribute('class', 'item__highlight');
+    }
+    // To highlight the items based on resupplyPeriod
+    if (resupplyPeriod === 7) {
+      document.getElementById(itemId).setAttribute('class', 'list__item--soon');
+      return;
+    } else if (resupplyPeriod === 14) {
+      document
+        .getElementById(itemId)
+        .setAttribute('class', 'list__item--kind-of-soon');
+      return;
+    } else if (resupplyPeriod === 30) {
+      document
+        .getElementById(itemId)
+        .setAttribute('class', 'list__item--not-soon');
+      return;
+    } else {
+      // do inactive stuffs
+      document
+        .getElementById(itemId)
+        .setAttribute('class', 'list__item--inactive');
     }
   });
 
@@ -49,7 +70,10 @@ const Item = props => {
       numberOfPurchases,
     );
 
-    document.getElementById(itemId).setAttribute('class', 'highlight');
+    // TODO: work out what constitutes an item as 'inactive'.
+    // Check out item properties: `numberOfPurchases` and `estimatedPurchase date etc.
+    // see issue for more details`
+    //     }
 
     firebase.dataBase
       .collection(localToken)
