@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 import * as firebase from '../../lib/firebase';
 import randomString from 'randomstring';
 
-
-import { CustomButton, Footer, FormInput, FormRadioButtons } from '../component.index';
+import {
+  CustomButton,
+  Footer,
+  FormInput,
+  FormRadioButtons,
+} from '../component.index';
 
 import './AddItem.style.scss';
 
@@ -11,7 +15,7 @@ import Listener from '../../services/Listener/Listener.service';
 
 import './AddItem.style.scss';
 
-const AddItem = () => {
+const AddItem = props => {
   const [itemName, setItemName] = useState(null);
   const [resupplyPeriod, setResupplyPeriod] = useState(7);
   const [lastPurchaseDate, setLastPurchaseDate] = useState(null);
@@ -40,7 +44,6 @@ const AddItem = () => {
   const addNewItemValue = event => {
     event.preventDefault();
 
-
     // Clean Input to remove capitalization, punctuation, and spaces
     const cleanInput = itemName
       .toLowerCase()
@@ -62,8 +65,6 @@ const AddItem = () => {
               .replace(/[\s]/, ''),
           );
 
-
-
         if (!items.includes(cleanInput)) {
           return firebase.dataBase.collection(collectionTokenName).add({
             name: itemName,
@@ -80,9 +81,7 @@ const AddItem = () => {
             setIsAdded(false);
           }, 1200);
         } else {
-
           alert('already exists'); // Plan to make accessible after today's discussion
-
         }
       });
   };
