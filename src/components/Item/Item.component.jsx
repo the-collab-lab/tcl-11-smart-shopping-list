@@ -69,7 +69,7 @@ const Item = props => {
 
   useEffect(() => {
     if (over24 === false) {
-      document.getElementById(itemId).setAttribute('class', 'item__highlight');
+      document.getElementById(itemId).style.textDecoration = 'line-through';
     }
     // To highlight the items based on resupplyPeriod
     if (resupplyPeriod === 7) {
