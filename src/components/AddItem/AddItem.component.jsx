@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
-import * as firebase from '../Firebase/Firebase.component';
+import * as firebase from '../../lib/firebase';
 import randomString from 'randomstring';
 
-
-import { CustomButton, Footer, FormInput, FormRadioButtons } from '../component.index';
+import {
+  CustomButton,
+  Footer,
+  FormInput,
+  FormRadioButtons,
+} from '../component.index';
 
 import './AddItem.style.scss';
 
@@ -11,12 +15,19 @@ import Listener from '../../services/Listener/Listener.service';
 
 import './AddItem.style.scss';
 
-const AddItem = () => {
+const AddItem = props => {
   const [itemName, setItemName] = useState(null);
   const [resupplyPeriod, setResupplyPeriod] = useState(7);
   const [lastPurchaseDate, setLastPurchaseDate] = useState(null);
   const [isAdded, setIsAdded] = useState(null);
-  const collectionTokenName = localStorage.getItem('token');
+
+  const [collectionTokenName, setCollectionName] = useState(
+    props.location.state.localToken,
+  );
+  const lastEstimate = 0;
+  const latestInterval = 0;
+  const numberOfPurchases = 0;
+  const nextPurchaseInterval = 0;
   const itemId = randomString.generate(20);
 
   //To update the value on change
@@ -32,7 +43,6 @@ const AddItem = () => {
   //To add the item to the database
   const addNewItemValue = event => {
     event.preventDefault();
-
 
     // Clean Input to remove capitalization, punctuation, and spaces
     const cleanInput = itemName
@@ -55,25 +65,23 @@ const AddItem = () => {
               .replace(/[\s]/, ''),
           );
 
-
-
-        console.log('items from add item:', items);
-
         if (!items.includes(cleanInput)) {
           return firebase.dataBase.collection(collectionTokenName).add({
             name: itemName,
             resupplyPeriod: resupplyPeriod,
             id: itemId,
             lastPurchaseDate: lastPurchaseDate,
+            lastEstimate: lastEstimate,
+            latestInterval: latestInterval,
+            numberOfPurchases: numberOfPurchases,
+            nextPurchaseInterval: nextPurchaseInterval,
           });
           setIsAdded(true);
           setTimeout(() => {
             setIsAdded(false);
           }, 1200);
         } else {
-
           alert('already exists'); // Plan to make accessible after today's discussion
-
         }
       });
   };

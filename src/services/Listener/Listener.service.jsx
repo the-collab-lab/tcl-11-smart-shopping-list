@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import * as firebase from '../../components/Firebase/Firebase.component';
+import * as firebase from '../../lib/firebase';
 import Item from '../../components/Item/Item.component';
 
 const Listener = props => {
   const [localToken, setLocalToken] = useState(props.localToken);
   const [items, setItems] = useState([]);
+  const secondsInDay = 86400;
   let itemsInCollection = [];
 
   useEffect(() => {
@@ -26,7 +27,7 @@ const Listener = props => {
             currentTimeInSeconds - lastPurchasedTimeInSeconds;
 
           //Item was purchased over 24 hours ago
-          if (timeDifference >= 86400) {
+          if (timeDifference >= secondsInDay) {
             itemsInCollection[index] = {
               ...itemsInCollection[index],
               over24: true,
@@ -62,9 +63,11 @@ const Listener = props => {
           date={item.lastPurchaseDate}
           localToken={localToken}
           over24={item.over24}
-        >
-          {' '}
-        </Item>
+          lastEstimate={item.lastEstimate}
+          latestInterval={item.latestInterval}
+          numberOfPurchases={item.numberOfPurchases}
+          nextPurchaseInterval={item.nextPurchaseInterval}
+        ></Item>
       ))}
     </div>
   );
