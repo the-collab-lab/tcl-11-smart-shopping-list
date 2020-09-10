@@ -5,7 +5,7 @@ import Item from '../../components/Item/Item.component';
 const Listener = props => {
   const [localToken, setLocalToken] = useState(props.localToken);
   const [items, setItems] = useState([]);
-  const secondsInDay = 86400; // There are 86400 seconds in a 24 hour day
+  const secondsInDay = 86400;
   let itemsInCollection = [];
 
   useEffect(() => {
