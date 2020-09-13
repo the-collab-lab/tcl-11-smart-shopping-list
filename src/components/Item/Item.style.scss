@@ -1,28 +1,8 @@
-.item {
-  &__highlight {
-    text-decoration: line-through;
-    background: rgb(226, 199, 199);
-  }
+.item__hightlight {
+  text-decoration: line-through;
+  background: rgb(226, 199, 199);
 }
 
 .Mui-checked {
   text-decoration: line-through;
-}
-
-.list {
-  &__item {
-    &--soon {
-      background: yellow;
-    }
-    &--kind-of-soon {
-      background: red;
-    }
-    &--not-soon {
-      background: green;
-    }
-
-    &--inactive {
-      background: purple;
-    }
-  }
 }
