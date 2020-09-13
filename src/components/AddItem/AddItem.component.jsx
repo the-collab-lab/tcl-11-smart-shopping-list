@@ -13,18 +13,15 @@ import Listener from '../../services/Listener/Listener.service';
 import './AddItem.style.scss';
 
 const AddItem = props => {
-  const [itemName, setItemName] = useState(null);
-  const [resupplyPeriod, setResupplyPeriod] = useState(7);
-  const [lastPurchaseDate, setLastPurchaseDate] = useState(null);
+  const collectionTokenName = props.location.state.localToken;
   const [isAdded, setIsAdded] = useState(null);
-  const [collectionTokenName, setCollectionName] = useState(
-    props.location.state.localToken,
-  );
+  const [itemName, setItemName] = useState(null);
+  const lastPurchaseDate = null;
   const lastEstimate = 0;
   const latestInterval = 0;
-  const numberOfPurchases = 0;
   const nextPurchaseInterval = 0;
-
+  const numberOfPurchases = 0;
+  const [resupplyPeriod, setResupplyPeriod] = useState(7);
   const itemId = randomString.generate(20);
 
   //To update the value on change

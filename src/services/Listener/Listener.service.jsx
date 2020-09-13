@@ -1,21 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import * as firebase from '../../lib/firebase';
+import { CrossIcon } from '../../assets';
 import { Card } from '../../components/component.index.js';
 import Item from '../../components/Item/Item.component';
 import './Listener.style.scss';
 
 const Listener = props => {
+  const [filteredItems, setFilteredItems] = useState([]);
   let itemsInCollection = [];
   const [items, setItems] = useState([]);
   const [isEmpty, SetIsEmpty] = useState(true);
   const localToken = props.localToken;
+  const [searchData, setSearchData] = useState([]);
   const secondsInDay = 86400;
+  const [unfilteredItems, setUnfilteredItems] = useState([]);
 
   useEffect(() => {
     listenForUpdates();
   });
 
   useEffect(() => {}, [items]);
+
+  useEffect(() => {
+    let unfilteredArray = [];
+    unfilteredItems.forEach(unfilteredItem => {
+      unfilteredArray.push(unfilteredItem.name);
+
+      const searchFilter = unfilteredArray.filter(unfilteredArray =>
+        unfilteredArray.toLowerCase().includes(searchData.toLowerCase()),
+      );
+
+      setFilteredItems(searchFilter);
+    });
+  }, [searchData]);
+
+  const handleChange = event => {
+    setSearchData(event.target.value);
+  };
+
+  const clearSearch = () => {
+    setSearchData('');
+  };
 
   //To update the list of items when there is a change
   const listenForUpdates = () => {
@@ -69,6 +94,7 @@ const Listener = props => {
         if (a.name < b.name) return -1;
       });
       setItems(sortedItemsByEstimatedDays);
+      setUnfilteredItems(itemsInCollection);
       if (itemsInCollection.length > 0) {
         SetIsEmpty(false);
       }
@@ -76,27 +102,51 @@ const Listener = props => {
   };
 
   return (
-    <div className="listener__container">
-      {isEmpty ? (
-        <Card />
-      ) : (
-        items.map(item => (
-          <Item
-            key={item.id}
-            name={item.name}
-            id={item.id}
-            date={item.lastPurchaseDate}
-            localToken={localToken}
-            over24={item.over24}
-            lastEstimate={item.lastEstimate}
-            latestInterval={item.latestInterval}
-            numberOfPurchases={item.numberOfPurchases}
-            nextPurchaseInterval={item.nextPurchaseInterval}
-            resupplyPeriod={item.resupplyPeriod}
-          ></Item>
-        ))
-      )}
-    </div>
+    <>
+      <div className="listener__container">{isEmpty ? <Card /> : ' '}</div>
+
+      <div className="search__bar">
+        <input
+          type="text"
+          className="search__input"
+          placeholder="Search..."
+          value={searchData}
+          onChange={handleChange}
+        />
+
+        <CrossIcon
+          className={`${
+            searchData.length ? '' : 'search__icon--invisible'
+          } search__icon`}
+          onClick={clearSearch}
+        />
+      </div>
+      <div className="items__list">
+        {searchData.length < 1 ? (
+          unfilteredItems.map(item => (
+            <Item
+              key={item.id}
+              name={item.name}
+              id={item.id}
+              date={item.lastPurchaseDate}
+              localToken={localToken}
+              over24={item.over24}
+              lastEstimate={item.lastEstimate}
+              latestInterval={item.latestInterval}
+              numberOfPurchases={item.numberOfPurchases}
+              nextPurchaseInterval={item.nextPurchaseInterval}
+              resupplyPeriod={item.resupplyPeriod}
+            ></Item>
+          ))
+        ) : (
+          <div>
+            {filteredItems.map(filteredItem => (
+              <div> {filteredItem} </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 
