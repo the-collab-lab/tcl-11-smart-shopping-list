@@ -13,7 +13,7 @@ import Listener from '../../services/Listener/Listener.service';
 import './AddItem.style.scss';
 
 const AddItem = props => {
-  const [collectionTokenName, SetCollectionTokenName] = useState(
+  const [collectionTokenName, setCollectionTokenName] = useState(
     props.location.state.localToken,
   );
   const [isAdded, setIsAdded] = useState(null);
