@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import * as firebase from '../../lib/firebase';
 import Item from '../../components/Item/Item.component';
+import { Card } from '../../components/component.index.js';
+import './Listener.style.scss';
 
 const Listener = props => {
   const [localToken, setLocalToken] = useState(props.localToken);
+  const [isEmpty, SetIsEmpty] = useState(true);
   const [items, setItems] = useState([]);
   let itemsInCollection = [];
 
@@ -75,26 +78,34 @@ const Listener = props => {
         if (a.name < b.name) return -1;
       });
       setItems(sortedItemsByEstimatedDays);
+      if (itemsInCollection.length > 0) {
+        SetIsEmpty(false);
+      }
     });
   };
 
   return (
     <div className="lists__container">
-      {items.map(item => (
-        <Item
-          key={item.id}
-          name={item.name}
-          id={item.id}
-          date={item.lastPurchaseDate}
-          localToken={localToken}
-          over24={item.over24}
-          lastEstimate={item.lastEstimate}
-          latestInterval={item.latestInterval}
-          numberOfPurchases={item.numberOfPurchases}
-          nextPurchaseInterval={item.nextPurchaseInterval}
-          resupplyPeriod={item.resupplyPeriod}
-        ></Item>
-      ))}
+      {isEmpty ? (
+        <Card />
+      ) : (
+        items.map(item => (
+          <Item
+            key={item.id}
+            name={item.name}
+            id={item.id}
+            date={item.lastPurchaseDate}
+            localToken={localToken}
+            over24={item.over24}
+            lastEstimate={item.lastEstimate}
+            latestInterval={item.latestInterval}
+            numberOfPurchases={item.numberOfPurchases}
+            nextPurchaseInterval={item.nextPurchaseInterval}
+            resupplyPeriod={item.resupplyPeriod}
+          ></Item>
+        ))
+      )}
+      ;{' '}
     </div>
   );
 };

@@ -73,7 +73,11 @@ const Item = props => {
     // TODO: work out what constitutes an item as 'inactive'.
     // Check out item properties: `numberOfPurchases` and `estimatedPurchase date etc.
     // see issue for more details`
+    // Inactive (when there’s only 1 purchase in the database or the purchase is really out of date [the time that has elapsed since the last purchase is 2x what was estimated])
+
     //     }
+
+    //aria-label='Item needed soon'
 
     firebase.dataBase
       .collection(localToken)
