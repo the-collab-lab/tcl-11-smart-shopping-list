@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import 'firebase/firestore';
 import * as firebase from '../../lib/firebase';
 import calculateEstimate from '../../lib/estimates';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -16,32 +15,7 @@ const Item = props => {
   let numberOfPurchases = props.numberOfPurchases;
   let nextPurchaseInterval = props.nextPurchaseInterval;
   let lastPurchaseDate = props.date;
-
-  useEffect(() => {
-    if (over24 === false) {
-      document.getElementById(itemId).setAttribute('class', 'item__highlight');
-    }
-    // To highlight the items based on resupplyPeriod
-    if (resupplyPeriod === 7) {
-      document.getElementById(itemId).setAttribute('class', 'list__item--soon');
-      return;
-    } else if (resupplyPeriod === 14) {
-      document
-        .getElementById(itemId)
-        .setAttribute('class', 'list__item--kind-of-soon');
-      return;
-    } else if (resupplyPeriod === 30) {
-      document
-        .getElementById(itemId)
-        .setAttribute('class', 'list__item--not-soon');
-      return;
-    } else {
-      // do inactive stuffs
-      document
-        .getElementById(itemId)
-        .setAttribute('class', 'list__item--inactive');
-    }
-  });
+  let lastPurchasedTimeInSeconds = 0;
 
   // To update the purchase date
   const markPurchased = event => {
@@ -56,7 +30,7 @@ const Item = props => {
       latestInterval = 0;
     } else {
       let currentTimeInSeconds = new Date().getTime() / 1000;
-      let lastPurchasedTimeInSeconds = lastPurchaseDate.seconds;
+      lastPurchasedTimeInSeconds = lastPurchaseDate.seconds;
       latestInterval = Math.ceil(
         (currentTimeInSeconds - lastPurchasedTimeInSeconds) / 86400,
       ); // There are 86400 seconds in a 24 hour day
@@ -69,15 +43,6 @@ const Item = props => {
       latestInterval,
       numberOfPurchases,
     );
-
-    // TODO: work out what constitutes an item as 'inactive'.
-    // Check out item properties: `numberOfPurchases` and `estimatedPurchase date etc.
-    // see issue for more details`
-    // Inactive (when there’s only 1 purchase in the database or the purchase is really out of date [the time that has elapsed since the last purchase is 2x what was estimated])
-
-    //     }
-
-    //aria-label='Item needed soon'
 
     firebase.dataBase
       .collection(localToken)
@@ -102,8 +67,40 @@ const Item = props => {
       });
   };
 
+  useEffect(() => {
+    if (over24 === false) {
+      document.getElementById(itemId).style.textDecoration = 'line-through';
+    }
+    // To highlight the items based on resupplyPeriod
+    if (resupplyPeriod === 7) {
+      document.getElementById(itemId).setAttribute('class', 'list__item--soon');
+      return;
+    } else if (resupplyPeriod === 14) {
+      document
+        .getElementById(itemId)
+        .setAttribute('class', 'list__item--kind-of-soon');
+      return;
+    } else if (resupplyPeriod === 30) {
+      document
+        .getElementById(itemId)
+        .setAttribute('class', 'list__item--not-soon');
+      return;
+    } else if (
+      numberOfPurchases < 2 ||
+      lastPurchasedTimeInSeconds > 2 * nextPurchaseInterval
+    ) {
+      document
+        .getElementById(itemId)
+        .setAttribute('class', 'list__item--inactive');
+    }
+  });
+
   return (
-    <div id={itemId} onClick={markPurchased}>
+    <div
+      id={itemId}
+      onClick={markPurchased}
+      aria-label={`Estimated number of days till next next purchase: ${nextPurchaseInterval}`}
+    >
       <Checkbox
         checked={!over24}
         value="checkedItem"
