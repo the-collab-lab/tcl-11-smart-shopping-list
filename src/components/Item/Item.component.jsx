@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import * as firebase from '../../lib/firebase';
 import calculateEstimate from '../../lib/estimates';
+import { makeStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Checkbox from '@material-ui/core/Checkbox';
 import './Item.style.scss';
 
@@ -46,7 +49,6 @@ const Item = props => {
 
     firebase.dataBase
       .collection(localToken)
-
       .get()
       .then(snapshot => {
         snapshot.forEach(doc => {
@@ -62,6 +64,27 @@ const Item = props => {
                 latestInterval: latestInterval,
                 lastEstimate: lastEstimate,
               });
+          }
+        });
+      });
+  };
+
+  // Remove item from UI and database
+  const deleteItem = event => {
+    event.preventDefault();
+    console.log('hi');
+
+    firebase.dataBase
+      .collection(localToken)
+      .get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          if (doc.data().id === itemId) {
+            const documentId = doc.id;
+            firebase.dataBase
+              .collection(localToken)
+              .doc(documentId)
+              .delete();
           }
         });
       });
@@ -96,18 +119,24 @@ const Item = props => {
   });
 
   return (
-    <div
-      id={itemId}
-      onClick={markPurchased}
-      aria-label={`Estimated number of days till next next purchase: ${nextPurchaseInterval}`}
-    >
-      <Checkbox
-        checked={!over24}
-        value="checkedItem"
-        inputProps={{ 'aria-label': 'Checkbox Item' }}
-      />
-      {itemName}
-    </div>
+    <>
+      <div
+        id={itemId}
+        aria-label={`Estimated number of days till next next purchase: ${nextPurchaseInterval}`}
+      >
+        <Checkbox
+          checked={!over24}
+          onClick={markPurchased}
+          value="checkedItem"
+          inputProps={{ 'aria-label': 'Checkbox Item' }}
+        />
+        {itemName}
+
+        <span onClick={deleteItem}>
+          <DeleteIcon />
+        </span>
+      </div>
+    </>
   );
 };
 
