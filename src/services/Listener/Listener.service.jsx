@@ -16,7 +16,6 @@ const Listener = props => {
   });
 
   useEffect(() => {
-    // console.log(items);
   }, [items]);
 
   //To update the list of items when there is a change
