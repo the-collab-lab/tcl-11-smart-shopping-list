@@ -75,6 +75,8 @@ const Item = props => {
   const deleteItem = event => {
     event.preventDefault();
     console.log('hi');
+    // Insert Modal to handle delete alert message
+    // <Modal/>
     firebase.dataBase
       .collection(localToken)
       .get()
