@@ -7,6 +7,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Checkbox from '@material-ui/core/Checkbox';
 import './Item.style.scss';
 
+import { Modal } from '../../components/component.index';
+
 const Item = props => {
   const itemName = props.name;
   const itemId = props.id.toString();
@@ -73,7 +75,6 @@ const Item = props => {
   const deleteItem = event => {
     event.preventDefault();
     console.log('hi');
-
     firebase.dataBase
       .collection(localToken)
       .get()
