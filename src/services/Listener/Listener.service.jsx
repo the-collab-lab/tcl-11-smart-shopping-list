@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import * as firebase from '../../lib/firebase';
 import Item from '../../components/Item/Item.component';
+import { Card } from '../../components/component.index.js';
+import './Listener.style.scss';
 
 const Listener = props => {
   const [localToken, setLocalToken] = useState(props.localToken);
+  const [isEmpty, SetIsEmpty] = useState(true);
   const [items, setItems] = useState([]);
   const secondsInDay = 86400;
   let itemsInCollection = [];
@@ -11,6 +14,9 @@ const Listener = props => {
   useEffect(() => {
     listenForUpdates();
   });
+
+  useEffect(() => {
+  }, [items]);
 
   //To update the list of items when there is a change
   const listenForUpdates = () => {
@@ -49,26 +55,49 @@ const Listener = props => {
           };
         }
       });
-      setItems(itemsInCollection);
+
+      //To sort the itemsByEstimatedDays
+      let sortedItemsByEstimatedDays = itemsInCollection.slice(0);
+      sortedItemsByEstimatedDays.sort((a, b) => {
+        //sorts by next purchase interval
+        if (a.nextPurchaseInterval > b.nextPurchaseInterval) return 1;
+        if (a.nextPurchaseInterval < b.nextPurchaseInterval) return -1;
+
+        // when initial sorting is done, sorts alphabetically. This will only sort items that
+        // have the same purchase interval, hence the reason for our conditionals of > and <
+        // with nextPurchaseInterval in our previous statements above!
+        if (a.name > b.name) return 1;
+        if (a.name < b.name) return -1;
+      });
+      setItems(sortedItemsByEstimatedDays);
+      if (itemsInCollection.length > 0) {
+        SetIsEmpty(false);
+      }
     });
   };
 
   return (
     <div className="lists__container">
-      {items.map(item => (
-        <Item
-          key={item.id}
-          name={item.name}
-          id={item.id}
-          date={item.lastPurchaseDate}
-          localToken={localToken}
-          over24={item.over24}
-          lastEstimate={item.lastEstimate}
-          latestInterval={item.latestInterval}
-          numberOfPurchases={item.numberOfPurchases}
-          nextPurchaseInterval={item.nextPurchaseInterval}
-        ></Item>
-      ))}
+      {isEmpty ? (
+        <Card />
+      ) : (
+        items.map(item => (
+          <Item
+            key={item.id}
+            name={item.name}
+            id={item.id}
+            date={item.lastPurchaseDate}
+            localToken={localToken}
+            over24={item.over24}
+            lastEstimate={item.lastEstimate}
+            latestInterval={item.latestInterval}
+            numberOfPurchases={item.numberOfPurchases}
+            nextPurchaseInterval={item.nextPurchaseInterval}
+            resupplyPeriod={item.resupplyPeriod}
+          ></Item>
+        ))
+      )}
+      ;{' '}
     </div>
   );
 };
