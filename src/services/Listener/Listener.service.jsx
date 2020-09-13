@@ -5,12 +5,13 @@ import Item from '../../components/Item/Item.component';
 const Listener = props => {
   const [localToken, setLocalToken] = useState(props.localToken);
   const [items, setItems] = useState([]);
-  const secondsInDay = 86400;
   let itemsInCollection = [];
 
   useEffect(() => {
     listenForUpdates();
   });
+
+  useEffect(() => {}, [items]);
 
   //To update the list of items when there is a change
   const listenForUpdates = () => {
@@ -27,7 +28,8 @@ const Listener = props => {
             currentTimeInSeconds - lastPurchasedTimeInSeconds;
 
           //Item was purchased over 24 hours ago
-          if (timeDifference >= secondsInDay) {
+          if (timeDifference >= 86400) {
+            // There are 86400 seconds in a 24 hour day
             itemsInCollection[index] = {
               ...itemsInCollection[index],
               over24: true,
@@ -49,7 +51,21 @@ const Listener = props => {
           };
         }
       });
-      setItems(itemsInCollection);
+
+      //To sort the itemsByEstimatedDays
+      let sortedItemsByEstimatedDays = itemsInCollection.slice(0);
+      sortedItemsByEstimatedDays.sort((a, b) => {
+        //sorts by next purchase interval
+        if (a.nextPurchaseInterval > b.nextPurchaseInterval) return 1;
+        if (a.nextPurchaseInterval < b.nextPurchaseInterval) return -1;
+
+        // when initial sorting is done, sorts alphabetically. This will only sort items that
+        // have the same purchase interval, hence the reason for our conditionals of > and <
+        // with nextPurchaseInterval in our previous statements above!
+        if (a.name > b.name) return 1;
+        if (a.name < b.name) return -1;
+      });
+      setItems(sortedItemsByEstimatedDays);
     });
   };
 
@@ -67,6 +83,7 @@ const Listener = props => {
           latestInterval={item.latestInterval}
           numberOfPurchases={item.numberOfPurchases}
           nextPurchaseInterval={item.nextPurchaseInterval}
+          resupplyPeriod={item.resupplyPeriod}
         ></Item>
       ))}
     </div>
