@@ -37,6 +37,7 @@ const List = props => {
           </div>
         </>
       )}
+      <> </>
       <Footer />
     </div>
   );

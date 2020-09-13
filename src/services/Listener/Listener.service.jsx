@@ -10,7 +10,7 @@ const Listener = props => {
   let itemsInCollection = [];
   const [items, setItems] = useState([]);
   const [isEmpty, SetIsEmpty] = useState(true);
-  const localToken = props.localToken;
+  const [localToken, SetLocalToken] = useState(props.localToken);
   const [searchData, setSearchData] = useState([]);
   const secondsInDay = 86400;
   const [unfilteredItems, setUnfilteredItems] = useState([]);

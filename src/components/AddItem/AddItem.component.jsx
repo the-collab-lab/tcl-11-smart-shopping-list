@@ -13,7 +13,9 @@ import Listener from '../../services/Listener/Listener.service';
 import './AddItem.style.scss';
 
 const AddItem = props => {
-  const collectionTokenName = props.location.state.localToken;
+  const [collectionTokenName, SetCollectionTokenName] = useState(
+    props.location.state.localToken,
+  );
   const [isAdded, setIsAdded] = useState(null);
   const [itemName, setItemName] = useState(null);
   const lastPurchaseDate = null;
