@@ -6,6 +6,7 @@ import Footer from './Footer/Footer.component.jsx';
 import FormInput from './FormInput/FormInput.component';
 import FormRadioButtons from './FormRadioButtons/FormRadioButtons.component';
 import Lists from './Lists/Lists.component';
+import Modal from './Lists/Lists.component';
 
 export {
   AddItem,
@@ -16,4 +17,5 @@ export {
   FormInput,
   FormRadioButtons,
   Lists,
+  Modal,
 };
