@@ -1,12 +1,16 @@
+// React Imports
 import React, { useEffect } from 'react';
 import * as firebase from '../../lib/firebase';
 import calculateEstimate from '../../lib/estimates';
-import { makeStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Checkbox from '@material-ui/core/Checkbox';
+
+// Custom Styles
 import './Item.style.scss';
 
+// Material UI Imports
+import DeleteIcon from '@material-ui/icons/Delete';
+import Checkbox from '@material-ui/core/Checkbox';
+
+// Custom Component Imports
 import { Modal } from '../../components/component.index';
 
 const Item = props => {
@@ -74,7 +78,7 @@ const Item = props => {
   // Remove item from UI and database
   const deleteItem = event => {
     event.preventDefault();
-    console.log('hi');
+    console.log('Item removed');
     // Insert Modal to handle delete alert message
     // <Modal/>
     firebase.dataBase
