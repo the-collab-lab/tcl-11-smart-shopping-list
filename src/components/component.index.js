@@ -1,4 +1,5 @@
 import AddItem from './AddItem/AddItem.component';
+import Card from './Card/Card.component';
 import CustomButton from './CustomButton/CustomButton.component';
 import Home from './Home/Home.component.jsx';
 import List from './List/List.component';
@@ -7,9 +8,9 @@ import FormInput from './FormInput/FormInput.component';
 import FormRadioButtons from './FormRadioButtons/FormRadioButtons.component';
 import Lists from './Lists/Lists.component';
 
-
 export {
   AddItem,
+  Card,
   CustomButton,
   Home,
   List,

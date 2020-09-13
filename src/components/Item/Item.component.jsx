@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import 'firebase/firestore';
 import * as firebase from '../../lib/firebase';
 import calculateEstimate from '../../lib/estimates';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -10,18 +9,14 @@ const Item = props => {
   const itemId = props.id.toString();
   const localToken = props.localToken;
   const over24 = props.over24;
+  const resupplyPeriod = props.resupplyPeriod;
   const secondsInDay = 86400;
   let lastEstimate = props.lastEstimate;
   let latestInterval = props.latestInterval;
   let numberOfPurchases = props.numberOfPurchases;
   let nextPurchaseInterval = props.nextPurchaseInterval;
   let lastPurchaseDate = props.date;
-
-  useEffect(() => {
-    if (over24 === false) {
-      document.getElementById(itemId).setAttribute('class', 'item__hightlight');
-    }
-  });
+  let lastPurchasedTimeInSeconds = 0;
 
   // To update the purchase date
   const markPurchased = event => {
@@ -36,7 +31,7 @@ const Item = props => {
       latestInterval = 0;
     } else {
       let currentTimeInSeconds = new Date().getTime() / 1000;
-      let lastPurchasedTimeInSeconds = lastPurchaseDate.seconds;
+      lastPurchasedTimeInSeconds = lastPurchaseDate.seconds;
       latestInterval = Math.ceil(
         (currentTimeInSeconds - lastPurchasedTimeInSeconds) / secondsInDay,
       );
@@ -49,8 +44,6 @@ const Item = props => {
       latestInterval,
       numberOfPurchases,
     );
-
-    document.getElementById(itemId).setAttribute('class', 'highlight');
 
     firebase.dataBase
       .collection(localToken)
@@ -75,8 +68,40 @@ const Item = props => {
       });
   };
 
+  useEffect(() => {
+    if (over24 === false) {
+      document.getElementById(itemId).style.textDecoration = 'line-through';
+    }
+    // To highlight the items based on resupplyPeriod
+    if (resupplyPeriod === 7) {
+      document.getElementById(itemId).setAttribute('class', 'list__item--soon');
+      return;
+    } else if (resupplyPeriod === 14) {
+      document
+        .getElementById(itemId)
+        .setAttribute('class', 'list__item--kind-of-soon');
+      return;
+    } else if (resupplyPeriod === 30) {
+      document
+        .getElementById(itemId)
+        .setAttribute('class', 'list__item--not-soon');
+      return;
+    } else if (
+      numberOfPurchases < 2 ||
+      lastPurchasedTimeInSeconds > 2 * nextPurchaseInterval
+    ) {
+      document
+        .getElementById(itemId)
+        .setAttribute('class', 'list__item--inactive');
+    }
+  });
+
   return (
-    <div id={itemId} onClick={markPurchased}>
+    <div
+      id={itemId}
+      onClick={markPurchased}
+      aria-label={`Estimated number of days till next next purchase: ${nextPurchaseInterval}`}
+    >
       <Checkbox
         checked={!over24}
         value="checkedItem"
