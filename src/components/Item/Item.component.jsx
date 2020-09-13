@@ -10,6 +10,7 @@ const Item = props => {
   const localToken = props.localToken;
   const over24 = props.over24;
   const resupplyPeriod = props.resupplyPeriod;
+  const secondsInDay = 86400;
   let lastEstimate = props.lastEstimate;
   let latestInterval = props.latestInterval;
   let numberOfPurchases = props.numberOfPurchases;
@@ -32,8 +33,8 @@ const Item = props => {
       let currentTimeInSeconds = new Date().getTime() / 1000;
       lastPurchasedTimeInSeconds = lastPurchaseDate.seconds;
       latestInterval = Math.ceil(
-        (currentTimeInSeconds - lastPurchasedTimeInSeconds) / 86400,
-      ); // There are 86400 seconds in a 24 hour day
+        (currentTimeInSeconds - lastPurchasedTimeInSeconds) / secondsInDay,
+      );
     }
 
     // To calculate the next purchase day

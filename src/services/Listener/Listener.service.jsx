@@ -8,6 +8,7 @@ const Listener = props => {
   const [localToken, setLocalToken] = useState(props.localToken);
   const [isEmpty, SetIsEmpty] = useState(true);
   const [items, setItems] = useState([]);
+  const secondsInDay = 86400;
   let itemsInCollection = [];
 
   useEffect(() => {
@@ -33,8 +34,7 @@ const Listener = props => {
             currentTimeInSeconds - lastPurchasedTimeInSeconds;
 
           //Item was purchased over 24 hours ago
-          if (timeDifference >= 86400) {
-            // There are 86400 seconds in a 24 hour day
+          if (timeDifference >= secondsInDay) {
             itemsInCollection[index] = {
               ...itemsInCollection[index],
               over24: true,
