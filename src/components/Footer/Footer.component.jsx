@@ -13,21 +13,6 @@ const Footer = () => (
     >
       Home
     </NavLink>
-    <NavLink
-      className="footer__link"
-      exact
-      to="/list"
-      activeClassName="footer__link--active"
-    >
-      List
-    </NavLink>
-    <NavLink
-      className="footer__link"
-      activeClassName="footer__link--active"
-      to="/addItem"
-    >
-      Add an Item
-    </NavLink>
   </div>
 );
 

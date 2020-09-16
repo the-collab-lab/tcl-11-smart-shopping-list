@@ -3,8 +3,9 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 // Custom Imports
-import { Home, List, AddItem, Footer } from './components/component.index';
+import { Home, List, AddItem } from './components/component.index';
 import TestComponent from './Testing/test.component';
+
 import './App.css';
 
 function App() {
@@ -16,8 +17,6 @@ function App() {
         <Route path="/addItem" component={AddItem} />
         <Route path="/test" component={TestComponent} />
       </Switch>
-
-      <Footer />
     </div>
   );
 }

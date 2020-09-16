@@ -1,13 +1,13 @@
-import React from 'react';
+// import React from 'react';
 
-import { FirebaseContext } from '../components/Firebase';
+// import { FirebaseContext } from '../components/Firebase';
 
-const TestComponent = () => (
-  <FirebaseContext.Consumer>
-    {firebase => {
-      return <div>I've access to Firebase and render something.</div>;
-    }}
-  </FirebaseContext.Consumer>
-);
+// const TestComponent = () => (
+//   <FirebaseContext.Consumer>
+//     {firebase => {
+//       return <div>I've access to Firebase and render something.</div>;
+//     }}
+//   </FirebaseContext.Consumer>
+// );
 
-export default TestComponent;
+// export default TestComponent;

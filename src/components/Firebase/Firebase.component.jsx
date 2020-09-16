@@ -14,7 +14,11 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 //To reference database
-export const db = firebase.firestore();
+
+// firebase.db reverted to original firebase.dataBase
+
+// export const db = firebase.firestore();
+export const dataBase = firebase.firestore();
 
 class Firebase {
   constructor() {
