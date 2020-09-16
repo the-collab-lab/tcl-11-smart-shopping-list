@@ -1,26 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import * as firebase from '../../lib/firebase';
+import { Card } from '../../components/component.index.js';
 import Item from '../../components/Item/Item.component';
 
-const Listener = props => {
-  const [localToken, setLocalToken] = useState(props.localToken);
+import './Listener.style.scss';
+
+const Listener = (localToken) => {
   const [items, setItems] = useState([]);
+  const [isEmpty, SetIsEmpty] = useState(true);
+  const collectionTokenName = localStorage.getItem('token');
   const secondsInDay = 86400;
   let itemsInCollection = [];
 
   useEffect(() => {
     listenForUpdates();
-  });
+  }, []);
 
   //To update the list of items when there is a change
   const listenForUpdates = () => {
-    firebase.dataBase.collection(localToken).onSnapshot(snapshot => {
+    firebase.dataBase.collection(collectionTokenName).onSnapshot(snapshot => {
       itemsInCollection = snapshot.docs.map(doc => doc.data());
 
       //To check if there has been 24 hours
       itemsInCollection.forEach((item, index) => {
         //Was marked as purchased before
-        if (item.lastPurchaseDate !== null) {
+        if (item.lastPurchaseDate !== null) { 
           let currentTimeInSeconds = new Date().getTime() / 1000;
           let lastPurchasedTimeInSeconds = item.lastPurchaseDate.seconds;
           let timeDifference =
@@ -50,13 +54,19 @@ const Listener = props => {
         }
       });
       setItems(itemsInCollection);
+
+      if (itemsInCollection.length > 0) {
+        SetIsEmpty(false);
+      }
     });
   };
 
   return (
-    <div className="lists__container">
-      {items.map(item => (
-        <Item
+    <div className="listener__container">
+      {isEmpty ? (
+        <Card />
+      ) : (
+        items.map(item =><Item
           key={item.id}
           name={item.name}
           id={item.id}
@@ -67,8 +77,8 @@ const Listener = props => {
           latestInterval={item.latestInterval}
           numberOfPurchases={item.numberOfPurchases}
           nextPurchaseInterval={item.nextPurchaseInterval}
-        ></Item>
-      ))}
+        ></Item>)
+      )}
     </div>
   );
 };

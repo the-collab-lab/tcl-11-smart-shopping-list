@@ -21,12 +21,12 @@ const List = props => {
 
   return (
     <div className="list__page">
-      <h1 className="page__title">List</h1>
+      <h1 className="page__title">Shopping List</h1>
 
       {localToken ? (
         <>
           <Listener localToken={localToken} />
-          <br /> <br />
+
           <button onClick={redirectAddItem}> Add Item</button>
         </>
       ) : (
