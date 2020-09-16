@@ -3,6 +3,7 @@ import Listener from '../../services/Listener/Listener.service';
 
 import { Footer } from '../component.index';
 import { useHistory } from 'react-router-dom';
+import { CustomButton } from '../component.index';
 
 const List = props => {
   const listProps = props.location.state;
@@ -33,7 +34,7 @@ const List = props => {
         <>
           <div>
             <p> Your shopping list is currently empty.</p>
-            <button onClick={redirectAddItem}> Add Item</button>
+            <CustomButton onClick={redirectAddItem}>Add Item</CustomButton>
           </div>
         </>
       )}

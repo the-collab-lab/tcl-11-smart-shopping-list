@@ -5,10 +5,20 @@ import Item from '../../components/Item/Item.component';
 
 import './Listener.style.scss';
 
-const Listener = (localToken) => {
+import { CrossIcon } from '../../assets';
+
+// bl_sd_list_filter
+const Listener = props => {
+  const [unfilteredItems, setUnfilteredItems] = useState([]);
+  const [filteredItems, setFilteredItems] = useState([]);
+  const [searchData, setSearchData] = useState([]);
+  const collectionTokenName = localStorage.getItem('token');
+
+  // Leaving both main and local branches' changes in until i can figure out what can be safely removed.
+  // main
+  const [localToken, setLocalToken] = useState(props.localToken);
   const [items, setItems] = useState([]);
   const [isEmpty, SetIsEmpty] = useState(true);
-  const collectionTokenName = localStorage.getItem('token');
   const secondsInDay = 86400;
   let itemsInCollection = [];
 
@@ -16,15 +26,37 @@ const Listener = (localToken) => {
     listenForUpdates();
   }, []);
 
+  useEffect(() => {
+    let unfilteredArray = [];
+    unfilteredItems.forEach(unfilteredItem => {
+      unfilteredArray.push(unfilteredItem.name);
+
+      const searchFilter = unfilteredArray.filter(unfilteredArray =>
+        unfilteredArray.toLowerCase().includes(searchData.toLowerCase()),
+      );
+
+      setFilteredItems(searchFilter);
+    });
+  }, [searchData]);
+
+  const handleChange = event => {
+    setSearchData(event.target.value);
+  };
+
+  const clearSearch = () => {
+    setSearchData('');
+  };
+
   //To update the list of items when there is a change
   const listenForUpdates = () => {
     firebase.dataBase.collection(collectionTokenName).onSnapshot(snapshot => {
       itemsInCollection = snapshot.docs.map(doc => doc.data());
+      setUnfilteredItems(itemsInCollection);
 
       //To check if there has been 24 hours
       itemsInCollection.forEach((item, index) => {
         //Was marked as purchased before
-        if (item.lastPurchaseDate !== null) { 
+        if (item.lastPurchaseDate !== null) {
           let currentTimeInSeconds = new Date().getTime() / 1000;
           let lastPurchasedTimeInSeconds = item.lastPurchaseDate.seconds;
           let timeDifference =
@@ -62,24 +94,80 @@ const Listener = (localToken) => {
   };
 
   return (
-    <div className="listener__container">
-      {isEmpty ? (
-        <Card />
-      ) : (
-        items.map(item =><Item
-          key={item.id}
-          name={item.name}
-          id={item.id}
-          date={item.lastPurchaseDate}
-          localToken={localToken}
-          over24={item.over24}
-          lastEstimate={item.lastEstimate}
-          latestInterval={item.latestInterval}
-          numberOfPurchases={item.numberOfPurchases}
-          nextPurchaseInterval={item.nextPurchaseInterval}
-        ></Item>)
-      )}
-    </div>
+    <>
+      <div className="search__bar">
+        <input
+          type="text"
+          className="search__input"
+          placeholder="Search..."
+          value={searchData}
+          onChange={handleChange}
+        />
+
+        <CrossIcon
+          className={`${
+            searchData.length ? '' : 'search__icon--invisible'
+          } search__icon`}
+          onClick={clearSearch}
+        />
+      </div>
+      {/* <div className="items__list">
+        {searchData.length < 1 ? (
+          unfilteredItems.map(item => <div key={item.id}> {item.name} </div>)
+        ) : (
+          <div>
+            {filteredItems.map(filteredItem => (
+              <div> {filteredItem} </div>
+            ))}
+          </div>
+        )}
+      </div> */}
+      <div className="items__list">
+        {searchData.length < 1 ? (
+          unfilteredItems.map(item => (
+            <Item
+              key={item.id}
+              name={item.name}
+              id={item.id}
+              date={item.lastPurchaseDate}
+              localToken={localToken}
+              over24={item.over24}
+              lastEstimate={item.lastEstimate}
+              latestInterval={item.latestInterval}
+              numberOfPurchases={item.numberOfPurchases}
+              nextPurchaseInterval={item.nextPurchaseInterval}
+            ></Item>
+          ))
+        ) : (
+          <div>
+            {filteredItems.map(filteredItem => (
+              <div> {filteredItem} </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </>
+
+    // Pre-existing map from main.
+
+    // <div className="listener__container">
+    //   {isEmpty ? (
+    //     <Card />
+    //   ) : (
+    //     items.map(item =><Item
+    //       key={item.id}
+    //       name={item.name}
+    //       id={item.id}
+    //       date={item.lastPurchaseDate}
+    //       localToken={localToken}
+    //       over24={item.over24}
+    //       lastEstimate={item.lastEstimate}
+    //       latestInterval={item.latestInterval}
+    //       numberOfPurchases={item.numberOfPurchases}
+    //       nextPurchaseInterval={item.nextPurchaseInterval}
+    //     ></Item>)
+    //   )}
+    // </div>
   );
 };
 

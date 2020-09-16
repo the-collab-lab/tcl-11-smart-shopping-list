@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import getToken from '../../lib/tokens';
-import { useHistory } from 'react-router-dom';
-import { FormInput, Lists } from '../component.index';
 import * as firebase from '../../lib/firebase';
+import { useHistory } from 'react-router-dom';
+
+import { CustomButton, FormInput, Lists } from '../component.index';
 import './Home.style.scss';
 
 const Home = () => {
@@ -55,14 +56,18 @@ const Home = () => {
         <>
           <h1 className="page__title">Welcome Back!</h1>
           <br /> <br />
-          <button>Add a new Item</button>
+          {/* <button onClick={redirectAddItem}>Add a new Item</button> */}
+          <CustomButton onClick={joinExistingList}>Add a new Item</CustomButton>
         </>
       ) : (
         <>
           <div>
             <h1 className="page__title">Welcome!</h1>
             <p>You do not have a shopping list created.</p>
-            <button onClick={generateToken}>Create a New Shopping List</button>
+            {/* <button onClick={generateToken}>Create a New Shopping List</button> */}
+            <CustomButton onClick={generateToken} large>
+              Create a New Shopping List
+            </CustomButton>
           </div>
         </>
       )}
