@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import * as firebase from '../../lib/firebase';
+import { Card } from '../../components/component.index.js';
 import Item from '../../components/Item/Item.component';
 
 import './Listener.style.scss';
@@ -17,12 +18,13 @@ const Listener = props => {
   // main
   const [localToken, setLocalToken] = useState(props.localToken);
   const [items, setItems] = useState([]);
+  const [isEmpty, SetIsEmpty] = useState(true);
   const secondsInDay = 86400;
   let itemsInCollection = [];
 
   useEffect(() => {
     listenForUpdates();
-  });
+  }, []);
 
   useEffect(() => {
     let unfilteredArray = [];
@@ -47,7 +49,7 @@ const Listener = props => {
 
   //To update the list of items when there is a change
   const listenForUpdates = () => {
-    firebase.dataBase.collection(localToken).onSnapshot(snapshot => {
+    firebase.dataBase.collection(collectionTokenName).onSnapshot(snapshot => {
       itemsInCollection = snapshot.docs.map(doc => doc.data());
       setUnfilteredItems(itemsInCollection);
 
@@ -84,6 +86,10 @@ const Listener = props => {
         }
       });
       setItems(itemsInCollection);
+
+      if (itemsInCollection.length > 0) {
+        SetIsEmpty(false);
+      }
     });
   };
 
@@ -144,9 +150,11 @@ const Listener = props => {
 
     // Pre-existing map from main.
 
-    // <div className="lists__container">
-    //   {items.map(item => (
-    //     <Item
+    // <div className="listener__container">
+    //   {isEmpty ? (
+    //     <Card />
+    //   ) : (
+    //     items.map(item =><Item
     //       key={item.id}
     //       name={item.name}
     //       id={item.id}
@@ -157,8 +165,8 @@ const Listener = props => {
     //       latestInterval={item.latestInterval}
     //       numberOfPurchases={item.numberOfPurchases}
     //       nextPurchaseInterval={item.nextPurchaseInterval}
-    //     ></Item>
-    //   ))}
+    //     ></Item>)
+    //   )}
     // </div>
   );
 };

@@ -71,6 +71,34 @@ const Home = () => {
           </div>
         </>
       )}
+
+      <div className="home__page">
+        <h1 className="page__title">Welcome to your Smart Shopping list!</h1>
+
+        <button onClick={generateToken} className="page__button">
+          Create a New Shopping List
+        </button>
+        <p className="page__or__message"> or </p>
+        <p className="page__subtitle">
+          Join an existing shopping list by entering a three word token
+        </p>
+        <FormInput
+          onChange={onChange}
+          label={'Share Token'}
+          value={tokenValue}
+        />
+        <button
+          onClick={joinExistingList}
+          className={`${!tokenValue ? 'button--disabled' : ''} page_button`}
+        >
+          {`	
+        ${!tokenValue ? 'Please enter List name first' : 'Add a token'}`}
+        </button>
+        <p className="page__subtitle">
+          Click on the token to select the list you want to edit:
+        </p>
+        <Lists />
+      </div>
     </div>
   );
 };
