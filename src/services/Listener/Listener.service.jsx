@@ -5,7 +5,7 @@ import Item from '../../components/Item/Item.component';
 
 import './Listener.style.scss';
 
-const Listener = () => {
+const Listener = (localToken) => {
   const [items, setItems] = useState([]);
   const [isEmpty, SetIsEmpty] = useState(true);
   const collectionTokenName = localStorage.getItem('token');
