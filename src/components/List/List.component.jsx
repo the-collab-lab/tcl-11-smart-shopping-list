@@ -25,7 +25,7 @@ const List = props => {
 
       {localToken ? (
         <>
-          <Listener />
+          <Listener localToken={localToken} />
 
           <button onClick={redirectAddItem}> Add Item</button>
         </>
