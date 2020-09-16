@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-// import * as firebase from '../Firebase/Firebase.component';
-import 'firebase/firestore';
-import * as firebase from 'firebase/app';
+import * as firebase from '../../lib/firebase';
 import randomString from 'randomstring';
 
 import {
@@ -10,6 +8,9 @@ import {
   FormInput,
   FormRadioButtons,
 } from '../component.index';
+
+import './AddItem.style.scss';
+
 import Listener from '../../services/Listener/Listener.service';
 
 import './AddItem.style.scss';
@@ -19,9 +20,14 @@ const AddItem = props => {
   const [resupplyPeriod, setResupplyPeriod] = useState(7);
   const [lastPurchaseDate, setLastPurchaseDate] = useState(null);
   const [isAdded, setIsAdded] = useState(null);
+
   const [collectionTokenName, setCollectionName] = useState(
     props.location.state.localToken,
   );
+  const lastEstimate = 0;
+  const latestInterval = 0;
+  const numberOfPurchases = 0;
+  const nextPurchaseInterval = 0;
   const itemId = randomString.generate(20);
 
   //To update the value on change
@@ -36,32 +42,46 @@ const AddItem = props => {
 
   //To add the item to the database
   const addNewItemValue = event => {
-    const db = firebase.firestore();
     event.preventDefault();
 
-    // Clean Input
-    const cleanInput = itemName.toLowerCase().replace(/[^\w\s]|/g, '');
+    // Clean Input to remove capitalization, punctuation, and spaces
+    const cleanInput = itemName
+      .toLowerCase()
+      .replace(/[^\w\s]|/g, '')
+      .replace(/[\s]/, '');
 
-    db.collection(collectionTokenName)
+    firebase.dataBase
+      .collection(collectionTokenName)
       .get()
       .then(snapshot => {
         const items = snapshot.docs
+
           .map(query => query.data())
-          .map(data => data.name.toLowerCase().replace(/[^\w\s]|/g, ''));
+
+          .map(data =>
+            data.name
+              .toLowerCase()
+              .replace(/[^\w\s]|/g, '')
+              .replace(/[\s]/, ''),
+          );
 
         if (!items.includes(cleanInput)) {
-          return db.collection(collectionTokenName).add({
+          return firebase.dataBase.collection(collectionTokenName).add({
             name: itemName,
             resupplyPeriod: resupplyPeriod,
             id: itemId,
             lastPurchaseDate: lastPurchaseDate,
+            lastEstimate: lastEstimate,
+            latestInterval: latestInterval,
+            numberOfPurchases: numberOfPurchases,
+            nextPurchaseInterval: nextPurchaseInterval,
           });
           setIsAdded(true);
           setTimeout(() => {
             setIsAdded(false);
           }, 1200);
         } else {
-          alert('already exists');
+          alert('already exists'); // Plan to make accessible after today's discussion
         }
       });
   };
@@ -69,7 +89,6 @@ const AddItem = props => {
   return (
     <div className="classNewItem">
       <h1 className="page__title">Add Item</h1>
-      <Listener localToken={collectionTokenName} />
       <form onSubmit={addNewItemValue} className="item__form">
         <div className="item__form__wrapper">
           <div className="tooltip__container">

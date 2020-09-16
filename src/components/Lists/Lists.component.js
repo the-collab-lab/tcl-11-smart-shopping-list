@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import * as firebase from '../Firebase/Firebase.component';
+import * as firebase from '../../lib/firebase';
 import './Lists.style.scss';
 
 const Lists = () => {
@@ -43,6 +43,7 @@ const Lists = () => {
     <div>
       {currentKeys.map(key => (
         <Link
+          key={key}
           className="lists__link"
           to={{ pathname: '/list', state: { localToken: key } }}
         >
