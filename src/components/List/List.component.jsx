@@ -6,11 +6,11 @@ import { useHistory } from 'react-router-dom';
 import { CustomButton } from '../component.index';
 
 const List = props => {
+  const history = useHistory();
   const listProps = props.location.state;
   const token = listProps.localToken;
   const [localToken, setLocalToken] = useState(token);
 
-  const history = useHistory();
   // Redirect to the Add Item View
   const redirectAddItem = () => {
     history.push('/addItem', { localToken: localToken });
@@ -38,6 +38,7 @@ const List = props => {
           </div>
         </>
       )}
+      <> </>
       <Footer />
     </div>
   );

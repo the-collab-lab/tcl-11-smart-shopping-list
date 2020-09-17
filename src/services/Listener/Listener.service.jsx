@@ -1,30 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import * as firebase from '../../lib/firebase';
+import { CrossIcon } from '../../assets';
 import { Card } from '../../components/component.index.js';
 import Item from '../../components/Item/Item.component';
-
 import './Listener.style.scss';
-
-import { CrossIcon } from '../../assets';
 
 // bl_sd_list_filter
 const Listener = props => {
-  const [unfilteredItems, setUnfilteredItems] = useState([]);
-  const [filteredItems, setFilteredItems] = useState([]);
-  const [searchData, setSearchData] = useState([]);
-  const collectionTokenName = localStorage.getItem('token');
 
-  // Leaving both main and local branches' changes in until i can figure out what can be safely removed.
-  // main
-  const [localToken, setLocalToken] = useState(props.localToken);
+  const [filteredItems, setFilteredItems] = useState([]);
+  let itemsInCollection = [];
   const [items, setItems] = useState([]);
   const [isEmpty, SetIsEmpty] = useState(true);
+  const [localToken, SetLocalToken] = useState(props.localToken);
+  const [searchData, setSearchData] = useState([]);
+  const [unfilteredItems, setUnfilteredItems] = useState([]);
   const secondsInDay = 86400;
-  let itemsInCollection = [];
+  
 
   useEffect(() => {
     listenForUpdates();
   }, []);
+
+  useEffect(() => {
+    let unfilteredArray = [];
+    unfilteredItems.forEach(unfilteredItem => {
+      unfilteredArray.push(unfilteredItem.name);
+
+      const searchFilter = unfilteredArray.filter(unfilteredArray =>
+        unfilteredArray.toLowerCase().includes(searchData.toLowerCase()),
+      );
+
+      setFilteredItems(searchFilter);
+    });
+  }, [searchData]);
+
+  const handleChange = event => {
+    setSearchData(event.target.value);
+  };
+
+  const clearSearch = () => {
+    setSearchData('');
+  };
+
+  useEffect(() => {}, [items]);
 
   useEffect(() => {
     let unfilteredArray = [];
@@ -85,7 +104,22 @@ const Listener = props => {
           };
         }
       });
-      setItems(itemsInCollection);
+
+      //To sort the itemsByEstimatedDays
+      let sortedItemsByEstimatedDays = itemsInCollection.slice(0);
+      sortedItemsByEstimatedDays.sort((a, b) => {
+        //sorts by next purchase interval
+        if (a.nextPurchaseInterval > b.nextPurchaseInterval) return 1;
+        if (a.nextPurchaseInterval < b.nextPurchaseInterval) return -1;
+
+        // when initial sorting is done, sorts alphabetically. This will only sort items that
+        // have the same purchase interval, hence the reason for our conditionals of > and <
+        // with nextPurchaseInterval in our previous statements above!
+        if (a.name > b.name) return 1;
+        if (a.name < b.name) return -1;
+      });
+      setItems(sortedItemsByEstimatedDays);
+      setUnfilteredItems(itemsInCollection);
 
       if (itemsInCollection.length > 0) {
         SetIsEmpty(false);
@@ -95,6 +129,7 @@ const Listener = props => {
 
   return (
     <>
+      <div className="listener__container">{isEmpty ? <Card /> : null}</div>
       <div className="search__bar">
         <input
           type="text"
@@ -111,17 +146,7 @@ const Listener = props => {
           onClick={clearSearch}
         />
       </div>
-      {/* <div className="items__list">
-        {searchData.length < 1 ? (
-          unfilteredItems.map(item => <div key={item.id}> {item.name} </div>)
-        ) : (
-          <div>
-            {filteredItems.map(filteredItem => (
-              <div> {filteredItem} </div>
-            ))}
-          </div>
-        )}
-      </div> */}
+
       <div className="items__list">
         {searchData.length < 1 ? (
           unfilteredItems.map(item => (
@@ -136,6 +161,8 @@ const Listener = props => {
               latestInterval={item.latestInterval}
               numberOfPurchases={item.numberOfPurchases}
               nextPurchaseInterval={item.nextPurchaseInterval}
+              resupplyPeriod={item.resupplyPeriod}
+
             ></Item>
           ))
         ) : (
@@ -147,27 +174,6 @@ const Listener = props => {
         )}
       </div>
     </>
-
-    // Pre-existing map from main.
-
-    // <div className="listener__container">
-    //   {isEmpty ? (
-    //     <Card />
-    //   ) : (
-    //     items.map(item =><Item
-    //       key={item.id}
-    //       name={item.name}
-    //       id={item.id}
-    //       date={item.lastPurchaseDate}
-    //       localToken={localToken}
-    //       over24={item.over24}
-    //       lastEstimate={item.lastEstimate}
-    //       latestInterval={item.latestInterval}
-    //       numberOfPurchases={item.numberOfPurchases}
-    //       nextPurchaseInterval={item.nextPurchaseInterval}
-    //     ></Item>)
-    //   )}
-    // </div>
   );
 };
 

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import getToken from '../../lib/tokens';
 import * as firebase from '../../lib/firebase';
-import { useHistory } from 'react-router-dom';
 
+import { useHistory } from 'react-router-dom';
 import { CustomButton, FormInput, Lists } from '../component.index';
+  
 import './Home.style.scss';
 
 const Home = () => {
@@ -32,8 +33,7 @@ const Home = () => {
     setLocalToken(token);
 
     //To set the item to the local storage
-
-    localStorage.setItem('token', token);
+    addTokenToStorage(token);
 
     // To go to addItem page
     history.push('/list', { localToken: token });
@@ -52,26 +52,6 @@ const Home = () => {
 
   return (
     <div>
-      {localToken ? (
-        <>
-          <h1 className="page__title">Welcome Back!</h1>
-          <br /> <br />
-          {/* <button onClick={redirectAddItem}>Add a new Item</button> */}
-          <CustomButton onClick={joinExistingList}>Add a new Item</CustomButton>
-        </>
-      ) : (
-        <>
-          <div>
-            <h1 className="page__title">Welcome!</h1>
-            <p>You do not have a shopping list created.</p>
-            {/* <button onClick={generateToken}>Create a New Shopping List</button> */}
-            <CustomButton onClick={generateToken} large>
-              Create a New Shopping List
-            </CustomButton>
-          </div>
-        </>
-      )}
-
       <div className="home__page">
         <h1 className="page__title">Welcome to your Smart Shopping list!</h1>
 

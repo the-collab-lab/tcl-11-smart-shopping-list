@@ -8,26 +8,22 @@ import {
   FormInput,
   FormRadioButtons,
 } from '../component.index';
-
-import './AddItem.style.scss';
-
 import Listener from '../../services/Listener/Listener.service';
 
 import './AddItem.style.scss';
 
 const AddItem = props => {
-  const [itemName, setItemName] = useState(null);
-  const [resupplyPeriod, setResupplyPeriod] = useState(7);
-  const [lastPurchaseDate, setLastPurchaseDate] = useState(null);
-  const [isAdded, setIsAdded] = useState(null);
-
-  const [collectionTokenName, setCollectionName] = useState(
+  const [collectionTokenName, setCollectionTokenName] = useState(
     props.location.state.localToken,
   );
+  const [isAdded, setIsAdded] = useState(null);
+  const [itemName, setItemName] = useState(null);
+  const lastPurchaseDate = null;
   const lastEstimate = 0;
   const latestInterval = 0;
-  const numberOfPurchases = 0;
   const nextPurchaseInterval = 0;
+  const numberOfPurchases = 0;
+  const [resupplyPeriod, setResupplyPeriod] = useState(7);
   const itemId = randomString.generate(20);
 
   //To update the value on change
@@ -46,8 +42,8 @@ const AddItem = props => {
 
     // The root of this merge conflict; firebase.db reverted to original firebase.dataBase
     // firebase.db
-
     // Clean Input to remove capitalization, punctuation, and spaces
+
     const cleanInput = itemName
       .toLowerCase()
       .replace(/[^\w\s]|/g, '')
@@ -60,7 +56,6 @@ const AddItem = props => {
         const items = snapshot.docs
 
           .map(query => query.data())
-
           .map(data =>
             data.name
               .toLowerCase()
@@ -92,6 +87,7 @@ const AddItem = props => {
   return (
     <div className="classNewItem">
       <h1 className="page__title">Add Item</h1>
+      <Listener localToken={collectionTokenName} />
       <form onSubmit={addNewItemValue} className="item__form">
         <div className="item__form__wrapper">
           <div className="tooltip__container">
