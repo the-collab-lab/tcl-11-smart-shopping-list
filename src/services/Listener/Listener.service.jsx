@@ -5,19 +5,43 @@ import { Card } from '../../components/component.index.js';
 import Item from '../../components/Item/Item.component';
 import './Listener.style.scss';
 
+// bl_sd_list_filter
 const Listener = props => {
+
   const [filteredItems, setFilteredItems] = useState([]);
   let itemsInCollection = [];
   const [items, setItems] = useState([]);
   const [isEmpty, SetIsEmpty] = useState(true);
   const [localToken, SetLocalToken] = useState(props.localToken);
   const [searchData, setSearchData] = useState([]);
-  const secondsInDay = 86400;
   const [unfilteredItems, setUnfilteredItems] = useState([]);
+  const secondsInDay = 86400;
+  
 
   useEffect(() => {
     listenForUpdates();
-  });
+  }, []);
+
+  useEffect(() => {
+    let unfilteredArray = [];
+    unfilteredItems.forEach(unfilteredItem => {
+      unfilteredArray.push(unfilteredItem.name);
+
+      const searchFilter = unfilteredArray.filter(unfilteredArray =>
+        unfilteredArray.toLowerCase().includes(searchData.toLowerCase()),
+      );
+
+      setFilteredItems(searchFilter);
+    });
+  }, [searchData]);
+
+  const handleChange = event => {
+    setSearchData(event.target.value);
+  };
+
+  const clearSearch = () => {
+    setSearchData('');
+  };
 
   useEffect(() => {}, [items]);
 
@@ -44,8 +68,9 @@ const Listener = props => {
 
   //To update the list of items when there is a change
   const listenForUpdates = () => {
-    firebase.dataBase.collection(localToken).onSnapshot(snapshot => {
+    firebase.dataBase.collection(collectionTokenName).onSnapshot(snapshot => {
       itemsInCollection = snapshot.docs.map(doc => doc.data());
+      setUnfilteredItems(itemsInCollection);
 
       //To check if there has been 24 hours
       itemsInCollection.forEach((item, index) => {
@@ -95,6 +120,7 @@ const Listener = props => {
       });
       setItems(sortedItemsByEstimatedDays);
       setUnfilteredItems(itemsInCollection);
+
       if (itemsInCollection.length > 0) {
         SetIsEmpty(false);
       }
@@ -103,8 +129,7 @@ const Listener = props => {
 
   return (
     <>
-      <div className="listener__container">{isEmpty ? <Card /> : ' '}</div>
-
+      <div className="listener__container">{isEmpty ? <Card /> : null}</div>
       <div className="search__bar">
         <input
           type="text"
@@ -121,6 +146,7 @@ const Listener = props => {
           onClick={clearSearch}
         />
       </div>
+
       <div className="items__list">
         {searchData.length < 1 ? (
           unfilteredItems.map(item => (
@@ -136,6 +162,7 @@ const Listener = props => {
               numberOfPurchases={item.numberOfPurchases}
               nextPurchaseInterval={item.nextPurchaseInterval}
               resupplyPeriod={item.resupplyPeriod}
+
             ></Item>
           ))
         ) : (

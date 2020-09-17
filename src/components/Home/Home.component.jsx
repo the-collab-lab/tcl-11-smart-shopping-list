@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import getToken from '../../lib/tokens';
-import { useHistory } from 'react-router-dom';
-import { FormInput, Lists } from '../component.index';
 import * as firebase from '../../lib/firebase';
 
+import { useHistory } from 'react-router-dom';
+import { CustomButton, FormInput, Lists } from '../component.index';
+  
 import './Home.style.scss';
 
 const Home = () => {
@@ -50,28 +51,34 @@ const Home = () => {
   };
 
   return (
-    <div className="home__page">
-      <h1 className="page__title">Welcome to your Smart Shopping list!</h1>
+    <div>
+      <div className="home__page">
+        <h1 className="page__title">Welcome to your Smart Shopping list!</h1>
 
-      <button onClick={generateToken} className="page__button">
-        Create a New Shopping List
-      </button>
-      <p className="page__or__message"> or </p>
-      <p className="page__subtitle">
-        Join an existing shopping list by entering a three word token
-      </p>
-      <FormInput onChange={onChange} label={'Share Token'} value={tokenValue} />
-      <button
-        onClick={joinExistingList}
-        className={`${!tokenValue ? 'button--disabled' : ''} page_button`}
-      >
-        {`
+        <button onClick={generateToken} className="page__button">
+          Create a New Shopping List
+        </button>
+        <p className="page__or__message"> or </p>
+        <p className="page__subtitle">
+          Join an existing shopping list by entering a three word token
+        </p>
+        <FormInput
+          onChange={onChange}
+          label={'Share Token'}
+          value={tokenValue}
+        />
+        <button
+          onClick={joinExistingList}
+          className={`${!tokenValue ? 'button--disabled' : ''} page_button`}
+        >
+          {`	
         ${!tokenValue ? 'Please enter List name first' : 'Add a token'}`}
-      </button>
-      <p className="page__subtitle">
-        Click on the token to select the list you want to edit:
-      </p>
-      <Lists />
+        </button>
+        <p className="page__subtitle">
+          Click on the token to select the list you want to edit:
+        </p>
+        <Lists />
+      </div>
     </div>
   );
 };
