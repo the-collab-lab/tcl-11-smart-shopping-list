@@ -41,7 +41,10 @@ const AddItem = props => {
     event.preventDefault();
 
     // Clean Input
-    const cleanInput = itemName.toLowerCase().replace(/[^\w\s]|/g, '');
+    const cleanInput = itemName
+      .toLowerCase()
+      .replace(/[^\w\s]|/g, '')
+      .replace(/[\s]/, '');
 
     firebase.dataBase
       .collection(collectionTokenName)
@@ -50,7 +53,12 @@ const AddItem = props => {
         const items = snapshot.docs
 
           .map(query => query.data())
-          .map(data => data.name.toLowerCase().replace(/[^\w\s]|/g, ''));
+          .map(data =>
+            data.name
+              .toLowerCase()
+              .replace(/[^\w\s]|/g, '')
+              .replace(/[\s]/, ''),
+          );
 
         if (!items.includes(cleanInput)) {
           return firebase.dataBase.collection(collectionTokenName).add({
