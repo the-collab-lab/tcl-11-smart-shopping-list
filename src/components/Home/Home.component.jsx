@@ -35,7 +35,7 @@ const Home = () => {
     addTokenToStorage(token);
 
     // To go to addItem page
-    history.push('/list', { [localToken]: token });
+    history.push('/list', { localToken: token });
   };
 
   //To add the token to the storage
