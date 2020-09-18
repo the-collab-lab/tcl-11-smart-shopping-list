@@ -104,7 +104,8 @@ const Item = props => {
 
   useEffect(() => {
     if (over24 === false) {
-      document.getElementById(itemId).style.textDecoration = 'line-through';
+      document.getElementById('item__name').style.textDecoration =
+        'line-through';
     }
     // To highlight the items based on resupplyPeriod
     if (resupplyPeriod === 7) {
@@ -141,12 +142,12 @@ const Item = props => {
         id="panel1a-header"
       >
         <Checkbox
+          onClick={markPurchased}
           checked={!over24}
           value="checkedItem"
-          onClick={markPurchased}
           inputProps={{ 'aria-label': 'Checkbox Item' }}
         />
-        <Typography>{itemName}</Typography>
+        <Typography id="item__name">{itemName}</Typography>
       </AccordionSummary>
       <AccordionDetails className="accordion__details">
         <div className="flex-container">
