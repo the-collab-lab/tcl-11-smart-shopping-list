@@ -7,7 +7,6 @@ import './Listener.style.scss';
 
 // bl_sd_list_filter
 const Listener = props => {
-
   const [filteredItems, setFilteredItems] = useState([]);
   let itemsInCollection = [];
   const [items, setItems] = useState([]);
@@ -16,7 +15,6 @@ const Listener = props => {
   const [searchData, setSearchData] = useState([]);
   const [unfilteredItems, setUnfilteredItems] = useState([]);
   const secondsInDay = 86400;
-  
 
   useEffect(() => {
     listenForUpdates();
@@ -43,32 +41,9 @@ const Listener = props => {
     setSearchData('');
   };
 
-  useEffect(() => {}, [items]);
-
-  useEffect(() => {
-    let unfilteredArray = [];
-    unfilteredItems.forEach(unfilteredItem => {
-      unfilteredArray.push(unfilteredItem.name);
-
-      const searchFilter = unfilteredArray.filter(unfilteredArray =>
-        unfilteredArray.toLowerCase().includes(searchData.toLowerCase()),
-      );
-
-      setFilteredItems(searchFilter);
-    });
-  }, [searchData]);
-
-  const handleChange = event => {
-    setSearchData(event.target.value);
-  };
-
-  const clearSearch = () => {
-    setSearchData('');
-  };
-
   //To update the list of items when there is a change
   const listenForUpdates = () => {
-    firebase.dataBase.collection(collectionTokenName).onSnapshot(snapshot => {
+    firebase.dataBase.collection(localToken).onSnapshot(snapshot => {
       itemsInCollection = snapshot.docs.map(doc => doc.data());
       setUnfilteredItems(itemsInCollection);
 
@@ -162,7 +137,6 @@ const Listener = props => {
               numberOfPurchases={item.numberOfPurchases}
               nextPurchaseInterval={item.nextPurchaseInterval}
               resupplyPeriod={item.resupplyPeriod}
-
             ></Item>
           ))
         ) : (
