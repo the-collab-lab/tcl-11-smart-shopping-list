@@ -133,7 +133,6 @@ const Item = props => {
   return (
     <Accordion
       id={itemId}
-      onClick={markPurchased}
       aria-label={`Estimated number of days till next next purchase: ${nextPurchaseInterval}`}
     >
       <AccordionSummary
@@ -144,14 +143,22 @@ const Item = props => {
         <Checkbox
           checked={!over24}
           value="checkedItem"
+          onClick={markPurchased}
           inputProps={{ 'aria-label': 'Checkbox Item' }}
         />
         <Typography>{itemName}</Typography>
       </AccordionSummary>
-      <AccordionDetails>
-        {/* lastPurchaseDate, Estimated number of days until purchase is made, Number of times items  has been purchased*/}
-
-        {dropdownLastPurchaseDate}
+      <AccordionDetails className="accordion__details">
+        <div className="flex-container">
+          {dropdownLastPurchaseDate
+            ? `Last Purchase Date: ${dropdownLastPurchaseDate}`
+            : "This item hasn't been purchased yet :("}
+        </div>
+        <div>
+          {' '}
+          {`Estimated number of days until next purchase: ${nextPurchaseInterval}`}
+        </div>
+        <div> {`Number of times purchased: ${numberOfPurchases}`}</div>
       </AccordionDetails>
     </Accordion>
   );
