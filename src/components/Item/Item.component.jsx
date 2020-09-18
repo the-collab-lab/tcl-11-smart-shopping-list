@@ -103,7 +103,9 @@ const Item = props => {
   };
 
   useEffect(() => {
-    if (over24 === false) {
+    if (!over24) {
+      // document.getElementById('item__name').style.textDecoration =
+      //   'line-through';
       document.getElementById('item__name').style.textDecoration =
         'line-through';
     }
@@ -129,6 +131,16 @@ const Item = props => {
         .getElementById(itemId)
         .setAttribute('class', 'list__item--inactive');
     }
+
+    // Set a state object thingmabob to act as dependency array trigger
+    // Handle Change method
+
+    //create over24 as local state, and pass props.over24 as its value, aka
+    // const [over24, setOver24] = useState(props.over24)
+
+    // useEffect(() => {
+    // do magic
+    // }, [over24])
   });
 
   return (
@@ -147,7 +159,7 @@ const Item = props => {
           value="checkedItem"
           inputProps={{ 'aria-label': 'Checkbox Item' }}
         />
-        <Typography id="item__name">{itemName}</Typography>
+        <h1 id="item__name">{itemName}</h1>
       </AccordionSummary>
       <AccordionDetails className="accordion__details">
         <div className="flex-container">
