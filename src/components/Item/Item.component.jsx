@@ -85,37 +85,6 @@ const Item = props => {
       });
   };
 
-  // Open Dialog
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  // Close Dialog
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  // Remove item from UI and database
-  const deleteItem = event => {
-    event.preventDefault();
-    console.log('Item removed'); // TODO: Remove
-
-    firebase.dataBase
-      .collection(localToken)
-      .get()
-      .then(snapshot => {
-        snapshot.forEach(doc => {
-          if (doc.data().id === itemId) {
-            const documentId = doc.id;
-            firebase.dataBase
-              .collection(localToken)
-              .doc(documentId)
-              .delete();
-          }
-        });
-      });
-    setOpen(false);
-  };
-
   useEffect(() => {
     if (over24 === false) {
       document.getElementById(itemId).style.textDecoration = 'line-through';
@@ -143,6 +112,35 @@ const Item = props => {
         .setAttribute('class', 'list__item--inactive');
     }
   });
+
+  // Open Dialog
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  // Close Dialog
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  // Remove item from UI and database
+  const deleteItem = event => {
+    event.preventDefault();
+    firebase.dataBase
+      .collection(localToken)
+      .get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          if (doc.data().id === itemId) {
+            const documentId = doc.id;
+            firebase.dataBase
+              .collection(localToken)
+              .doc(documentId)
+              .delete();
+          }
+        });
+      });
+    setOpen(false);
+  };
 
   return (
     <>
