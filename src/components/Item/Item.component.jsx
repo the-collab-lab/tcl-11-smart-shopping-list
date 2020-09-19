@@ -1,5 +1,7 @@
 // React Imports
 import React, { useEffect } from 'react';
+
+// Custom Component Imports
 import * as firebase from '../../lib/firebase';
 import calculateEstimate from '../../lib/estimates';
 
@@ -10,8 +12,13 @@ import './Item.style.scss';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Checkbox from '@material-ui/core/Checkbox';
 
-// Custom Component Imports
-import { Modal } from '../../components/component.index';
+// Add Material UI Imports for Dialog
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const Item = props => {
   const itemName = props.name;
@@ -25,6 +32,9 @@ const Item = props => {
   let nextPurchaseInterval = props.nextPurchaseInterval;
   let lastPurchaseDate = props.date;
   let lastPurchasedTimeInSeconds = 0;
+
+  // Dialog State
+  const [open, setOpen] = React.useState(false);
 
   // To update the purchase date
   const markPurchased = event => {
@@ -75,12 +85,20 @@ const Item = props => {
       });
   };
 
+  // Open Dialog
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  // Close Dialog
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   // Remove item from UI and database
   const deleteItem = event => {
     event.preventDefault();
-    console.log('Item removed');
-    // Insert Modal to handle delete alert message
-    // <Modal/>
+    console.log('Item removed'); // TODO: Remove
+
     firebase.dataBase
       .collection(localToken)
       .get()
@@ -95,6 +113,7 @@ const Item = props => {
           }
         });
       });
+    setOpen(false);
   };
 
   useEffect(() => {
@@ -139,9 +158,33 @@ const Item = props => {
         />
         {itemName}
 
-        <span onClick={deleteItem}>
+        <span onClick={handleClickOpen}>
           <DeleteIcon />
         </span>
+
+        {/* Confirmation Dialog  */}
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{`Delete`}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Are you sure you want to remove {itemName} from your shopping
+              list?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              No
+            </Button>
+            <Button onClick={deleteItem} color="primary" autoFocus>
+              Yes
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     </>
   );
