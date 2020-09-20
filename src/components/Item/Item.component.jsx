@@ -102,15 +102,17 @@ const Item = props => {
 
   // Variable set up for easy theming whenever we want to get rid of these LOVELY colours LUL
   let accordionColor;
+  const soon = 7;
+  const kindOfSoon = 14;
 
   // Switch statement which looks for the resupply period  to match:
   // soon (7), kind of soon (14), and not soon (30).
   switch (resupplyPeriod) {
-    case 7:
+    case soon:
       accordionColor = 'yellow';
       break;
 
-    case 14:
+    case kindOfSoon:
       accordionColor = 'red';
       break;
 
