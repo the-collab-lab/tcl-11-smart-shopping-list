@@ -17,7 +17,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 const Item = props => {
   const itemId = props.id.toString();
   const secondsInDay = 86400;
-  let lastPurchasedTimeInSeconds = 0;
+  let lastPurchasedTimeInSeconds = props.purchasedTimeInSeconds;
   const itemName = props.name;
   const localToken = props.localToken;
   const over24 = props.over24;
@@ -29,7 +29,6 @@ const Item = props => {
   let lastPurchaseDate = props.date;
 
   // Future implementation;  currently breaks but that's a low-priority issue.
-
   // const { itemName, localToken, over24, resupplyPeriod } = props;
   // let {
   //   lastEstimate,
@@ -102,51 +101,48 @@ const Item = props => {
       });
   };
 
-  useEffect(() => {
-    if (!over24) {
-      // document.getElementById('item__name').style.textDecoration =
-      //   'line-through';
-      document.getElementById('item__name').style.textDecoration =
-        'line-through';
-    }
-    // To highlight the items based on resupplyPeriod
-    if (resupplyPeriod === 7) {
-      document.getElementById(itemId).setAttribute('class', 'list__item--soon');
-      return;
-    } else if (resupplyPeriod === 14) {
-      document
-        .getElementById(itemId)
-        .setAttribute('class', 'list__item--kind-of-soon');
-      return;
-    } else if (resupplyPeriod === 30) {
-      document
-        .getElementById(itemId)
-        .setAttribute('class', 'list__item--not-soon');
-      return;
-    } else if (
-      numberOfPurchases < 2 ||
-      lastPurchasedTimeInSeconds > 2 * nextPurchaseInterval
-    ) {
-      document
-        .getElementById(itemId)
-        .setAttribute('class', 'list__item--inactive');
-    }
+  // Variable set up for easy theming whenever we want to get rid of these LOVELY colours LUL
+  let accordionColor;
 
-    // Set a state object thingmabob to act as dependency array trigger
-    // Handle Change method
+  // Switch statement which looks for the resupply period  to match:
+  // soon (7), kind of soon (14), and not soon (30).
+  switch (resupplyPeriod) {
+    case 7:
+      accordionColor = 'yellow';
+      break;
 
-    //create over24 as local state, and pass props.over24 as its value, aka
-    // const [over24, setOver24] = useState(props.over24)
+    case 14:
+      accordionColor = 'red';
+      break;
 
-    // useEffect(() => {
-    // do magic
-    // }, [over24])
-  });
+    default:
+      accordionColor = 'green';
+  }
+
+  //Secondary Switch statement which looks for if items in list are inactive or not.
+  // Since user simulates purchase by clicking on checkbox, user should click twice to get assigned a new colour,
+  // As it will (correctly) default to purple. Speaking of 'default', I set the default statement as 'break' here
+  // purposefully. The 'correct' approach would have been to not use a switch statement for this case, but I wanted
+  // To keep the approach of theming similar for ease of developer customization: simply change accordionColor below
+  // to change...the accordionColor.
+
+  switch (
+    numberOfPurchases < 2 ||
+    lastPurchasedTimeInSeconds > 2 * nextPurchaseInterval
+  ) {
+    case true:
+      accordionColor = 'purple';
+      break;
+
+    default:
+      break;
+  }
 
   return (
     <Accordion
-      id={itemId}
+      style={{ background: `${accordionColor}` }}
       aria-label={`Estimated number of days till next next purchase: ${nextPurchaseInterval}`}
+      className={`${resupplyPeriod === 7 ? 'list__item--soon' : ''}`}
     >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
@@ -159,7 +155,12 @@ const Item = props => {
           value="checkedItem"
           inputProps={{ 'aria-label': 'Checkbox Item' }}
         />
-        <h1 id="item__name">{itemName}</h1>
+        <span
+          id="item__name"
+          style={{ textDecoration: !over24 ? 'line-through' : 'none' }}
+        >
+          {itemName}
+        </span>
       </AccordionSummary>
       <AccordionDetails className="accordion__details">
         <div className="flex-container">

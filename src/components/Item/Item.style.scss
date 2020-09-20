@@ -5,28 +5,6 @@
   }
 }
 
-.Mui-checked {
-  text-decoration: line-through;
-}
-
-.list {
-  &__item {
-    &--soon {
-      background: yellow;
-    }
-    &--kind-of-soon {
-      background: red;
-    }
-    &--not-soon {
-      background: green;
-    }
-
-    &--inactive {
-      background: purple;
-    }
-  }
-}
-
 .flex {
   &-container {
     display: flex;
