@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 
 // Custom Imports
 import { Home, List, AddItem } from './components/component.index';
+import TestComponent from './Testing/test.component';
 
 import './App.css';
 
@@ -14,6 +15,7 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route path="/list" component={List} />
         <Route path="/addItem" component={AddItem} />
+        <Route path="/test" component={TestComponent} />
       </Switch>
     </div>
   );

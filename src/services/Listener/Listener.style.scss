@@ -1,11 +1,4 @@
-.listener {
-  &__container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: stretch;
-  }
-}
+
 .search {
   &__bar {
     display: flex;
@@ -44,3 +37,4 @@
     line-height: 1.5;
   }
 }
+

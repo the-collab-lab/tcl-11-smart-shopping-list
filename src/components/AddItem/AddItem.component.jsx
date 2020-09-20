@@ -40,8 +40,14 @@ const AddItem = props => {
   const addNewItemValue = event => {
     event.preventDefault();
 
-    // Clean Input
-    const cleanInput = itemName.toLowerCase().replace(/[^\w\s]|/g, '');
+    // The root of this merge conflict; firebase.db reverted to original firebase.dataBase
+    // firebase.db
+    // Clean Input to remove capitalization, punctuation, and spaces
+
+    const cleanInput = itemName
+      .toLowerCase()
+      .replace(/[^\w\s]|/g, '')
+      .replace(/[\s]/, '');
 
     firebase.dataBase
       .collection(collectionTokenName)
@@ -50,9 +56,18 @@ const AddItem = props => {
         const items = snapshot.docs
 
           .map(query => query.data())
-          .map(data => data.name.toLowerCase().replace(/[^\w\s]|/g, ''));
+          .map(data =>
+            data.name
+              .toLowerCase()
+              .replace(/[^\w\s]|/g, '')
+              .replace(/[\s]/, ''),
+          );
 
         if (!items.includes(cleanInput)) {
+          setIsAdded(true);
+          setTimeout(() => {
+            setIsAdded(false);
+          }, 1200);
           return firebase.dataBase.collection(collectionTokenName).add({
             name: itemName,
             resupplyPeriod: resupplyPeriod,
@@ -63,10 +78,6 @@ const AddItem = props => {
             numberOfPurchases: numberOfPurchases,
             nextPurchaseInterval: nextPurchaseInterval,
           });
-          setIsAdded(true);
-          setTimeout(() => {
-            setIsAdded(false);
-          }, 1200);
         } else {
           alert('already exists');
         }
@@ -100,9 +111,7 @@ const AddItem = props => {
             How soon will you buy this again?
           </FormRadioButtons>
           <div className="button__container">
-            <CustomButton type="submit" className="add__item__button">
-              Add Item
-            </CustomButton>
+            <CustomButton type="submit">Add Item</CustomButton>
           </div>
         </div>
       </form>

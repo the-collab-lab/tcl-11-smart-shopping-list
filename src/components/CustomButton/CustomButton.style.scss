@@ -12,6 +12,10 @@
     text-align: center;
     transition: all 0.2s ease-in-out;
 
+    &--large {
+      width: 250px;
+    }
+
     &:hover {
       background: whitesmoke;
       color: #0077ff;
@@ -29,4 +33,3 @@
     cursor: not-allowed;
   }
 }
-
