@@ -1,13 +1,52 @@
 import React, { useState } from 'react';
 import getToken from '../../lib/tokens';
 import * as firebase from '../../lib/firebase';
-
 import { useHistory } from 'react-router-dom';
 import { CustomButton, FormInput, Lists } from '../component.index';
-  
 import './Home.style.scss';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 
 const Home = () => {
+  const useStyles = makeStyles(theme => ({
+    root: {
+      height: '100vh',
+    },
+    image: {
+      backgroundImage: 'url(https://source.unsplash.com/9m2RZvHS_cU)',
+      backgroundRepeat: 'no-repeat',
+      backgroundColor:
+        theme.palette.type === 'light'
+          ? theme.palette.grey[50]
+          : theme.palette.grey[900],
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    },
+    paper: {
+      margin: theme.spacing(8, 4),
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    avatar: {
+      margin: theme.spacing(1),
+      backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+      width: '100%', // Fix IE 11 issue.
+      marginTop: theme.spacing(1),
+    },
+    submit: {
+      margin: theme.spacing(3, 0, 2),
+    },
+  }));
+
   const [localToken, setLocalToken] = useState('');
   const [tokenValue, setTokenValue] = useState('');
 
@@ -50,36 +89,65 @@ const Home = () => {
     setTokenValue(event.target.value);
   };
 
-  return (
-    <div>
-      <div className="home__page">
-        <h1 className="page__title">Welcome to your Smart Shopping list!</h1>
+  const classes = useStyles();
 
-        <button onClick={generateToken} className="page__button">
-          Create a New Shopping List
-        </button>
-        <p className="page__or__message"> or </p>
-        <p className="page__subtitle">
-          Join an existing shopping list by entering a three word token
-        </p>
-        <FormInput
-          onChange={onChange}
-          label={'Share Token'}
-          value={tokenValue}
-        />
-        <button
-          onClick={joinExistingList}
-          className={`${!tokenValue ? 'button--disabled' : ''} page_button`}
-        >
-          {`	
-        ${!tokenValue ? 'Please enter List name first' : 'Add a token'}`}
-        </button>
-        <p className="page__subtitle">
-          Click on the token to select the list you want to edit:
-        </p>
-        <Lists />
-      </div>
-    </div>
+  return (
+    <Grid container component="main" className={classes.root}>
+      <CssBaseline />
+      <Grid item xs={false} sm={4} md={7} className={classes.image} />
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <div className={classes.paper}>
+          <Typography component="h1" variant="h3">
+            Welcome to your Smart Shopping List
+          </Typography>
+
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={generateToken}
+          >
+            Create a New Shopping List
+          </Button>
+
+          <Typography component="h1" variant="h5">
+            Join an existing shopping list by entering a three word token.
+          </Typography>
+
+          <form className={classes.form} noValidate>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              autoFocus
+              onChange={onChange}
+              label={'Share Token'}
+              value={tokenValue}
+            />
+          </form>
+
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={joinExistingList}
+          >
+            Add a Token
+          </Button>
+
+          <Typography component="h1" variant="h5">
+            Click on the token to select the list you want to edit:
+          </Typography>
+
+          <Typography component="h1" variant="h5">
+            <Lists />
+          </Typography>
+        </div>
+      </Grid>
+    </Grid>
   );
 };
 

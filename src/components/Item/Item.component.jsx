@@ -12,6 +12,15 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Checkbox from '@material-ui/core/Checkbox';
+import DeleteIcon from '@material-ui/icons/Delete';
+
+// Add Dialog Material-UI Imports
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const Item = props => {
   const itemId = props.id.toString();
@@ -40,6 +49,9 @@ const Item = props => {
   const [dropdownLastPurchaseDate, setDropdownLastPurchaseDate] = useState(
     null,
   );
+
+  // Dialog State
+  const [open, setOpen] = React.useState(false);
 
   // To update the purchase date
   const markPurchased = event => {
@@ -79,7 +91,6 @@ const Item = props => {
 
     firebase.dataBase
       .collection(localToken)
-
       .get()
       .then(snapshot => {
         snapshot.forEach(doc => {
@@ -139,6 +150,35 @@ const Item = props => {
       break;
   }
 
+  // Open Dialog
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  // Close Dialog
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  // Remove item from UI and database
+  const deleteItem = event => {
+    event.preventDefault();
+    firebase.dataBase
+      .collection(localToken)
+      .get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          if (doc.data().id === itemId) {
+            const documentId = doc.id;
+            firebase.dataBase
+              .collection(localToken)
+              .doc(documentId)
+              .delete();
+          }
+        });
+      });
+    setOpen(false);
+  };
+
   return (
     <Accordion
       style={{ background: `${accordionColor}` }}
@@ -162,6 +202,33 @@ const Item = props => {
         >
           {itemName}
         </span>
+        <span onClick={handleClickOpen}>
+          <DeleteIcon />
+        </span>
+
+        {/* Delete Item Confirmation Dialog  */}
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{`Delete`}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Are you sure you want to remove {itemName} from your shopping
+              list?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              No
+            </Button>
+            <Button onClick={deleteItem} color="primary" autoFocus>
+              Yes
+            </Button>
+          </DialogActions>
+        </Dialog>
       </AccordionSummary>
       <AccordionDetails className="accordion__details">
         <div className="flex-container">
@@ -170,7 +237,6 @@ const Item = props => {
             : "This item hasn't been purchased yet :("}
         </div>
         <div>
-          {' '}
           {`Estimated number of days until next purchase: ${nextPurchaseInterval}`}
         </div>
         <div> {`Number of times purchased: ${numberOfPurchases}`}</div>
