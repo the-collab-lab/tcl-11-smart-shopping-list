@@ -1,8 +1,24 @@
+// React Imports
 import React, { useEffect } from 'react';
+
+// Custom Component Imports
 import * as firebase from '../../lib/firebase';
 import calculateEstimate from '../../lib/estimates';
-import Checkbox from '@material-ui/core/Checkbox';
+
+// Custom Styles
 import './Item.style.scss';
+
+// Material UI Imports
+import DeleteIcon from '@material-ui/icons/Delete';
+import Checkbox from '@material-ui/core/Checkbox';
+
+// Add Material UI Imports for Dialog
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const Item = props => {
   const itemName = props.name;
@@ -17,6 +33,9 @@ const Item = props => {
   let nextPurchaseInterval = props.nextPurchaseInterval;
   let lastPurchaseDate = props.date;
   let lastPurchasedTimeInSeconds = 0;
+
+  // Dialog State
+  const [open, setOpen] = React.useState(false);
 
   // To update the purchase date
   const markPurchased = event => {
@@ -47,7 +66,6 @@ const Item = props => {
 
     firebase.dataBase
       .collection(localToken)
-
       .get()
       .then(snapshot => {
         snapshot.forEach(doc => {
@@ -96,19 +114,78 @@ const Item = props => {
     }
   });
 
+  // Open Dialog
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  // Close Dialog
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  // Remove item from UI and database
+  const deleteItem = event => {
+    event.preventDefault();
+    firebase.dataBase
+      .collection(localToken)
+      .get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          if (doc.data().id === itemId) {
+            const documentId = doc.id;
+            firebase.dataBase
+              .collection(localToken)
+              .doc(documentId)
+              .delete();
+          }
+        });
+      });
+    setOpen(false);
+  };
+
   return (
-    <div
-      id={itemId}
-      onClick={markPurchased}
-      aria-label={`Estimated number of days till next next purchase: ${nextPurchaseInterval}`}
-    >
-      <Checkbox
-        checked={!over24}
-        value="checkedItem"
-        inputProps={{ 'aria-label': 'Checkbox Item' }}
-      />
-      {itemName}
-    </div>
+    <>
+      <div
+        id={itemId}
+        aria-label={`Estimated number of days till next next purchase: ${nextPurchaseInterval}`}
+      >
+        <Checkbox
+          checked={!over24}
+          onClick={markPurchased}
+          value="checkedItem"
+          inputProps={{ 'aria-label': 'Checkbox Item' }}
+        />
+        {itemName}
+
+        <span onClick={handleClickOpen}>
+          <DeleteIcon />
+        </span>
+
+        {/* Confirmation Dialog  */}
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{`Delete`}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Are you sure you want to remove {itemName} from your shopping
+              list?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              No
+            </Button>
+            <Button onClick={deleteItem} color="primary" autoFocus>
+              Yes
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    </>
   );
 };
 
