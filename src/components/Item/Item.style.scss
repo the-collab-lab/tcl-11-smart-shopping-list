@@ -5,24 +5,16 @@
   }
 }
 
-.Mui-checked {
-  text-decoration: line-through;
+.flex {
+  &-container {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
-.list {
-  &__item {
-    &--soon {
-      background: yellow;
-    }
-    &--kind-of-soon {
-      background: red;
-    }
-    &--not-soon {
-      background: green;
-    }
-
-    &--inactive {
-      background: purple;
-    }
-  }
+.MuiAccordionDetails-root {
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 3.1rem;
+  font-size: 0.95rem;
 }

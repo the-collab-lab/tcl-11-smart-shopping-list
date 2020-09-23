@@ -148,7 +148,6 @@ const Home = () => {
         </div>
       </Grid>
     </Grid>
-      
   );
 };
 
