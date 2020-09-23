@@ -23,7 +23,7 @@ const List = props => {
       alignItems: 'center',
     },
     list: {
-      backgroundColor: 'yellow',
+      backgroundColor: '#e2f3f5',
       width: '50vw',
       height: '50vh',
       alignItems: 'center',

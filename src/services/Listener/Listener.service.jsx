@@ -110,7 +110,8 @@ const Listener = props => {
     <>
       <div className="listener__container">{isEmpty ? <Card /> : null}</div>
       <div className="search__bar">
-        {/* <input
+        {/* Original Input
+        <input
           type="text"
           className="search__input"
           placeholder="Search..."
@@ -118,10 +119,11 @@ const Listener = props => {
           onChange={handleChange}
         /> */}
         {/* TODO: Fix class name issue */}
+
         <TextField
           variant="outlined"
           margin="normal"
-          fullWidth
+          // fullWidth
           autoFocus
           id="TextField"
           type="text"

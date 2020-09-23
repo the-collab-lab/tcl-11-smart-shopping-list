@@ -120,15 +120,15 @@ const Item = props => {
   // soon (7), kind of soon (14), and not soon (30).
   switch (resupplyPeriod) {
     case soon:
-      accordionColor = 'yellow';
+      accordionColor = '#fffeb8';
       break;
 
     case kindOfSoon:
-      accordionColor = 'red';
+      accordionColor = '#ffb997';
       break;
 
     default:
-      accordionColor = 'green';
+      accordionColor = '#ace6f6';
   }
 
   //Secondary Switch statement which looks for if items in list are inactive or not.
@@ -143,7 +143,8 @@ const Item = props => {
     lastPurchasedTimeInSeconds > 2 * nextPurchaseInterval
   ) {
     case true:
-      accordionColor = 'purple';
+      // accordionColor = '#d59dc5';
+      accordionColor = '#cabbe9';
       break;
 
     default:
@@ -190,21 +191,26 @@ const Item = props => {
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Checkbox
-          onClick={markPurchased}
-          checked={!over24}
-          value="checkedItem"
-          inputProps={{ 'aria-label': 'Checkbox Item' }}
-        />
-        <span
-          id="item__name"
-          style={{ textDecoration: !over24 ? 'line-through' : 'none' }}
-        >
-          {itemName}
-        </span>
-        <span onClick={handleClickOpen}>
-          <DeleteIcon />
-        </span>
+        <div className="item__container">
+          <div>
+            <Checkbox
+              onClick={markPurchased}
+              checked={!over24}
+              value="checkedItem"
+              inputProps={{ 'aria-label': 'Checkbox Item' }}
+            />
+            <span
+              id="item__name"
+              style={{ textDecoration: !over24 ? 'line-through' : 'none' }}
+            >
+              {itemName}
+            </span>{' '}
+          </div>
+
+          <span onClick={handleClickOpen} className="delete__span">
+            <DeleteIcon className="icon" />
+          </span>
+        </div>
 
         {/* Delete Item Confirmation Dialog  */}
         <Dialog

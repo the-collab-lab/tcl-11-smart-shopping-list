@@ -3,6 +3,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    // flex-direction: column;
   }
 
   &__input {
@@ -21,10 +22,11 @@
     fill: #0077ff;
     cursor: pointer;
     vertical-align: middle;
-    position: relative;
+    // position: relative;
 
     &--invisible {
       visibility: hidden;
+      // width: 0px;
     }
   }
 }
