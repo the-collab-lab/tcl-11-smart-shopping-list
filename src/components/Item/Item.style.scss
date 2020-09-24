@@ -2,7 +2,7 @@
   flex-direction: column;
   align-items: flex-start;
   margin-left: 3.1rem;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 .item__container {
@@ -12,6 +12,7 @@
 
   #item__name {
     padding-top: 0.5rem;
+    font-size: 1.25rem;
   }
 
   .delete__span {

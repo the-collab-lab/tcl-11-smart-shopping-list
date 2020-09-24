@@ -124,11 +124,11 @@ const Item = props => {
       break;
 
     case kindOfSoon:
-      accordionColor = '#ffb997';
+      accordionColor = '#FFE4D6';
       break;
 
     default:
-      accordionColor = '#ace6f6';
+      accordionColor = '#ACE6F6';
   }
 
   //Secondary Switch statement which looks for if items in list are inactive or not.
@@ -143,8 +143,7 @@ const Item = props => {
     lastPurchasedTimeInSeconds > 2 * nextPurchaseInterval
   ) {
     case true:
-      // accordionColor = '#d59dc5';
-      accordionColor = '#cabbe9';
+      accordionColor = '#BDDBC6';
       break;
 
     default:
@@ -204,7 +203,7 @@ const Item = props => {
               style={{ textDecoration: !over24 ? 'line-through' : 'none' }}
             >
               {itemName}
-            </span>{' '}
+            </span>
           </div>
 
           <span onClick={handleClickOpen} className="delete__span">

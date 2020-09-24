@@ -1,12 +1,27 @@
-// .list__page {
-//   background-color: #e2f3f5;
-//   height: 50vh;
-//   justify-self: center;
-// }
-
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 
 .page__title {
   font-family: 'Dancing Script', cursive;
   font-size: 3rem;
+}
+
+// Media Queries
+@media screen and (max-width: 425px) {
+  #list__list {
+    width: 85vw;
+    height: 70vh;
+  }
+}
+
+@media (max-width: 375px) {
+  #list__list {
+    width: 85vw;
+  }
+}
+
+@media (max-width: 320px) {
+  #list__list {
+    width: 80vw;
+    height: 70vh;
+  }
 }

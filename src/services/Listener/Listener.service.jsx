@@ -160,8 +160,28 @@ const Listener = props => {
           ))
         ) : (
           <div>
-            {filteredItems.map(filteredItem => (
+            {/* {filteredItems.map(filteredItem => (
               <div> {filteredItem} </div>
+            ))} */}
+            {filteredItems.map(item => (
+              <div>
+                {' '}
+                {item}
+                <Item
+                  key={item.id}
+                  name={item.name}
+                  // id={item.id}
+                  id={1} // temporary
+                  date={item.lastPurchaseDate}
+                  localToken={localToken}
+                  over24={item.over24}
+                  lastEstimate={item.lastEstimate}
+                  latestInterval={item.latestInterval}
+                  numberOfPurchases={item.numberOfPurchases}
+                  nextPurchaseInterval={item.nextPurchaseInterval}
+                  resupplyPeriod={item.resupplyPeriod}
+                ></Item>
+              </div>
             ))}
           </div>
         )}
