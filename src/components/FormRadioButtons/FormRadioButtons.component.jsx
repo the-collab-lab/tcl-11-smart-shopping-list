@@ -7,7 +7,7 @@ const FormRadioButtons = ({ children, handleRadioChange }) => (
   // This helps with screen readers.
   <fieldset className="form__fieldset">
     <legend className="form__legend">{children}</legend>
-    <label htmlFor="soon" className="form__label">
+    <div className="form__container">
       <input
         type="radio"
         name="soon"
@@ -17,9 +17,9 @@ const FormRadioButtons = ({ children, handleRadioChange }) => (
         onChange={handleRadioChange}
         className="form__radio"
       />
-      Soon
-    </label>
-    <label htmlFor="kind-of-soon" className="form__label">
+      <label htmlFor="soon" className="form__label form__label--soon">
+        Soon
+      </label>
       <input
         type="radio"
         name="soon"
@@ -28,9 +28,13 @@ const FormRadioButtons = ({ children, handleRadioChange }) => (
         onChange={handleRadioChange}
         className="form__radio"
       />
-      Kind of Soon
-    </label>
-    <label htmlFor="not-soon" className="form__label">
+      <label
+        htmlFor="kind-of-soon"
+        className="form__label form__label--kind-of-soon"
+      >
+        Kind of Soon
+      </label>
+
       <input
         type="radio"
         name="soon"
@@ -39,8 +43,10 @@ const FormRadioButtons = ({ children, handleRadioChange }) => (
         onChange={handleRadioChange}
         className="form__radio"
       />
-      Not Soon
-    </label>
+      <label htmlFor="not-soon" className="form__label form__label--not-soon">
+        Not Soon
+      </label>
+    </div>
   </fieldset>
 );
 

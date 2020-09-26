@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
 .item {
   &__form {
     display: flex;
@@ -15,25 +17,45 @@
 }
 
 .page {
+  &__container {
+    background-image: url(https://images.unsplash.com/photo-1571211905393-6de67ff8fb61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1834&q=80);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__content {
+    background: #e2f3f5;
+    box-shadow: 1px 2px 28px 0px rgba(0, 0, 0, 0.75);
+
+    border-radius: 4px;
+  }
   &__title {
-    padding-bottom: 2rem;
+    padding: 2rem 0;
+
+    margin-top: 0;
+    font-family: 'Dancing Script', cursive;
   }
 }
 
 .button__container {
   display: flex;
   justify-content: center;
-  padding-top: 4rem;
+  padding-top: 2rem;
 }
 
 .tooltip {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 2rem;
   font-size: 1.1rem;
   background: rgb(8, 176, 243);
   width: 200px;
+  margin: 2rem 0;
   height: 50px;
   border-radius: 4px;
   vertical-align: auto;
@@ -59,6 +81,36 @@
 
     100% {
       opacity: 0;
+    }
+  }
+}
+
+// Modal Icon
+
+#list {
+  &__icon {
+    width: 1.6em;
+    height: 1.6em;
+  }
+}
+
+// Modal Styling
+
+.list {
+  &__modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__card {
+    padding: 1rem;
+    max-width: 550px;
+    box-shadow: -1px -2px 28px 0px rgba(0, 0, 0, 0.75);
+    background-color: whitesmoke;
+    border-radius: 4px;
+    &:focus {
+      outline: none;
     }
   }
 }

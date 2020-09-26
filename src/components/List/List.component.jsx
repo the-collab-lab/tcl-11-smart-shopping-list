@@ -39,7 +39,7 @@ const List = props => {
         </>
       )}
       <> </>
-      <Footer />
+      <Footer addItem={false} />
     </div>
   );
 };

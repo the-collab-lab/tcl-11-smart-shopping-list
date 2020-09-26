@@ -2,24 +2,54 @@
   &__fieldset {
     border: none;
     display: flex;
-    flex-direction: column;
     align-items: flex-start;
     justify-content: center;
     font-size: 1.1rem;
   }
 
   &__legend {
-    padding-top: 2rem;
+    padding: 1.8rem 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  &__container {
+    display: flex;
+    margin-bottom: 3rem;
   }
 
   &__label {
     display: flex;
     cursor: pointer;
-    margin-top: 20px;
-    color: grey;
+    margin-top: 10px;
+    border-radius: 4px;
+    height: 5rem;
+    width: 10rem;
+    color: rgb(0, 0, 0);
+    align-items: center;
+    justify-content: center;
+    margin: 0px 5px;
+    transition: all 0.2s ease-in-out;
+
+    &--soon {
+      background-color: #fffeb8;
+    }
+    &--kind-of-soon {
+      background-color: #ffe4d6;
+    }
+    &--not-soon {
+      background-color: #ace6f6;
+    }
   }
 
   &__radio {
     margin: 5px 10px 0 0;
+    display: none;
+
+    &:checked + label {
+      box-shadow: 0 0 3px rgb(133, 133, 133);
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
   }
 }

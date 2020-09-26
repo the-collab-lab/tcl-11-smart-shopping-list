@@ -14,6 +14,7 @@ const Listener = props => {
   const [localToken, SetLocalToken] = useState(props.localToken);
   const [searchData, setSearchData] = useState([]);
   const [unfilteredItems, setUnfilteredItems] = useState([]);
+  const preview = props.preview;
   const secondsInDay = 86400;
 
   useEffect(() => {
@@ -23,13 +24,17 @@ const Listener = props => {
   useEffect(() => {
     let unfilteredArray = [];
     unfilteredItems.forEach(unfilteredItem => {
-      unfilteredArray.push(unfilteredItem.name);
+      unfilteredArray.push(unfilteredItem);
 
-      const searchFilter = unfilteredArray.filter(unfilteredArray =>
-        unfilteredArray.toLowerCase().includes(searchData.toLowerCase()),
-      );
-
-      setFilteredItems(searchFilter);
+      // const searchFilter = unfilteredArray.filter(unfilteredArray =>
+      //   unfilteredArray.toLowerCase().includes(searchData.toLowerCase()),
+      // );
+      for (const shopItem of unfilteredArray) {
+        const searchFilter = unfilteredArray.filter(unfilteredArray =>
+          unfilteredArray.name.toLowerCase().includes(searchData.toLowerCase()),
+        );
+        setFilteredItems(searchFilter);
+      }
     });
   }, [searchData]);
 
@@ -105,24 +110,26 @@ const Listener = props => {
   return (
     <>
       <div className="listener__container">{isEmpty ? <Card /> : null}</div>
-      <div className="search__bar">
-        <input
-          type="text"
-          className="search__input"
-          placeholder="Search..."
-          value={searchData}
-          onChange={handleChange}
-        />
+      <div className="search__container">
+        <div className="search__bar">
+          <input
+            type="text"
+            className="search__input"
+            placeholder="Search..."
+            value={searchData}
+            onChange={handleChange}
+          />
 
-        <CrossIcon
-          className={`${
-            searchData.length ? '' : 'search__icon--invisible'
-          } search__icon`}
-          onClick={clearSearch}
-        />
+          <CrossIcon
+            className={`${
+              searchData.length ? '' : 'search__icon--invisible'
+            } search__icon`}
+            onClick={clearSearch}
+          />
+        </div>
       </div>
 
-      <div className="items__list">
+      <div className={`${preview ? 'items__preview' : ''} items__list`}>
         {searchData.length < 1 ? (
           unfilteredItems.map(item => (
             <Item
@@ -140,9 +147,21 @@ const Listener = props => {
             ></Item>
           ))
         ) : (
-          <div>
+          <div className={`${preview ? 'items__preview' : ''} items__list`}>
             {filteredItems.map(filteredItem => (
-              <div> {filteredItem} </div>
+              <Item
+                key={filteredItem.id}
+                name={filteredItem.name}
+                id={filteredItem.id}
+                date={filteredItem.lastPurchaseDate}
+                localToken={localToken}
+                over24={filteredItem.over24}
+                lastEstimate={filteredItem.lastEstimate}
+                latestInterval={filteredItem.latestInterval}
+                numberOfPurchases={filteredItem.numberOfPurchases}
+                nextPurchaseInterval={filteredItem.nextPurchaseInterval}
+                resupplyPeriod={filteredItem.resupplyPeriod}
+              />
             ))}
           </div>
         )}
