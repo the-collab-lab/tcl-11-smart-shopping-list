@@ -27,7 +27,7 @@ const List = props => {
     list: {
       backgroundColor: '#e2f3f5',
       width: '50vw',
-      height: '60vh',
+      height: '70vh',
       alignItems: 'center',
       margin: '0 auto',
       direction: 'column',
