@@ -42,10 +42,12 @@
   }
 }
 
-.button__container {
-  display: flex;
-  justify-content: center;
-  padding-top: 2rem;
+.button {
+  &__container {
+    display: flex;
+    justify-content: center;
+    padding-top: 2rem;
+  }
 }
 
 .tooltip {
@@ -111,6 +113,68 @@
     border-radius: 4px;
     &:focus {
       outline: none;
+    }
+  }
+}
+
+@media screen and (max-width: 620px) {
+  // Overall page layout
+  .page {
+    &__container {
+      width: 100vw;
+      height: 100%;
+    }
+    &__content {
+      width: 100vw;
+      height: calc(100vh + 10px);
+      border-radius: inherit;
+      box-shadow: none;
+    }
+  }
+
+  // "Tooltip" styling
+
+  .tooltip {
+    margin: 0.5rem 0;
+  }
+
+  .item {
+    &__wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    &__form {
+      margin-bottom: 1rem;
+
+      &__wrapper {
+        width: 100%;
+      }
+    }
+  }
+
+  .button {
+    &__container {
+      padding-top: 1rem;
+    }
+  }
+
+  // modal styling
+  .list {
+    &__card {
+      max-width: 90vw;
+    }
+  }
+}
+
+// iPhone 5/SE specific layout
+@media screen and (max-width: 320px) {
+  // Overall page layout
+  .page {
+    &__content {
+      width: 100vw;
+      height: calc(100vh + 100px);
     }
   }
 }

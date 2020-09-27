@@ -26,9 +26,6 @@ const Listener = props => {
     unfilteredItems.forEach(unfilteredItem => {
       unfilteredArray.push(unfilteredItem);
 
-      // const searchFilter = unfilteredArray.filter(unfilteredArray =>
-      //   unfilteredArray.toLowerCase().includes(searchData.toLowerCase()),
-      // );
       for (const shopItem of unfilteredArray) {
         const searchFilter = unfilteredArray.filter(unfilteredArray =>
           unfilteredArray.name.toLowerCase().includes(searchData.toLowerCase()),

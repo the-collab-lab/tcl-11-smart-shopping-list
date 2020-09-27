@@ -61,3 +61,11 @@
     overflow-y: scroll;
   }
 }
+
+@media screen and (max-width: 620px) {
+  .search {
+    &__bar {
+      width: 85vw;
+    }
+  }
+}

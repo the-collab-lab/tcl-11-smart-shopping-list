@@ -34,3 +34,27 @@
     font-weight: 600;
   }
 }
+
+@media screen and (max-width: 620px) {
+  .form-input {
+    &__container {
+      width: 90vw;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .form {
+    &__group {
+      margin-bottom: 1rem;
+    }
+
+    &__legend {
+      font-size: 1.1rem;
+    }
+
+    &__input {
+      width: 90vw;
+    }
+  }
+}

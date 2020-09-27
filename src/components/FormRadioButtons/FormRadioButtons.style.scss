@@ -60,3 +60,22 @@ $labelColor: hsla(100, 100, 100, 1);
     }
   }
 }
+
+@media screen and (max-width: 620px) {
+  .form {
+    &__container {
+      width: 93vw;
+      margin-bottom: 1.5rem;
+    }
+
+    &__legend {
+      font-size: 1.1rem;
+    }
+
+    &__radio {
+      &:checked + label {
+        font-size: 1.05rem;
+      }
+    }
+  }
+}
