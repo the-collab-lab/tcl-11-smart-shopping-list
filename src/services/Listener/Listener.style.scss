@@ -11,6 +11,16 @@
     width: 440px;
   }
 
+  // attempt to prevent issues stemming from different placement used in List view;
+  // This may be unnecessary when merged with volha/kathy branch.
+  &__preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 440px;
+  }
+
   &__input {
     width: 550px;
     height: 40px;

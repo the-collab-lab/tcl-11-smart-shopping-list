@@ -111,7 +111,7 @@ const Listener = props => {
     <>
       <div className="listener__container">{isEmpty ? <Card /> : null}</div>
       <div className="search__container">
-        <div className="search__bar">
+        <div className={`${preview ? 'search__preview' : ''} search__bar`}>
           <input
             type="text"
             className="search__input"

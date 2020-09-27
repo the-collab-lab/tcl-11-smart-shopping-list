@@ -1,3 +1,6 @@
+// Radio button style variables
+$labelColor: hsla(100, 100, 100, 1);
+
 .form {
   &__fieldset {
     border: none;
@@ -30,15 +33,19 @@
     justify-content: center;
     margin: 0px 5px;
     transition: all 0.2s ease-in-out;
+    background-color: $labelColor;
 
     &--soon {
-      background-color: #fffeb8;
+      $labelColor: hsla(59, 100%, 86%, 1);
+      background-color: $labelColor;
     }
     &--kind-of-soon {
-      background-color: #ffe4d6;
+      $labelColor: hsla(20, 100%, 92%, 1);
+      background-color: $labelColor;
     }
     &--not-soon {
-      background-color: #ace6f6;
+      $labelColor: hsla(193, 80%, 82%, 1);
+      background-color: $labelColor;
     }
   }
 
@@ -47,7 +54,7 @@
     display: none;
 
     &:checked + label {
-      box-shadow: 0 0 3px rgb(133, 133, 133);
+      box-shadow: 0 0 3px darken(hsl(186, 48, 92), 40%);
       font-weight: bold;
       font-size: 1.2rem;
     }
