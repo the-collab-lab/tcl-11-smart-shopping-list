@@ -17,6 +17,7 @@ const Home = () => {
   const useStyles = makeStyles(theme => ({
     root: {
       height: '100vh',
+      width: '100vw',
     },
     image: {
       backgroundImage: 'url(https://source.unsplash.com/9m2RZvHS_cU)',
@@ -27,6 +28,8 @@ const Home = () => {
           : theme.palette.grey[900],
       backgroundSize: 'cover',
       backgroundPosition: 'center',
+      height: '100vh',
+      width: '100vw',
     },
     paper: {
       margin: theme.spacing(8, 4),
