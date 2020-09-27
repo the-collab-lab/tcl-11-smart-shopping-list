@@ -12,6 +12,7 @@ import Listener from '../../services/Listener/Listener.service';
 
 import {
   Backdrop,
+  Button,
   Fade,
   IconButton,
   makeStyles,
@@ -35,6 +36,12 @@ const AddItem = props => {
   const numberOfPurchases = 0;
   const [resupplyPeriod, setResupplyPeriod] = useState(7);
   const itemId = randomString.generate(20);
+
+  const useStyles = makeStyles(theme => ({
+    submit: {
+      margin: theme.spacing(1, 0, 2),
+    },
+  }));
 
   //Material UI specific state and variables
   const [open, setOpen] = useState(false);
@@ -109,6 +116,8 @@ const AddItem = props => {
     setOpen(false);
   };
 
+  const classes = useStyles();
+
   return (
     <div className="page__container">
       <div className="page__content">
@@ -158,7 +167,15 @@ const AddItem = props => {
               How soon will you buy this again?
             </FormRadioButtons>
             <div className="button__container">
-              <CustomButton type="submit">Add Item</CustomButton>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                size="large"
+              >
+                Add Item
+              </Button>
             </div>
           </div>
         </form>

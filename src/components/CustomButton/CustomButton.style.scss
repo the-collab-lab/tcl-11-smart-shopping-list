@@ -2,15 +2,16 @@
   &__button {
     cursor: pointer;
     width: 150px;
-    background: #0077ff;
+    background: #3f51b5;
     color: whitesmoke;
-    border: 2px solid #0077ff;
+    border: 2px solid #3f51b5;
     padding: 10px 5px;
     border-radius: 4px;
     box-shadow: none;
     font-size: 1.1rem;
     text-align: center;
     transition: all 0.2s ease-in-out;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
 
     &--large {
       width: 250px;
