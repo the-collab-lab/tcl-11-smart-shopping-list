@@ -110,20 +110,9 @@ const Listener = props => {
     <>
       <div className="listener__container">{isEmpty ? <Card /> : null}</div>
       <div className="search__bar">
-        {/* Original Input
-        <input
-          type="text"
-          className="search__input"
-          placeholder="Search..."
-          value={searchData}
-          onChange={handleChange}
-        /> */}
-        {/* TODO: Fix class name issue */}
-
         <TextField
           variant="outlined"
           margin="normal"
-          // fullWidth
           autoFocus
           id="TextField"
           type="text"
@@ -160,28 +149,8 @@ const Listener = props => {
           ))
         ) : (
           <div>
-            {/* {filteredItems.map(filteredItem => (
+            {filteredItems.map(filteredItem => (
               <div> {filteredItem} </div>
-            ))} */}
-            {filteredItems.map(item => (
-              <div>
-                {' '}
-                {item}
-                <Item
-                  key={item.id}
-                  name={item.name}
-                  // id={item.id}
-                  id={1} // temporary
-                  date={item.lastPurchaseDate}
-                  localToken={localToken}
-                  over24={item.over24}
-                  lastEstimate={item.lastEstimate}
-                  latestInterval={item.latestInterval}
-                  numberOfPurchases={item.numberOfPurchases}
-                  nextPurchaseInterval={item.nextPurchaseInterval}
-                  resupplyPeriod={item.resupplyPeriod}
-                ></Item>
-              </div>
             ))}
           </div>
         )}
