@@ -1,11 +1,15 @@
+// React Imports
 import React, { useState, useEffect } from 'react';
+
+// Material-UI Imports
+import TextField from '@material-ui/core/TextField';
+
+// Custom Imports
 import * as firebase from '../../lib/firebase';
+import { Card, Item } from '../../components/component.index.js';
 import { CrossIcon } from '../../assets';
-import { Card } from '../../components/component.index.js';
-import Item from '../../components/Item/Item.component';
 import './Listener.style.scss';
 
-// bl_sd_list_filter
 const Listener = props => {
   const [filteredItems, setFilteredItems] = useState([]);
   let itemsInCollection = [];
@@ -106,7 +110,11 @@ const Listener = props => {
     <>
       <div className="listener__container">{isEmpty ? <Card /> : null}</div>
       <div className="search__bar">
-        <input
+        <TextField
+          variant="outlined"
+          margin="normal"
+          autoFocus
+          id="TextField"
           type="text"
           className="search__input"
           placeholder="Search..."

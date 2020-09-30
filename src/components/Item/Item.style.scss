@@ -1,20 +1,25 @@
-.item {
-  &__highlight {
-    text-decoration: line-through;
-    background: rgb(226, 199, 199);
-  }
-}
-
-.flex {
-  &-container {
-    display: flex;
-    flex-direction: column;
-  }
-}
-
 .MuiAccordionDetails-root {
   flex-direction: column;
   align-items: flex-start;
   margin-left: 3.1rem;
-  font-size: 0.95rem;
+  font-size: 1rem;
+}
+
+.item__container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  #item__name {
+    padding-top: 0.5rem;
+    font-size: 1.25rem;
+  }
+
+  .delete__span {
+    justify-content: flex-end;
+  }
+  .icon {
+    float: right;
+    padding-top: 0.5rem;
+  }
 }
