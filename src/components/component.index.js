@@ -2,6 +2,7 @@ import AddItem from './AddItem/AddItem.component';
 import Card from './Card/Card.component';
 import CustomButton from './CustomButton/CustomButton.component';
 import Home from './Home/Home.component.jsx';
+import Item from './Item/Item.component';
 import List from './List/List.component';
 import Footer from './Footer/Footer.component.jsx';
 import FormInput from './FormInput/FormInput.component';
@@ -20,4 +21,5 @@ export {
   FormRadioButtons,
   Lists,
   Modal,
+  Item,
 };

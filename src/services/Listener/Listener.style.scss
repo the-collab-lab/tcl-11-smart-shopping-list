@@ -27,7 +27,6 @@
     fill: #0077ff;
     cursor: pointer;
     vertical-align: middle;
-    position: relative;
 
     &--invisible {
       visibility: hidden;
@@ -37,13 +36,32 @@
 
 .items {
   &__list {
-    margin: 2rem 0 0;
+    margin: 2rem 0;
     font-size: 1.1rem;
     line-height: 1.5;
     max-width: 100vw;
+    max-height: 27vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}
+
+// Media Queries
+@media screen and (max-width: 475px) {
+  .search {
+    &__input {
+      max-width: 10rem;
+    }
+  }
+}
+@media screen and (max-width: 320px) {
+  .search {
+    &__input {
+      max-width: 8rem;
+    }
   }
   &__preview {
     max-height: 30vh;
