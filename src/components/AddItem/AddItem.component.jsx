@@ -10,6 +10,17 @@ import {
 } from '../component.index';
 import Listener from '../../services/Listener/Listener.service';
 
+import {
+  Backdrop,
+  Button,
+  Fade,
+  IconButton,
+  makeStyles,
+  Modal,
+  Tooltip,
+} from '@material-ui/core';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+
 import './AddItem.style.scss';
 
 const AddItem = props => {
@@ -25,6 +36,15 @@ const AddItem = props => {
   const numberOfPurchases = 0;
   const [resupplyPeriod, setResupplyPeriod] = useState(7);
   const itemId = randomString.generate(20);
+
+  const useStyles = makeStyles(theme => ({
+    submit: {
+      margin: theme.spacing(1, 0, 2),
+    },
+  }));
+
+  //Material UI specific state and variables
+  const [open, setOpen] = useState(false);
 
   //To update the value on change
   const handleChange = event => {
@@ -68,6 +88,8 @@ const AddItem = props => {
           setTimeout(() => {
             setIsAdded(false);
           }, 1200);
+
+          setItemName('');
           return firebase.dataBase.collection(collectionTokenName).add({
             name: itemName,
             resupplyPeriod: resupplyPeriod,
@@ -84,38 +106,81 @@ const AddItem = props => {
       });
   };
 
+  // Handles modal opening and closing
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const classes = useStyles();
+
   return (
-    <div className="classNewItem">
-      <h1 className="page__title">Add Item</h1>
-      <Listener localToken={collectionTokenName} />
-      <form onSubmit={addNewItemValue} className="item__form">
-        <div className="item__form__wrapper">
-          <div className="tooltip__container">
-            {/*conditionally renders tooltip based on if isAdded is truthy or falsy */}
-            <div
-              className={`${
-                isAdded ? 'tooltip--visible' : 'tooltip--invisible'
-              } tooltip`}
-            >
-              Success! Item added.
+    <div className="page__container">
+      <div className="page__content">
+        <h1 className="page__title">Add Item</h1>
+        <Tooltip title="View List!" onClick={handleOpen}>
+          <IconButton aria-label="View list">
+            <AssignmentIcon id="list__icon" />
+          </IconButton>
+        </Tooltip>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          className="list__modal"
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={open}>
+            <div className="list__card">
+              {' '}
+              <Listener localToken={collectionTokenName} preview={true} />
+            </div>
+          </Fade>
+        </Modal>
+
+        <form onSubmit={addNewItemValue} className="item__form">
+          <div className="item__form__wrapper">
+            <div className="tooltip__container">
+              {/*conditionally renders tooltip based on if isAdded is truthy or falsy */}
+              <div
+                className={`${
+                  isAdded ? 'tooltip--visible' : 'tooltip--invisible'
+                } tooltip`}
+              >
+                Success! Item added.
+              </div>
+            </div>
+
+            <FormInput
+              label={'Item Name'}
+              value={itemName}
+              onChange={handleChange}
+            />
+            <FormRadioButtons handleRadioChange={handleRadioChange}>
+              How soon will you buy this again?
+            </FormRadioButtons>
+            <div className="button__container">
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                size="large"
+              >
+                Add Item
+              </Button>
             </div>
           </div>
-
-          {/*Added components to make return statement neater/easier to read.*/}
-          <FormInput
-            label={'Item Name'}
-            value={itemName}
-            onChange={handleChange}
-          />
-          <FormRadioButtons handleRadioChange={handleRadioChange}>
-            How soon will you buy this again?
-          </FormRadioButtons>
-          <div className="button__container">
-            <CustomButton type="submit">Add Item</CustomButton>
-          </div>
-        </div>
-      </form>
-      <Footer />
+        </form>
+      </div>
+      <Footer addItem={true} localToken={collectionTokenName} />
     </div>
   );
 };

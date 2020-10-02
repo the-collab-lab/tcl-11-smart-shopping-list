@@ -2,20 +2,32 @@
   &__container {
     width: 100vw;
     position: fixed;
-    padding-bottom: 1.65rem;
     bottom: 0;
+    height: 40px;
   }
 
   &__link {
     padding: 2rem;
     color: black;
     text-decoration: none;
-    font-size: 1.6rem;
-    font-weight: 700;
+    font-size: 1.4rem;
+    font-weight: 600;
 
     &--active {
       color: #4f4fbb;
       font-weight: 600;
+    }
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .footer {
+    &__container {
+      background: #e2f3f5;
+    }
+
+    &__link {
+      padding: 0 2rem;
     }
   }
 }
