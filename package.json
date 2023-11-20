@@ -9,14 +9,13 @@
     "firebase": "^7.18.0",
     "husky": "^3.1.0",
     "lint-staged": "^9.5.0",
-    "node-sass": "^9.0.0",
+    "node-sass": "^6.0.0",
     "prettier": "^1.19.1",
     "randomstring": "^1.1.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-firestore": "^1.0.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.3",
     "use-force-update": "^1.0.7"
   },
   "scripts": {
@@ -53,6 +52,8 @@
     ]
   },
   "devDependencies": {
-    "cypress": "^5.0.0"
+    "cypress": "^5.0.0",
+    "react-scripts": "latest",
+    "@babel/plugin-proposal-private-property-in-object": "latest"
   }
 }
