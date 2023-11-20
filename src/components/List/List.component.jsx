@@ -51,6 +51,7 @@ const List = props => {
 
   useEffect(() => {
     setLocalToken(token);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const classes = useStyles();

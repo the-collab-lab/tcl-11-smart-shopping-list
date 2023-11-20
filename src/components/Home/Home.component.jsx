@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import getToken from '../../lib/tokens';
 import * as firebase from '../../lib/firebase';
 import { useHistory } from 'react-router-dom';
-import { CustomButton, FormInput, Lists } from '../component.index';
+import { Lists } from '../component.index';
 import './Home.style.scss';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -50,6 +50,7 @@ const Home = () => {
     },
   }));
 
+  // eslint-disable-next-line no-unused-vars
   const [localToken, setLocalToken] = useState('');
   const [tokenValue, setTokenValue] = useState('');
 

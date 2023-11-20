@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 // React Imports
 import React, { useState, useEffect } from 'react';
 
 // Material-UI Imports
-import TextField from '@material-ui/core/TextField';
 
 // Custom Imports
 import * as firebase from '../../lib/firebase';
@@ -88,6 +89,7 @@ const Listener = props => {
 
       //To sort the itemsByEstimatedDays
       let sortedItemsByEstimatedDays = itemsInCollection.slice(0);
+      // eslint-disable-next-line array-callback-return
       sortedItemsByEstimatedDays.sort((a, b) => {
         //sorts by next purchase interval
         if (a.nextPurchaseInterval > b.nextPurchaseInterval) return 1;

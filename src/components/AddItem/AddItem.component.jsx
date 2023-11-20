@@ -2,12 +2,7 @@ import React, { useState } from 'react';
 import * as firebase from '../../lib/firebase';
 import randomString from 'randomstring';
 
-import {
-  CustomButton,
-  Footer,
-  FormInput,
-  FormRadioButtons,
-} from '../component.index';
+import { Footer, FormInput, FormRadioButtons } from '../component.index';
 import Listener from '../../services/Listener/Listener.service';
 
 import {
@@ -24,6 +19,7 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import './AddItem.style.scss';
 
 const AddItem = props => {
+  // eslint-disable-next-line no-unused-vars
   const [collectionTokenName, setCollectionTokenName] = useState(
     props.location.state.localToken,
   );
