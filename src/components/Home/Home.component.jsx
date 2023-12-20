@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import getToken from '../../lib/tokens';
 import * as firebase from '../../lib/firebase';
 import { useHistory } from 'react-router-dom';
@@ -94,6 +94,13 @@ const Home = () => {
   };
 
   const classes = useStyles();
+
+  /** Using this alert instead of the ArchivalNoticeModal due to legacy deps */
+  useEffect(() => {
+    alert(
+      'This Smart Shopping List App was made by early-career developers at The Collab Lab. This project has now been archived. To view the demo shopping list, enter the three word token: the collab lab. The following features are no longer supported: creating new lists, adding & deleting items from the list, and marking items on the list as purchased.',
+    );
+  }, []);
 
   return (
     <Grid container component="main" className={classes.root}>
