@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import getToken from '../../lib/tokens';
 import * as firebase from '../../lib/firebase';
 import { useHistory } from 'react-router-dom';
 import { Lists } from '../component.index';
@@ -72,14 +71,15 @@ const Home = () => {
 
   const generateToken = () => {
     //To generate a new token:
-    const token = getToken();
-    setLocalToken(token);
+    // const token = getToken();
+    // setLocalToken(token);
 
-    //To set the item to the local storage
-    addTokenToStorage(token);
+    // //To set the item to the local storage
+    // addTokenToStorage(token);
 
-    // To go to addItem page
-    history.push('/list', { localToken: token });
+    // // To go to addItem page
+    // history.push('/list', { localToken: token });
+    console.log('This feature is no longer supported.');
   };
 
   //To add the token to the storage
